@@ -8,9 +8,9 @@
 | Author(s) | Team Grok: Sijabulile Ncube (Product Owner), Bheki Buthelezi, Bafana Ndlovu, Bao Kekana, Mhlengi Ngwenya. No student numbers have been issued. |
 | Course code and cohort | AI Augmented Software Development, 2026 April cohort (SNPL) |
 | Facilitator / reviewer | Mnelisi Maswanganyi |
-| Link to our original app idea | Team brief "FixMyKasi: What Our App Does" (9 Nov 2026), shared with the team on WhatsApp |
+| Link to our original app idea | [docs/FixMyKasi-Team-Brief.pdf](FixMyKasi-Team-Brief.pdf): team brief "FixMyKasi: What Our App Does" (9 Nov 2026) |
 | GitHub repository | https://github.com/Paul280-cloud/fixmykasi (this file is `docs/PRD.md`) |
-| Version | v0.2 |
+| Version | v0.3 |
 | Status | Draft |
 
 ### Change log
@@ -19,6 +19,7 @@
 | --- | --- | --- | --- | --- |
 | v0.1 | 10 Nov 2026 | All | First draft, written from the team brief of 9 Nov 2026. Should features cut from 4 to 3 to fit the template: the ward councillor view moved to Future features (4.3). | None |
 | v0.2 | 10 Nov 2026 | 9.1, 8.3 | Colour scheme changed to the national Coat of Arms colours used on South African government websites (green, brown, gold, orange and white). Header is now Heritage Brown with a gold line. | None |
+| v0.3 | 10 Nov 2026 | Document details, 4.4 (BR18), 8.2 (S1), 11.2, 12.4, 13.2, 13.3 | Open questions answered by the Tech Lead and moved into their sections: photo stays required with the "not safe" option (BR2); AI provider chosen when F7 starts; translations English first, one language per PR; Supabase region confirmed when the project is created; team brief committed to docs/. | None |
 
 ---
 
@@ -159,7 +160,7 @@ Every "Cannot do" is blocked by Row-Level Security (RLS) in the database (11.4),
 | BR15 | Ward dashboard figures (S9) for the ward admin's ward: Open faults is every fault that is not Closed. Overdue faults follows BR11. Average time to fix is the average number of days between the date reported and the date fixed, for faults fixed in the last 30 days, rounded to 1 decimal place ("No data" if there are none). Open faults by category counts open faults per category. | F5, S9 |
 | BR16 | Public screens (S4, S5) never show a reporter's name, email or phone number. They show the field team's name, and for a contractor, the company name. Field team members' names and phone numbers are visible only to the fault's ward admin. | F2, F3, S4, S5 |
 | BR17 | A resident can submit at most 5 faults in any 24 hours. The description must be 10 to 500 characters. | F1, S6 |
-| BR18 | The interface is available in English, Afrikaans, isiZulu and Sepedi. The first visit uses the browser's language if it is one of these four, otherwise English. The choice is saved in the resident's profile and can be changed on S1 and S11. Descriptions are saved exactly as typed, with the language they were written in. | F1, S1, S11 |
+| BR18 | The interface is available in English, Afrikaans, isiZulu and Sepedi. The first visit uses the browser's language if it is one of these four, otherwise English. The choice is saved in the resident's profile and can be changed on S1 and S11. English is built first, and the other three languages are added one per PR. Descriptions are saved exactly as typed, with the language they were written in. | F1, S1, S11 |
 | BR19 | Fault types with "auto urgent" set (fallen or exposed wires, missing manhole cover, missing drain cover, major pipe burst, broken traffic light) are marked urgent automatically, and the resident cannot untick it. For other fault types, the resident can tick "This is dangerous". | F1, S6 |
 | BR20 | AI help (F7): after the resident adds a photo and at least 10 characters of description, the app suggests a fault type and whether it is urgent. The suggestion is shown as a chip the resident must tap to accept. If the AI is slow (over 8 seconds) or fails, nothing is shown and the form works as normal. Descriptions not written in English are translated into English for the ward admin and field team, labelled "Translated by AI", with the original shown underneath. | F7, S6, S5 |
 | BR21 | Map view (F8): pins use the fault's GPS location. Faults without GPS are not shown on the map, and a note under the map says how many are hidden. Each pin's colour matches the status chip, and tapping it shows the reference number, fault type and status, with a link to S5. | F8, S4 |
@@ -367,7 +368,7 @@ Checked against the screens almost every app needs: Welcome (S1), Sign up (S2), 
   - Empty, Loading and Error: not needed, because this screen loads no data.
   - Offline: offline banner (8.3). Buttons still work.
   - Success: after deleting an account, toast "Your account has been deleted."
-- **Sample content:** Language set to isiZulu, title "Bika. Landela. Kulungiswe." (final translations checked by a first-language speaker, 13.3 Q3).
+- **Sample content:** Language set to isiZulu, title "Bika. Landela. Kulungiswe." (the other languages are added one per PR after English, each checked by a first-language speaker, 13.2).
 
 **S2 Sign Up**
 - **Purpose:** Create a resident account.
@@ -1037,7 +1038,7 @@ Closed is final. Nobody can change a Closed fault.
 | Supabase | Database, log-in, storage, Edge Functions, scheduled job | Yes | Yes (11.5) |
 | Vercel | Hosts the web app | Yes | No |
 | OpenStreetMap tiles | Map background for F8 | Yes, within its fair-use policy | No |
-| AI model API (F7, provider in 13.3 Q2) | Suggests fault type and urgency, translates descriptions | Yes, using the course's credits | Yes (11.5) |
+| AI model API (F7: the Tech Lead chooses OpenAI or Anthropic, both covered in the course, when F7 work starts) | Suggests fault type and urgency, translates descriptions | Yes, using the course's credits | Yes (11.5) |
 
 **11.3 How the parts connect**
 
@@ -1154,7 +1155,7 @@ fixmykasi/
 
 | Personal information | Why we need it | Who can see it | Where it is stored | How long we keep it | How the user deletes it |
 | --- | --- | --- | --- | --- | --- |
-| Full name | Shown on the user's own profile | The user, and their ward admin | Supabase, outside South Africa (region in 13.3 Q4) | Until the account is deleted | S11 → Delete account (M5) |
+| Full name | Shown on the user's own profile | The user, and their ward admin | Supabase, outside South Africa (the Tech Lead records the exact region in the README and M7 when the project is created) | Until the account is deleted | S11 → Delete account (M5) |
 | Email | Logging in and account emails | The user, and their ward admin | Supabase | Until the account is deleted | S11 → M5 |
 | Phone number (optional) | So a ward admin can contact a resident about a fault | The user, and their ward admin | Supabase | Until removed on S11 or the account is deleted | Remove it on S11, or M5 |
 | Home ward | Default ward for reports | The user | Supabase | Until the account is deleted | S11 → M5 |
@@ -1180,18 +1181,20 @@ fixmykasi/
 
 | Risk | Likelihood | Impact | What we will do about it |
 | --- | --- | --- | --- |
-| Four interface languages take longer than planned | Medium | Medium | Build in English first with every label in `en.json`. Translations are added in one PR per language. If time runs out, ship English and Afrikaans and list the rest under Known issues. |
+| Four interface languages take longer than planned | Medium | Medium | Build in English first with every label in `en.json`. Afrikaans, isiZulu and Sepedi are then added in one PR per language, each checked by a first-language speaker. If time runs out, ship English first and list the remaining languages under Known issues in the README. |
 | RLS rules for four roles are complex and could leak data | Medium | High | One owner per table's policies, test accounts for every role, and automated RLS checks in CI |
 | The Colleague Zero hackathon (13 to 14 Nov) cuts our build time before Checkpoint 3 | High | Medium | Finish login, the database and F1 by Thu 12 Nov night. Every member merges one PR before Friday. |
 | Agents for different members edit the same files and cause conflicts | Medium | Medium | Each member owns one feature's screens and tables, PRs stay small, and everyone pulls `main` often |
 | The AI provider's credits run out | Low | Low | F7 is a Should feature, and the form works without it (BR20) |
 
-**13.3 Open questions** (must be empty before Status is Approved)
-- [ ] **Q1:** Do we keep the photo required, with the "It is not safe to take a photo" option (BR2)? Decide at the team meeting on 10 Nov 2026.
-- [ ] **Q2:** Which AI provider do we use for F7: OpenAI or Anthropic? Decide before F7 is built.
-- [ ] **Q3:** Who checks the Afrikaans, isiZulu and Sepedi translations? We need one first-language speaker for each.
-- [ ] **Q4:** Which Supabase region is our project in? The Tech Lead confirms it, and M7 states it.
-- [ ] **Q5:** Does the facilitator accept our team brief as the "original app idea" link, or should we commit it to `docs/`?
+**13.3 Open questions**
+
+All open questions were answered on 10 Nov 2026 and moved into the right sections:
+- [x] **Q1:** Is a photo required? Yes, with the "It is not safe to take a photo" option. Recorded in BR2.
+- [x] **Q2:** Which AI provider for F7? Chosen by the Tech Lead when F7 work starts. Recorded in 11.2.
+- [x] **Q3:** How are translations done? English first, then one language per PR, each checked by a first-language speaker. Recorded in BR18 and 13.2.
+- [x] **Q4:** Which Supabase region? Confirmed by the Tech Lead when the project is created, and stated in the README and M7. Recorded in 12.4.
+- [x] **Q5:** Where is the original app idea? The team brief is committed as `docs/FixMyKasi-Team-Brief.pdf`. Recorded in Document details.
 
 **13.4 Milestones**
 
