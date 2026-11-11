@@ -65,7 +65,7 @@ Roles show who leads each area. Every member builds at least one screen and one 
 
 ## Run it locally
 
-You need Node.js 22 or newer and npm.
+You need Node.js 22 LTS and npm. The version is pinned in `.nvmrc`, so with nvm run `nvm use` in the project folder.
 
 ```bash
 git clone https://github.com/Paul280-cloud/fixmykasi.git
