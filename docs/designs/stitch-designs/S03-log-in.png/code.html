@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S3 Log In - FixMyKasi (Phone 390x844)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#005D28',
+              brown: '#531A17',
+              gold: '#D8A851',
+              orange: '#EF4718',
+              bgLight: '#F8F6F1',
+              dark: '#1C1C1C',
+              secondaryText: '#5C5650',
+              error: '#B42318',
+              success: '#1E7B34',
+              warning: '#87451A',
+              disabledBg: '#D0D5DD',
+              disabledText: '#667085',
+              borderGrey: '#D0D5DD'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 1px 3px rgba(16, 24, 40, 0.1)',
+            device: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 12px #262626'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8F6F1;
+      color: #1C1C1C;
+    }
+    .phone-canvas {
+      width: 390px;
+      height: 844px;
+      flex-shrink: 0;
+      position: relative;
+      background: #FFFFFF;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-custom {
+      animation: spin 0.8s linear infinite;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+  <!-- Spec & Context Header -->
+  <header class="max-w-[1720px] mx-auto mb-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green font-semibold text-xs mb-3">
+      <span>FixMyKasi Design System</span>
+      <span>•</span>
+      <span>Screen S3 Log In (Phone 390 × 844 px)</span>
+    </div>
+    <h1 class="text-3xl font-bold text-brand-dark mb-2">S3 Log In Specification & State Variants</h1>
+    <p class="text-brand-secondaryText max-w-4xl text-base">
+      High-fidelity phone interface specification for FixMyKasi multi-role citizen and staff authentication. Implements exact field requirements, touch targets (≥44px), banner area states, and all PRD 8.2 states: Normal (with incoming message banners), Loading, multiple Error variants (credentials, throttle, unconfirmed email), Offline, and Success destination.
+    </p>
+  </header>
+
+  <!-- Phone Frames Grid -->
+  <main class="max-w-[1720px] mx-auto flex flex-wrap gap-8 justify-start items-start pb-12">
+
+    <!-- ==========================================
+         FRAME 1: STATE 1 - NORMAL (First Arrival / Post Signup Banner)
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-brand-green"></span>
+        <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">State 1: Normal (Account Confirmation Banner)</span>
+      </div>
+      <p class="text-xs text-brand-secondaryText mb-3">Incoming from S2 Sign Up</p>
+
+      <div class="phone-canvas rounded-[40px] shadow-device border-[8px] border-[#1C1C1C]">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-7 text-xs font-medium pt-2 select-none">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.23 19.98 10.57 20.5 12 20.5s2.77-.52 4.34-1.59l1.9 1.9c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-.62-1.79C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="w-full h-full bg-white rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header (8.3) -->
+        <div class="sticky top-0 z-20 bg-[#531A17] text-white border-b-[3px] border-[#D8A851]">
+          <div class="h-14 flex items-center px-4 justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white hover:opacity-80 transition-opacity" aria-label="Go back">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <h2 class="text-[18px] font-semibold text-white tracking-tight flex-1 text-center pr-9">Log in</h2>
+          </div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <!-- Centered Brand Logo (9.1) -->
+            <div class="flex items-center justify-center gap-2 pt-2 pb-1">
+              <div class="w-8 h-8 rounded-full bg-[#005D28]/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <span class="text-xl font-bold text-[#005D28] tracking-tight">FixMyKasi</span>
+            </div>
+
+            <!-- Header Text -->
+            <div class="text-center pb-1">
+              <h3 class="text-[20px] font-bold text-[#1C1C1C]">Welcome back</h3>
+              <p class="text-[13px] text-[#5C5650] mt-0.5">Please confirm your email or log in with your credentials.</p>
+            </div>
+
+            <!-- 2. Banner Area (PRD 8.2) -->
+            <div class="bg-[#1E7B34]/10 border border-[#1E7B34]/30 rounded-lg p-3 flex items-start gap-2.5 shadow-sm">
+              <div class="w-5 h-5 rounded-full bg-[#1E7B34] flex items-center justify-center flex-shrink-0 mt-0.5 text-white">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div class="text-left">
+                <p class="text-[13px] font-semibold text-[#1E7B34]">Account created!</p>
+                <p class="text-[13px] text-[#1C1C1C] leading-snug">Check your email to confirm your account.</p>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form class="space-y-4 pt-1" onsubmit="return false;">
+              <!-- 3. Email Field -->
+              <div>
+                <label class="block text-[14px] font-semibold text-[#1C1C1C] mb-1.5">Email address <span class="text-[#B42318]">*</span></label>
+                <input 
+                  type="email" 
+                  value="zanele.k@example.com" 
+                  placeholder="you@example.com" 
+                  class="w-full h-12 px-3.5 rounded-lg border border-[#D0D5DD] bg-white text-[16px] text-[#1C1C1C] focus:outline-none focus:border-[#005D28] focus:ring-1 focus:ring-[#005D28] transition-all"
+                >
+              </div>
+
+              <!-- 4. Password Field with Toggle -->
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-[14px] font-semibold text-[#1C1C1C]">Password <span class="text-[#B42318]">*</span></label>
+                  <!-- 5. Forgot Password Link (right-aligned) -->
+                  <a href="#m1" class="text-[13px] font-semibold text-[#005D28] hover:underline min-h-[44px] flex items-center py-2">Forgot password?</a>
+                </div>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    placeholder="Your password" 
+                    class="w-full h-12 px-3.5 pr-11 rounded-lg border border-[#D0D5DD] bg-white text-[16px] text-[#1C1C1C] focus:outline-none focus:border-[#005D28] focus:ring-1 focus:ring-[#005D28] transition-all"
+                  >
+                  <button type="button" class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-[#5C5650] hover:text-[#1C1C1C]" aria-label="Toggle password visibility">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 6. Primary Button "Log in" -->
+              <div class="pt-3">
+                <button type="submit" class="w-full h-12 bg-[#005D28] hover:bg-[#004a20] active:scale-[0.99] text-white font-semibold text-[16px] rounded-lg shadow-sm transition-all flex items-center justify-center">
+                  Log in
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 7. Bottom Navigation Link "New to FixMyKasi? Create account" -->
+          <div class="pt-4 pb-2 text-center">
+            <p class="text-[14px] text-[#5C5650]">
+              New to FixMyKasi? 
+              <a href="#s2" class="font-semibold text-[#005D28] hover:underline ml-1 inline-block py-2">Create account</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Visitor Role Tab Bar (7.2 & 8.3) -->
+        <nav class="h-[60px] bg-white border-t border-[#D0D5DD] flex items-center justify-around px-4 select-none flex-shrink-0">
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#5C5650] hover:text-[#1C1C1C] transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span class="text-[11px] font-medium mt-0.5">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#005D28] font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            <span class="text-[11px] mt-0.5">Log in</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 2: STATE 1B - NORMAL (Email Confirmed / Password Changed)
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-brand-gold"></span>
+        <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">State 1b: Alternate Banners</span>
+      </div>
+      <p class="text-xs text-brand-secondaryText mb-3">Email Confirmed & Password Changed</p>
+
+      <div class="phone-canvas rounded-[40px] shadow-device border-[8px] border-[#1C1C1C]">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-7 text-xs font-medium pt-2 select-none">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.23 19.98 10.57 20.5 12 20.5s2.77-.52 4.34-1.59l1.9 1.9c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-.62-1.79C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="w-full h-full bg-white rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header (8.3) -->
+        <div class="sticky top-0 z-20 bg-[#531A17] text-white border-b-[3px] border-[#D8A851]">
+          <div class="h-14 flex items-center px-4 justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white hover:opacity-80 transition-opacity" aria-label="Go back">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <h2 class="text-[18px] font-semibold text-white tracking-tight flex-1 text-center pr-9">Log in</h2>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-center gap-2 pt-2 pb-1">
+              <div class="w-8 h-8 rounded-full bg-[#005D28]/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <span class="text-xl font-bold text-[#005D28] tracking-tight">FixMyKasi</span>
+            </div>
+
+            <!-- Banner Variant 1: "Email confirmed. Please log in." -->
+            <div class="bg-[#1E7B34]/10 border border-[#1E7B34]/30 rounded-lg p-3 flex items-start gap-2.5">
+              <div class="w-5 h-5 rounded-full bg-[#1E7B34] flex items-center justify-center flex-shrink-0 mt-0.5 text-white">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <p class="text-[13px] font-semibold text-[#1E7B34]">Email confirmed</p>
+                <p class="text-[13px] text-[#1C1C1C]">Email confirmed. Please log in.</p>
+              </div>
+            </div>
+
+            <!-- Secondary demo card showcasing the 3rd banner type from Section 8.2 -->
+            <div class="bg-[#F8F6F1] border border-[#D0D5DD] rounded-lg p-2.5 text-xs text-[#5C5650]">
+              <span class="font-semibold text-[#1C1C1C]">Alternate Banner Message:</span>
+              <p class="italic mt-0.5 text-[#1C1C1C]">"Password changed. Please log in."</p>
+            </div>
+
+            <form class="space-y-4 pt-1" onsubmit="return false;">
+              <div>
+                <label class="block text-[14px] font-semibold text-[#1C1C1C] mb-1.5">Email address <span class="text-[#B42318]">*</span></label>
+                <input 
+                  type="email" 
+                  value="zanele.k@example.com" 
+                  placeholder="you@example.com" 
+                  class="w-full h-12 px-3.5 rounded-lg border border-[#D0D5DD] bg-white text-[16px] text-[#1C1C1C] focus:outline-none focus:border-[#005D28]"
+                >
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-[14px] font-semibold text-[#1C1C1C]">Password <span class="text-[#B42318]">*</span></label>
+                  <a href="#m1" class="text-[13px] font-semibold text-[#005D28] hover:underline min-h-[44px] flex items-center py-2">Forgot password?</a>
+                </div>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    value="••••••••••••" 
+                    placeholder="Your password" 
+                    class="w-full h-12 px-3.5 pr-11 rounded-lg border border-[#D0D5DD] bg-white text-[16px] text-[#1C1C1C] focus:outline-none focus:border-[#005D28]"
+                  >
+                  <button type="button" class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-[#5C5650] hover:text-[#1C1C1C]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="pt-3">
+                <button type="submit" class="w-full h-12 bg-[#005D28] text-white font-semibold text-[16px] rounded-lg shadow-sm flex items-center justify-center">
+                  Log in
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="pt-4 pb-2 text-center">
+            <p class="text-[14px] text-[#5C5650]">
+              New to FixMyKasi? 
+              <a href="#s2" class="font-semibold text-[#005D28] hover:underline ml-1 inline-block py-2">Create account</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Visitor Role Tab Bar -->
+        <nav class="h-[60px] bg-white border-t border-[#D0D5DD] flex items-center justify-around px-4 select-none flex-shrink-0">
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#5C5650]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span class="text-[11px] font-medium mt-0.5">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#005D28] font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            <span class="text-[11px] mt-0.5">Log in</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 3: STATE 2 - LOADING STATE
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+        <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">State 2: Loading State</span>
+      </div>
+      <p class="text-xs text-brand-secondaryText mb-3">Authenticating credentials with disabled button & spinner</p>
+
+      <div class="phone-canvas rounded-[40px] shadow-device border-[8px] border-[#1C1C1C]">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-7 text-xs font-medium pt-2 select-none">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.23 19.98 10.57 20.5 12 20.5s2.77-.52 4.34-1.59l1.9 1.9c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-.62-1.79C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="w-full h-full bg-white rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="sticky top-0 z-20 bg-[#531A17] text-white border-b-[3px] border-[#D8A851]">
+          <div class="h-14 flex items-center px-4 justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white opacity-60 cursor-not-allowed">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <h2 class="text-[18px] font-semibold text-white tracking-tight flex-1 text-center pr-9">Log in</h2>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-center gap-2 pt-2 pb-1">
+              <div class="w-8 h-8 rounded-full bg-[#005D28]/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <span class="text-xl font-bold text-[#005D28] tracking-tight">FixMyKasi</span>
+            </div>
+
+            <div class="text-center pb-1">
+              <h3 class="text-[20px] font-bold text-[#1C1C1C]">Welcome back</h3>
+              <p class="text-[13px] text-[#5C5650] mt-0.5">Please confirm your email or log in with your credentials.</p>
+            </div>
+
+            <form class="space-y-4 pt-1" onsubmit="return false;">
+              <div>
+                <label class="block text-[14px] font-semibold text-[#1C1C1C] mb-1.5">Email address <span class="text-[#B42318]">*</span></label>
+                <input 
+                  type="email" 
+                  value="zanele.k@example.com" 
+                  disabled
+                  class="w-full h-12 px-3.5 rounded-lg border border-[#D0D5DD] bg-[#F8F6F1] text-[16px] text-[#1C1C1C] opacity-80 cursor-not-allowed"
+                >
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-[14px] font-semibold text-[#1C1C1C]">Password <span class="text-[#B42318]">*</span></label>
+                  <span class="text-[13px] font-semibold text-[#5C5650] opacity-50 py-2">Forgot password?</span>
+                </div>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    value="••••••••••••" 
+                    disabled
+                    class="w-full h-12 px-3.5 pr-11 rounded-lg border border-[#D0D5DD] bg-[#F8F6F1] text-[16px] text-[#1C1C1C] opacity-80 cursor-not-allowed"
+                  >
+                </div>
+              </div>
+
+              <!-- Primary Button Loading (8.3: Spinner replaces label) -->
+              <div class="pt-3">
+                <button type="button" disabled class="w-full h-12 bg-[#005D28]/80 text-white font-semibold text-[16px] rounded-lg shadow-sm flex items-center justify-center gap-2.5 cursor-wait">
+                  <svg class="w-5 h-5 text-white animate-spin-custom" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3.5"></circle>
+                    <path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Logging in...</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="pt-4 pb-2 text-center opacity-60">
+            <p class="text-[14px] text-[#5C5650]">
+              New to FixMyKasi? <span class="font-semibold text-[#005D28] ml-1">Create account</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Visitor Role Tab Bar -->
+        <nav class="h-[60px] bg-white border-t border-[#D0D5DD] flex items-center justify-around px-4 select-none flex-shrink-0">
+          <div class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#5C5650] opacity-50">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span class="text-[11px] font-medium mt-0.5">Faults</span>
+          </div>
+          <div class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#005D28] font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            <span class="text-[11px] mt-0.5">Log in</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 4: STATE 3 - ERROR STATES (Verbatim messages)
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-brand-error"></span>
+        <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">State 3: Error Variants</span>
+      </div>
+      <p class="text-xs text-brand-secondaryText mb-3">Wrong credentials, Throttling & Unconfirmed email</p>
+
+      <div class="phone-canvas rounded-[40px] shadow-device border-[8px] border-[#1C1C1C]">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-7 text-xs font-medium pt-2 select-none">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.23 19.98 10.57 20.5 12 20.5s2.77-.52 4.34-1.59l1.9 1.9c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-.62-1.79C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="w-full h-full bg-white rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="sticky top-0 z-20 bg-[#531A17] text-white border-b-[3px] border-[#D8A851]">
+          <div class="h-14 flex items-center px-4 justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <h2 class="text-[18px] font-semibold text-white tracking-tight flex-1 text-center pr-9">Log in</h2>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
+          <div class="space-y-3.5">
+            <!-- Verbatim Error Banner 1: "Wrong email or password." -->
+            <div class="bg-[#B42318]/10 border border-[#B42318]/30 rounded-lg p-3 flex items-start gap-2.5">
+              <svg class="w-5 h-5 text-[#B42318] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div>
+                <p class="text-[14px] font-semibold text-[#B42318]">Wrong email or password.</p>
+                <p class="text-[12px] text-[#1C1C1C] mt-0.5">Please check your login details and try again.</p>
+              </div>
+            </div>
+
+            <form class="space-y-3 pt-1" onsubmit="return false;">
+              <!-- Email with Error state border -->
+              <div>
+                <label class="block text-[14px] font-semibold text-[#1C1C1C] mb-1">Email address <span class="text-[#B42318]">*</span></label>
+                <div class="relative">
+                  <input 
+                    type="email" 
+                    value="zanele.k@wrongdomain" 
+                    class="w-full h-12 px-3.5 pr-10 rounded-lg border-2 border-[#B42318] bg-white text-[16px] text-[#1C1C1C] focus:outline-none"
+                  >
+                  <div class="absolute right-3 top-3.5 text-[#B42318]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  </div>
+                </div>
+                <p class="text-[12px] font-medium text-[#B42318] mt-1">Enter a valid email address.</p>
+              </div>
+
+              <!-- Password with Error state border -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[14px] font-semibold text-[#1C1C1C]">Password <span class="text-[#B42318]">*</span></label>
+                  <a href="#m1" class="text-[13px] font-semibold text-[#005D28] hover:underline py-1">Forgot password?</a>
+                </div>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    value="" 
+                    placeholder="Your password" 
+                    class="w-full h-12 px-3.5 pr-10 rounded-lg border-2 border-[#B42318] bg-white text-[16px] text-[#1C1C1C] focus:outline-none"
+                  >
+                  <div class="absolute right-3 top-3.5 text-[#B42318]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  </div>
+                </div>
+                <p class="text-[12px] font-medium text-[#B42318] mt-1">Enter your password.</p>
+              </div>
+
+              <!-- Secondary Error Notice: "Please confirm your email first. Check your inbox." with "Resend email" link -->
+              <div class="p-3 bg-[#F8F6F1] border border-[#D8A851] rounded-lg">
+                <p class="text-[13px] text-[#1C1C1C] leading-snug">
+                  <span class="font-semibold text-[#87451A]">Unconfirmed Account:</span> "Please confirm your email first. Check your inbox."
+                </p>
+                <button type="button" class="mt-1 text-[13px] font-semibold text-[#005D28] underline flex items-center gap-1 hover:text-[#004a20]">
+                  <span>Resend email</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </div>
+
+              <!-- Additional Verbatim Spec Box: "Too many attempts. Please wait a few minutes and try again." -->
+              <div class="px-2.5 py-1.5 bg-[#B42318]/5 rounded border border-[#B42318]/20 text-[11px] text-[#5C5650]">
+                <span class="font-semibold text-[#B42318]">Rate limit message:</span> "Too many attempts. Please wait a few minutes and try again."
+              </div>
+
+              <div class="pt-1">
+                <button type="submit" class="w-full h-12 bg-[#005D28] text-white font-semibold text-[16px] rounded-lg shadow-sm flex items-center justify-center">
+                  Log in
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="pt-3 pb-2 text-center">
+            <p class="text-[14px] text-[#5C5650]">
+              New to FixMyKasi? 
+              <a href="#s2" class="font-semibold text-[#005D28] hover:underline ml-1 inline-block py-2">Create account</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Visitor Role Tab Bar -->
+        <nav class="h-[60px] bg-white border-t border-[#D0D5DD] flex items-center justify-around px-4 select-none flex-shrink-0">
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#5C5650]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span class="text-[11px] font-medium mt-0.5">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#005D28] font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            <span class="text-[11px] mt-0.5">Log in</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 5: STATE 4 - OFFLINE STATE
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#5C5650]"></span>
+        <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">State 4: Offline State</span>
+      </div>
+      <p class="text-xs text-brand-secondaryText mb-3">Top grey offline banner & disabled Log in button</p>
+
+      <div class="phone-canvas rounded-[40px] shadow-device border-[8px] border-[#1C1C1C]">
+        <!-- Offline Banner (8.3: "You're offline. Changes will not be saved.") -->
+        <div class="bg-[#5C5650] text-white text-[12px] py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2 z-30 shadow-sm">
+          <svg class="w-4 h-4 text-[#D8A851]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          <span>You're offline. Changes will not be saved.</span>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="h-10 bg-[#531A17] text-white flex items-center justify-between px-7 text-xs font-medium pt-1 select-none">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[10px] text-amber-300 font-semibold mr-1">Offline</span>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="w-full h-full bg-white rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="sticky top-0 z-20 bg-[#531A17] text-white border-b-[3px] border-[#D8A851]">
+          <div class="h-14 flex items-center px-4 justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <h2 class="text-[18px] font-semibold text-white tracking-tight flex-1 text-center pr-9">Log in</h2>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-center gap-2 pt-2 pb-1">
+              <div class="w-8 h-8 rounded-full bg-[#005D28]/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <span class="text-xl font-bold text-[#005D28] tracking-tight">FixMyKasi</span>
+            </div>
+
+            <div class="text-center pb-1">
+              <h3 class="text-[20px] font-bold text-[#1C1C1C]">Welcome back</h3>
+              <p class="text-[13px] text-[#5C5650] mt-0.5">Please confirm your email or log in with your credentials.</p>
+            </div>
+
+            <form class="space-y-4 pt-1" onsubmit="return false;">
+              <div>
+                <label class="block text-[14px] font-semibold text-[#1C1C1C] mb-1.5">Email address <span class="text-[#B42318]">*</span></label>
+                <input 
+                  type="email" 
+                  value="zanele.k@example.com" 
+                  class="w-full h-12 px-3.5 rounded-lg border border-[#D0D5DD] bg-white text-[16px] text-[#1C1C1C]"
+                >
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-[14px] font-semibold text-[#1C1C1C]">Password <span class="text-[#B42318]">*</span></label>
+                  <span class="text-[13px] font-semibold text-[#5C5650] opacity-50 py-2">Forgot password?</span>
+                </div>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    value="••••••••••••" 
+                    class="w-full h-12 px-3.5 pr-11 rounded-lg border border-[#D0D5DD] bg-white text-[16px] text-[#1C1C1C]"
+                  >
+                  <button type="button" class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-[#5C5650]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Button Disabled in Offline State (8.3: #D0D5DD bg with #667085 text) -->
+              <div class="pt-3">
+                <button type="button" disabled class="w-full h-12 bg-[#D0D5DD] text-[#667085] font-semibold text-[16px] rounded-lg shadow-none cursor-not-allowed flex items-center justify-center">
+                  Log in
+                </button>
+                <p class="text-center text-[12px] text-[#5C5650] mt-2">Connect to the internet to sign in.</p>
+              </div>
+            </form>
+          </div>
+
+          <div class="pt-4 pb-2 text-center opacity-60">
+            <p class="text-[14px] text-[#5C5650]">
+              New to FixMyKasi? <span class="font-semibold text-[#005D28] ml-1">Create account</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Visitor Role Tab Bar -->
+        <nav class="h-[60px] bg-white border-t border-[#D0D5DD] flex items-center justify-around px-4 select-none flex-shrink-0">
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#5C5650]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span class="text-[11px] font-medium mt-0.5">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] h-[48px] text-[#005D28] font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            <span class="text-[11px] mt-0.5">Log in</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 6: STATE 5 - SUCCESS (Redirect to Role's Home Screen)
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+        <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">State 5: Success (S8 Ward Admin Redirect)</span>
+      </div>
+      <p class="text-xs text-brand-secondaryText mb-3">Logged in as Zanele K. (Ward Admin, Ward A)</p>
+
+      <div class="phone-canvas rounded-[40px] shadow-device border-[8px] border-[#1C1C1C]">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-7 text-xs font-medium pt-2 select-none">
+          <span>09:42</span>
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.23 19.98 10.57 20.5 12 20.5s2.77-.52 4.34-1.59l1.9 1.9c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-.62-1.79C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="w-full h-full bg-white rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header: Ward Admin View with Gold line -->
+        <div class="sticky top-0 z-20 bg-[#531A17] text-white border-b-[3px] border-[#D8A851]">
+          <div class="h-14 flex items-center px-4 justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-[#005D28] text-white text-xs font-bold flex items-center justify-center border border-white/40">
+                ZK
+              </div>
+              <div>
+                <h2 class="text-[15px] font-semibold text-white leading-tight">Zanele Khumalo</h2>
+                <p class="text-[11px] text-[#D8A851]">Ward Admin • Ward A (Orlando West)</p>
+              </div>
+            </div>
+            <button class="w-9 h-9 flex items-center justify-center text-white/80 hover:text-white">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Success Toast Notification (8.3: One line of white text on near-black #1C1C1C) -->
+        <div class="p-3">
+          <div class="bg-[#1C1C1C] text-white text-[13px] px-3.5 py-2.5 rounded-lg shadow-lg flex items-center gap-2.5">
+            <div class="w-4 h-4 rounded-full bg-[#1E7B34] flex items-center justify-center flex-shrink-0 text-white">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="font-medium">Welcome back, Zanele. Logged in successfully.</span>
+          </div>
+        </div>
+
+        <!-- Content Area: S8 Ward Admin Queue Preview -->
+        <div class="flex-1 overflow-y-auto px-4 pb-4 space-y-3">
+          <div class="flex items-center justify-between pt-1">
+            <h3 class="text-[18px] font-bold text-[#1C1C1C]">Ward A Fault Queue</h3>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-[#531A17]/10 text-[#531A17] font-semibold">14 Pending</span>
+          </div>
+
+          <!-- Quick Metrics (8.3 Stat Cards) -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="bg-white p-3 rounded-xl border border-[#D0D5DD] shadow-soft">
+              <span class="text-[22px] font-bold text-[#005D28]">8</span>
+              <p class="text-[12px] font-semibold text-[#1C1C1C]">In Progress</p>
+              <p class="text-[11px] text-[#5C5650]">Johannesburg Water</p>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-[#B42318]/40 shadow-soft">
+              <span class="text-[22px] font-bold text-[#B42318]">3</span>
+              <p class="text-[12px] font-semibold text-[#1C1C1C]">Overdue</p>
+              <p class="text-[11px] text-[#B42318] font-medium">>48 hrs response</p>
+            </div>
+          </div>
+
+          <!-- Fault Card (8.3 spec) -->
+          <div class="bg-white rounded-xl border border-[#D0D5DD] p-3 shadow-soft space-y-2">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#87451A]/10 text-[#87451A]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#87451A]"></span>
+                  Scheduled
+                </span>
+                <span class="ml-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#EF4718] text-[#1C1C1C]">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  Urgent
+                </span>
+              </div>
+              <span class="text-[11px] text-[#5C5650]">Ref: FMK-2026-00125</span>
+            </div>
+
+            <div>
+              <h4 class="text-[15px] font-semibold text-[#1C1C1C]">Major burst pipe</h4>
+              <p class="text-[13px] text-[#5C5650]">Cnr 4th Ave & Mokoena St, Ward A</p>
+            </div>
+
+            <div class="pt-1 flex items-center justify-between text-[12px] border-t border-[#F8F6F1]">
+              <span class="text-[#005D28] font-semibold">14 citizen upvotes</span>
+              <span class="text-[#5C5650]">Logged 3 hrs ago</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ward Admin Role Tab Bar (7.2: Queue, Dashboard, Faults, Profile) -->
+        <nav class="h-[60px] bg-white border-t border-[#D0D5DD] flex items-center justify-around px-2 select-none flex-shrink-0">
+          <button class="flex flex-col items-center justify-center min-w-[56px] h-[48px] text-[#005D28] font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span class="text-[10px] mt-0.5">Queue</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[56px] h-[48px] text-[#5C5650]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span class="text-[10px] mt-0.5">Dashboard</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[56px] h-[48px] text-[#5C5650]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span class="text-[10px] mt-0.5">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[56px] h-[48px] text-[#5C5650]">
+            <div class="w-5 h-5 rounded-full bg-[#005D28] text-white text-[9px] font-bold flex items-center justify-center">ZK</div>
+            <span class="text-[10px] mt-0.5">Profile</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Spec Compliance & Implementation Documentation -->
+  <section class="max-w-[1720px] mx-auto bg-white border border-[#D0D5DD] rounded-2xl p-6 shadow-sm mb-12">
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-6 h-6 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-brand-dark">S3 Log In Implementation & Specification Compliance Notes</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-brand-secondaryText">
+      <div class="space-y-3">
+        <h4 class="font-semibold text-brand-dark text-base">Layout & Form Rules (PRD 8.2)</h4>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Dimensions:</strong> Exact 390 × 844 px phone frame with 16 px side margins and 8 px vertical grid rhythm.</li>
+          <li><strong>Header (8.3):</strong> Heritage Brown (<code class="text-xs bg-slate-100 px-1 py-0.5 rounded">#531A17</code>) with white back arrow (44px touch target) and 3 px Gold (<code class="text-xs bg-slate-100 px-1 py-0.5 rounded">#D8A851</code>) underline. Title: <em>"Log in"</em>.</li>
+          <li><strong>Banner Area:</strong> Displays the three explicit PRD Section 8.2 messages:
+            <ul class="list-circle pl-5 pt-1 space-y-1">
+              <li><em>"Check your email to confirm your account."</em> (post-S2 arrival)</li>
+              <li><em>"Email confirmed. Please log in."</em> (email verification link)</li>
+              <li><em>"Password changed. Please log in."</em> (post-M1 reset)</li>
+            </ul>
+          </li>
+          <li><strong>Email Field:</strong> Required, placeholder <em>"you@example.com"</em>. Exact error: <em>"Enter a valid email address."</em></li>
+          <li><strong>Password Field:</strong> Required, placeholder <em>"Your password"</em> with interactive show/hide toggle. Exact error: <em>"Enter your password."</em></li>
+          <li><strong>Forgot password?:</strong> Right-aligned link pointing to modal M1 with &gt;44px touch target.</li>
+          <li><strong>Primary Button:</strong> 48 px high Coat of Arms Green (<code class="text-xs bg-slate-100 px-1 py-0.5 rounded">#005D28</code>), 8 px radius, text <em>"Log in"</em>.</li>
+          <li><strong>Create Account Link:</strong> Centered text <em>"New to FixMyKasi?"</em> with <em>"Create account"</em> pointing to S2.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="font-semibold text-brand-dark text-base">State Coverage & Roles (PRD 8.2 & 7.2)</h4>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Normal State:</strong> Clean state displaying pre-filled sample content (<em>zanele.k@example.com</em>) and account confirmation banner.</li>
+          <li><strong>Empty State:</strong> Marked as <em>not needed</em> in PRD Section 8.2 because the form itself constitutes the screen content.</li>
+          <li><strong>Loading State:</strong> <em>"Log in"</em> button displays an animated spinner, replaces the label with <em>"Logging in..."</em>, and is disabled.</li>
+          <li><strong>Error State:</strong> Features all verbatim error messages:
+            <ul class="list-circle pl-5 pt-1 space-y-1">
+              <li><em>"Wrong email or password."</em></li>
+              <li><em>"Too many attempts. Please wait a few minutes and try again."</em></li>
+              <li><em>"Please confirm your email first. Check your inbox."</em> with actionable <em>"Resend email"</em> link.</li>
+            </ul>
+          </li>
+          <li><strong>Offline State:</strong> Top grey banner <em>"You're offline. Changes will not be saved."</em> with disabled <em>"Log in"</em> button (<code class="text-xs bg-slate-100 px-1 py-0.5 rounded">#D0D5DD</code> / <code class="text-xs bg-slate-100 px-1 py-0.5 rounded">#667085</code>).</li>
+          <li><strong>Success State:</strong> Demonstrates redirect to the user's role home screen (S8 Ward Admin Queue for sample user Zanele Khumalo, Ward A), dynamically switching the bottom tab bar to Ward Admin: <em>Queue, Dashboard, Faults, Profile</em>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Missing Items & TODOs -->
+    <div class="mt-6 pt-5 border-t border-[#D0D5DD]">
+      <h4 class="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">Missing Items & TODOs:</h4>
+      <div class="p-3 bg-[#F8F6F1] rounded-lg border border-[#D0D5DD] text-xs text-brand-secondaryText">
+        All required elements, form fields, validation messages, error texts, banners, and state transitions were fully and unambiguously specified in PRD Section 8.2, 8.3, and 9.1. No missing items or grey placeholder TODO boxes required.
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

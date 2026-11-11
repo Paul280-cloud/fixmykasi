@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S10 My Jobs - FixMyKasi (Phone 390x844)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              green: '#005D28',
+              brown: '#531A17',
+              gold: '#D8A851',
+              orange: '#EF4718',
+              surface: '#FFFFFF',
+              section: '#F8F6F1',
+              text: '#1C1C1C',
+              secondary: '#5C5650',
+              error: '#B42318',
+              success: '#1E7B34',
+              warning: '#87451A',
+            },
+            status: {
+              received: '#5C5650',
+              viewed: '#825B32',
+              assigned: '#531A17',
+              scheduled: '#87451A',
+              inprogress: '#B46E12',
+              fixed: '#005D28',
+              closed: '#1C1C1C',
+              reopened: '#B42318',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #F3EFEA;
+      font-family: 'Inter', sans-serif;
+      color: #1C1C1C;
+      -webkit-font-smoothing: antialiased;
+    }
+    .phone-container {
+      width: 390px;
+      height: 844px;
+      min-width: 390px;
+      min-height: 844px;
+      max-width: 390px;
+      max-height: 844px;
+      box-shadow: 0 16px 36px -4px rgba(28, 28, 28, 0.16), 0 0 0 1px rgba(28, 28, 28, 0.08);
+      border-radius: 40px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      position: relative;
+    }
+    .phone-scrollable {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #D8A851 #F8F6F1;
+    }
+    .phone-scrollable::-webkit-scrollbar {
+      width: 4px;
+    }
+    .phone-scrollable::-webkit-scrollbar-thumb {
+      background-color: #D8A851;
+      border-radius: 4px;
+    }
+    .gold-line {
+      height: 3px;
+      background-color: #D8A851;
+      width: 100%;
+    }
+    .card-shadow {
+      box-shadow: 0 2px 8px rgba(28, 28, 28, 0.06), 0 1px 2px rgba(28, 28, 28, 0.04);
+    }
+    .toast-animate {
+      animation: toastSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toastSlideDown {
+      from { transform: translateY(-12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .skeleton-pulse {
+      animation: pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+  </style>
+</head>
+<body class="p-6 md:p-10">
+
+  <!-- Overview Header for Presentation -->
+  <div class="max-w-[1700px] mx-auto mb-8 bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E5E0D8] pb-4">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#E6EFE9] text-[#005D28]">FIXMYKASI DESIGN SYSTEM</span>
+          <span class="text-xs text-[#5C5650]">• PRD 8.2, 8.3 & BR15 Specification</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold text-[#1C1C1C]">S10 My Jobs — Mobile Phone (390 × 844 px)</h1>
+        <p class="text-sm text-[#5C5650] mt-1">Field team operations view for Kagiso Molefe at <strong>Sample Plumbing Services (Pty) Ltd</strong>. Shows ordered job cards by due date (soonest & overdue first), role-based bottom tab bar, full state variants, and offline handling.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E6EFE9] border border-[#005D28]/20 text-[#005D28] text-xs font-semibold">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span>WCAG AA Compliant</span>
+        </div>
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F8F6F1] border border-[#D8A851] text-[#1C1C1C] text-xs font-semibold">
+          <svg class="w-4 h-4 text-[#D8A851]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span>Role: Field Team (Kagiso Molefe)</span>
+        </div>
+      </div>
+    </div>
+    <!-- Quick Nav Guide -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4 text-xs font-medium">
+      <div class="p-2.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D8]">
+        <span class="block text-[#005D28] font-bold">STATE 1: NORMAL</span>
+        <span class="text-[#5C5650]">To do tab (FMK-2026-00123)</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D8]">
+        <span class="block text-[#B46E12] font-bold">STATE 1B: OVERDUE & IN PROGRESS</span>
+        <span class="text-[#5C5650]">Overdue first sort order</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D8]">
+        <span class="block text-[#1C1C1C] font-bold">STATE 2: EMPTY STATE</span>
+        <span class="text-[#5C5650]">"No jobs assigned..."</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D8]">
+        <span class="block text-[#5C5650] font-bold">STATE 3: LOADING</span>
+        <span class="text-[#5C5650]">3 grey placeholder cards</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D8]">
+        <span class="block text-[#B42318] font-bold">STATE 4 & 5: ERROR / OFFLINE</span>
+        <span class="text-[#5C5650]">Offline banner + disabled CTA</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-[#F8F6F1] border border-[#005D28] bg-[#E6EFE9]/40">
+        <span class="block text-[#005D28] font-bold">STATE 6: SUCCESS (TOAST)</span>
+        <span class="text-[#5C5650]">"Status updated" toast</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Screen State Layout Container (Side-by-Side Presentation) -->
+  <div class="max-w-[1700px] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+
+    <!-- ============================================================== -->
+    <!-- FRAME 1: NORMAL STATE (TO DO TAB - SEED DATA)                  -->
+    <!-- ============================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6EFE9] text-[#005D28]">
+          <span class="w-2 h-2 rounded-full bg-[#005D28]"></span>
+          STATE 1: NORMAL (TO DO TAB)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Kagiso's team: FMK-2026-00123 (Scheduled, due 18 Nov 2026)</p>
+      </div>
+
+      <div class="phone-container">
+        <!-- Status Bar -->
+        <div class="bg-[#531A17] pt-2 px-6 pb-1 flex justify-between items-center text-white text-xs select-none">
+          <span class="font-semibold tracking-tight">09:41</span>
+          <div class="flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+              <div class="h-full bg-white w-full rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header: Heritage Brown bar, white title & subtitle, 3px gold line -->
+        <div class="bg-[#531A17] px-4 pt-3 pb-3 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="text-[22px] font-bold leading-tight tracking-tight text-white">My jobs</h1>
+              <p class="text-[13px] text-[#D8A851] font-medium leading-none mt-0.5">Sample Plumbing Services (Pty) Ltd</p>
+            </div>
+            <!-- Field Team Role Badge -->
+            <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1C1C1C]/40 border border-[#D8A851]/40 text-[#D8A851] text-[11px] font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#D8A851]"></span>
+              <span>Field Team</span>
+            </div>
+          </div>
+        </div>
+        <div class="gold-line"></div>
+
+        <!-- Scrollable Content -->
+        <div class="phone-scrollable bg-[#F8F6F1] pb-4">
+          <!-- Segmented Tabs: "To do" and "Done" -->
+          <div class="p-4 pb-2">
+            <div class="bg-white p-1 rounded-xl card-shadow flex border border-[#E5E0D8]">
+              <button class="flex-1 py-2 px-3 rounded-lg bg-[#005D28] text-white text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm min-h-[44px]">
+                <span>To do</span>
+                <span class="px-2 py-0.5 rounded-full text-[11px] bg-white text-[#005D28] font-bold">1</span>
+              </button>
+              <button class="flex-1 py-2 px-3 rounded-lg text-[#5C5650] hover:text-[#1C1C1C] text-[14px] font-medium flex items-center justify-center gap-1.5 min-h-[44px]">
+                <span>Done</span>
+                <span class="px-1.5 py-0.5 rounded-full text-[11px] bg-[#E5E0D8] text-[#5C5650] font-semibold">0</span>
+              </button>
+            </div>
+            <div class="flex items-center justify-between mt-2.5 px-1 text-xs text-[#5C5650]">
+              <span>Active work queue • Sorted by due date</span>
+              <span class="font-medium text-[#1C1C1C]">1 active job</span>
+            </div>
+          </div>
+
+          <!-- Job Cards List -->
+          <div class="px-4 space-y-3">
+            <!-- Job Card: FMK-2026-00123 (Sample Content from Spec) -->
+            <!-- Ordered elements: 1. first photo, 2. fault type bold, 3. status chip, 4. "Urgent"/"Overdue"/"Delayed", 5. street address and landmark, 6. "Due 18 Nov 2026", 7. button "Update" -->
+            <div class="bg-white rounded-xl border border-[#E5E0D8] card-shadow overflow-hidden transition-all">
+              <!-- Top Card Row: Photo + Main Info (Tappable to S5) -->
+              <div class="p-3.5 flex gap-3 cursor-pointer hover:bg-[#F8F6F1]/50 transition-colors">
+                <!-- First photo container (72x72) with photo counter & icon -->
+                <div class="relative w-[72px] h-[72px] rounded-lg overflow-hidden bg-[#E6EFE9] border border-[#D5E5DA] flex-shrink-0 flex items-center justify-center">
+                  <!-- Representative South African Water Pipe Fault Photo / SVG Graphic -->
+                  <svg class="w-8 h-8 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918"/>
+                  </svg>
+                  <div class="absolute bottom-1 right-1 bg-[#1C1C1C]/80 text-white text-[10px] font-semibold px-1 rounded">1/2</div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-1 mb-1">
+                    <span class="text-xs font-mono text-[#5C5650] font-semibold">FMK-2026-00123</span>
+                    <span class="text-[11px] text-[#5C5650] flex items-center gap-0.5">
+                      <svg class="w-3 h-3 text-[#D8A851]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                      14 upvotes
+                    </span>
+                  </div>
+
+                  <!-- Fault type in bold -->
+                  <h3 class="text-[16px] font-bold text-[#1C1C1C] leading-snug">Burst clean water pipe</h3>
+
+                  <!-- Badges: Status Chip + Urgent Label -->
+                  <div class="flex flex-wrap items-center gap-1.5 mt-1.5 mb-2">
+                    <!-- Status Chip: Scheduled #87451A dot -->
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F8F6F1] border border-[#E5E0D8] text-[#1C1C1C]">
+                      <span class="w-2 h-2 rounded-full bg-[#87451A]"></span>
+                      Scheduled
+                    </span>
+
+                    <!-- Urgent Label: Orange #EF4718 with dark text -->
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-[#EF4718] text-[#1C1C1C]">
+                      <svg class="w-3 h-3 text-[#1C1C1C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                      Urgent
+                    </span>
+                  </div>
+
+                  <!-- Street address and landmark -->
+                  <div class="text-[13px] text-[#5C5650] flex items-start gap-1">
+                    <svg class="w-3.5 h-3.5 text-[#5C5650] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <div>
+                      <p class="font-medium text-[#1C1C1C]">23 Vilakazi Street, Orlando West</p>
+                      <p class="text-xs text-[#5C5650]">Opposite Mandela House museum • Ward A</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Card Action Row: Due Date + Button "Update" -->
+              <div class="px-3.5 py-2.5 bg-[#F8F6F1] border-t border-[#E5E0D8] flex items-center justify-between">
+                <div class="flex items-center gap-1.5 text-[13px] text-[#1C1C1C]">
+                  <svg class="w-4 h-4 text-[#D8A851]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <span class="font-semibold">Due 18 Nov 2026</span>
+                  <span class="text-xs text-[#5C5650]">(in 6 days)</span>
+                </div>
+
+                <!-- Primary Action Button: "Update" (>=44px touch target, 48px height) -->
+                <button class="h-11 px-5 rounded-lg bg-[#005D28] hover:bg-[#004d21] text-white text-[14px] font-semibold flex items-center gap-1.5 transition-colors shadow-sm min-h-[44px]">
+                  <span>Update</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Context Hint Card for Field Operations -->
+            <div class="p-3 bg-[#E6EFE9] border border-[#005D28]/20 rounded-xl text-xs text-[#005D28] flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <span class="font-bold">Field Protocol:</span> Tap the card to view full resident photos, map navigation, and original description. Tap <strong>Update</strong> to log crew arrival or mark the fix complete.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field Team Persistent Tab Bar (PRD 7.2) -->
+        <!-- Field team: My jobs, Faults, Profile -->
+        <div class="bg-white border-t border-[#E5E0D8] px-6 py-2 flex justify-around items-center select-none shadow-lg">
+          <!-- Tab 1: My jobs (Active in Coat of Arms Green #005D28) -->
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28] font-semibold">
+            <div class="w-9 h-6 flex items-center justify-center rounded-full bg-[#E6EFE9]">
+              <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <span class="text-[11px] mt-0.5 tracking-tight">My jobs</span>
+          </button>
+
+          <!-- Tab 2: Faults -->
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650] hover:text-[#1C1C1C]">
+            <svg class="w-5 h-5 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Faults</span>
+          </button>
+
+          <!-- Tab 3: Profile (Field team user KM for Kagiso Molefe) -->
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650] hover:text-[#1C1C1C]">
+            <div class="w-5 h-5 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              KM
+            </div>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Profile</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- FRAME 2: MULTI-JOB SORT ORDER (OVERDUE AT TOP)                  -->
+    <!-- ============================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FFF4ED] text-[#EF4718]">
+          <span class="w-2 h-2 rounded-full bg-[#EF4718]"></span>
+          STATE 1B: MULTI-JOB SORT ORDER (BR7)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Ordered by due date, soonest first. Overdue jobs at the top.</p>
+      </div>
+
+      <div class="phone-container">
+        <!-- Status Bar -->
+        <div class="bg-[#531A17] pt-2 px-6 pb-1 flex justify-between items-center text-white text-xs select-none">
+          <span class="font-semibold tracking-tight">09:41</span>
+          <div class="flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center"><div class="h-full bg-white w-full rounded-2xs"></div></div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="bg-[#531A17] px-4 pt-3 pb-3 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="text-[22px] font-bold leading-tight tracking-tight text-white">My jobs</h1>
+              <p class="text-[13px] text-[#D8A851] font-medium leading-none mt-0.5">Sample Electrical Works (Pty) Ltd</p>
+            </div>
+            <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1C1C1C]/40 border border-[#D8A851]/40 text-[#D8A851] text-[11px] font-medium">
+              <span>Field Team</span>
+            </div>
+          </div>
+        </div>
+        <div class="gold-line"></div>
+
+        <!-- Scrollable Content -->
+        <div class="phone-scrollable bg-[#F8F6F1] pb-4">
+          <!-- Segmented Tabs -->
+          <div class="p-4 pb-2">
+            <div class="bg-white p-1 rounded-xl card-shadow flex border border-[#E5E0D8]">
+              <button class="flex-1 py-2 px-3 rounded-lg bg-[#005D28] text-white text-[14px] font-semibold flex items-center justify-center gap-1.5 min-h-[44px]">
+                <span>To do</span>
+                <span class="px-2 py-0.5 rounded-full text-[11px] bg-white text-[#005D28] font-bold">2</span>
+              </button>
+              <button class="flex-1 py-2 px-3 rounded-lg text-[#5C5650] text-[14px] font-medium flex items-center justify-center gap-1.5 min-h-[44px]">
+                <span>Done</span>
+                <span class="px-1.5 py-0.5 rounded-full text-[11px] bg-[#E5E0D8] text-[#5C5650] font-semibold">1</span>
+              </button>
+            </div>
+            <div class="flex items-center justify-between mt-2.5 px-1 text-xs text-[#5C5650]">
+              <span class="text-[#B42318] font-semibold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#B42318]"></span> 1 overdue priority
+              </span>
+              <span>2 jobs to do</span>
+            </div>
+          </div>
+
+          <!-- List with Overdue at Top, then Soonest -->
+          <div class="px-4 space-y-3">
+            <!-- Job 1: OVERDUE (FMK-2026-00115 from 8.4) -->
+            <div class="bg-white rounded-xl border-2 border-[#B42318]/40 card-shadow overflow-hidden">
+              <div class="p-3.5 flex gap-3 cursor-pointer">
+                <div class="relative w-[72px] h-[72px] rounded-lg overflow-hidden bg-[#F8F6F1] border border-[#E5E0D8] flex-shrink-0 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-[#531A17]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                  <div class="absolute bottom-1 right-1 bg-[#1C1C1C]/80 text-white text-[10px] font-semibold px-1 rounded">1/1</div>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-1 mb-1">
+                    <span class="text-xs font-mono text-[#5C5650] font-semibold">FMK-2026-00115</span>
+                    <span class="text-[11px] text-[#5C5650]">22 upvotes</span>
+                  </div>
+
+                  <h3 class="text-[16px] font-bold text-[#1C1C1C] leading-snug">Faulty high-mast light</h3>
+
+                  <!-- Badges: Assigned + Overdue -->
+                  <div class="flex flex-wrap items-center gap-1.5 mt-1.5 mb-2">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F8F6F1] border border-[#E5E0D8] text-[#1C1C1C]">
+                      <span class="w-2 h-2 rounded-full bg-[#531A17]"></span>
+                      Assigned
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-[#FEE4E2] text-[#B42318] border border-[#B42318]/30">
+                      <svg class="w-3 h-3 text-[#B42318]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      Overdue (3 days)
+                    </span>
+                  </div>
+
+                  <div class="text-[13px] text-[#5C5650]">
+                    <p class="font-medium text-[#1C1C1C]">Near Orlando West Clinic</p>
+                    <p class="text-xs text-[#5C5650]">Ward A</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Row with Overdue notice -->
+              <div class="px-3.5 py-2.5 bg-[#FFF4ED] border-t border-[#E5E0D8] flex items-center justify-between">
+                <div class="flex items-center gap-1 text-[13px] text-[#B42318] font-bold">
+                  <svg class="w-4 h-4 text-[#B42318]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  <span>Due was 10 Nov 2026</span>
+                </div>
+                <button class="h-11 px-5 rounded-lg bg-[#005D28] hover:bg-[#004d21] text-white text-[14px] font-semibold flex items-center gap-1.5 shadow-sm min-h-[44px]">
+                  <span>Update</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Job 2: Scheduled / Normal (FMK-2026-00128) -->
+            <div class="bg-white rounded-xl border border-[#E5E0D8] card-shadow overflow-hidden">
+              <div class="p-3.5 flex gap-3 cursor-pointer">
+                <div class="relative w-[72px] h-[72px] rounded-lg overflow-hidden bg-[#F8F6F1] border border-[#E5E0D8] flex-shrink-0 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-[#825B32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  <div class="absolute bottom-1 right-1 bg-[#1C1C1C]/80 text-white text-[10px] font-semibold px-1 rounded">1/2</div>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-1 mb-1">
+                    <span class="text-xs font-mono text-[#5C5650] font-semibold">FMK-2026-00128</span>
+                    <span class="text-[11px] text-[#5C5650]">2 upvotes</span>
+                  </div>
+
+                  <h3 class="text-[16px] font-bold text-[#1C1C1C] leading-snug">Streetlight flickering</h3>
+
+                  <div class="flex flex-wrap items-center gap-1.5 mt-1.5 mb-2">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F8F6F1] border border-[#E5E0D8] text-[#1C1C1C]">
+                      <span class="w-2 h-2 rounded-full bg-[#B46E12]"></span>
+                      In progress
+                    </span>
+                  </div>
+
+                  <div class="text-[13px] text-[#5C5650]">
+                    <p class="font-medium text-[#1C1C1C]">112 Mokoena Street</p>
+                    <p class="text-xs text-[#5C5650]">Orlando West, Ward A</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="px-3.5 py-2.5 bg-[#F8F6F1] border-t border-[#E5E0D8] flex items-center justify-between">
+                <div class="flex items-center gap-1.5 text-[13px] text-[#1C1C1C]">
+                  <svg class="w-4 h-4 text-[#D8A851]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <span class="font-semibold">Due 15 Nov 2026</span>
+                </div>
+                <button class="h-11 px-5 rounded-lg bg-[#005D28] hover:bg-[#004d21] text-white text-[14px] font-semibold flex items-center gap-1.5 shadow-sm min-h-[44px]">
+                  <span>Update</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field Team Tab Bar -->
+        <div class="bg-white border-t border-[#E5E0D8] px-6 py-2 flex justify-around items-center select-none shadow-lg">
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28] font-semibold">
+            <div class="w-9 h-6 flex items-center justify-center rounded-full bg-[#E6EFE9]">
+              <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <span class="text-[11px] mt-0.5 tracking-tight">My jobs</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <svg class="w-5 h-5 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <div class="w-5 h-5 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">KM</div>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Profile</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- FRAME 3: EMPTY STATE                                           -->
+    <!-- ============================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F8F6F1] border border-[#E5E0D8] text-[#1C1C1C]">
+          <span class="w-2 h-2 rounded-full bg-[#005D28]"></span>
+          STATE 2: EMPTY STATE
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">PRD verbatim copy: "No jobs assigned to your team right now."</p>
+      </div>
+
+      <div class="phone-container">
+        <!-- Status Bar -->
+        <div class="bg-[#531A17] pt-2 px-6 pb-1 flex justify-between items-center text-white text-xs select-none">
+          <span class="font-semibold tracking-tight">09:41</span>
+          <div class="flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center"><div class="h-full bg-white w-full rounded-2xs"></div></div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="bg-[#531A17] px-4 pt-3 pb-3 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="text-[22px] font-bold leading-tight tracking-tight text-white">My jobs</h1>
+              <p class="text-[13px] text-[#D8A851] font-medium leading-none mt-0.5">Municipal Sewer Team</p>
+            </div>
+            <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1C1C1C]/40 border border-[#D8A851]/40 text-[#D8A851] text-[11px] font-medium">
+              <span>Field Team</span>
+            </div>
+          </div>
+        </div>
+        <div class="gold-line"></div>
+
+        <!-- Content -->
+        <div class="phone-scrollable bg-[#F8F6F1] flex flex-col">
+          <div class="p-4 pb-2">
+            <div class="bg-white p-1 rounded-xl card-shadow flex border border-[#E5E0D8]">
+              <button class="flex-1 py-2 px-3 rounded-lg bg-[#005D28] text-white text-[14px] font-semibold flex items-center justify-center gap-1.5 min-h-[44px]">
+                <span>To do</span>
+                <span class="px-2 py-0.5 rounded-full text-[11px] bg-white text-[#005D28] font-bold">0</span>
+              </button>
+              <button class="flex-1 py-2 px-3 rounded-lg text-[#5C5650] text-[14px] font-medium flex items-center justify-center gap-1.5 min-h-[44px]">
+                <span>Done</span>
+                <span class="px-1.5 py-0.5 rounded-full text-[11px] bg-[#E5E0D8] text-[#5C5650] font-semibold">4</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty State Presentation -->
+          <div class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-20 h-20 rounded-full bg-[#E6EFE9] border-2 border-[#D5E5DA] flex items-center justify-center mb-4">
+              <svg class="w-10 h-10 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+
+            <!-- Verbatim PRD Copy -->
+            <h2 class="text-[18px] font-bold text-[#1C1C1C] mb-2 leading-snug">
+              No jobs assigned to your team right now.
+            </h2>
+            <p class="text-[14px] text-[#5C5650] max-w-[280px] leading-relaxed mb-6">
+              When the municipal ward admin assigns clean water or infrastructure tasks to your crew, they will appear here in order of priority.
+            </p>
+
+            <button class="h-12 px-6 rounded-lg bg-white border border-[#E5E0D8] text-[#1C1C1C] hover:bg-[#F8F6F1] text-[14px] font-semibold flex items-center gap-2 card-shadow min-h-[44px]">
+              <svg class="w-4 h-4 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>Refresh job queue</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Field Team Tab Bar -->
+        <div class="bg-white border-t border-[#E5E0D8] px-6 py-2 flex justify-around items-center select-none shadow-lg">
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28] font-semibold">
+            <div class="w-9 h-6 flex items-center justify-center rounded-full bg-[#E6EFE9]">
+              <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <span class="text-[11px] mt-0.5 tracking-tight">My jobs</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <svg class="w-5 h-5 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <div class="w-5 h-5 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">KM</div>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Profile</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- FRAME 4: LOADING STATE (3 GREY PLACEHOLDER CARDS)               -->
+    <!-- ============================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E5E0D8] text-[#1C1C1C]">
+          <span class="w-2 h-2 rounded-full bg-[#5C5650]"></span>
+          STATE 3: LOADING STATE
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">PRD specification: exactly 3 grey placeholder cards pulsing</p>
+      </div>
+
+      <div class="phone-container">
+        <!-- Status Bar -->
+        <div class="bg-[#531A17] pt-2 px-6 pb-1 flex justify-between items-center text-white text-xs select-none">
+          <span class="font-semibold tracking-tight">09:41</span>
+          <div class="flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center"><div class="h-full bg-white w-full rounded-2xs"></div></div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="bg-[#531A17] px-4 pt-3 pb-3 text-white">
+          <h1 class="text-[22px] font-bold leading-tight tracking-tight text-white">My jobs</h1>
+          <p class="text-[13px] text-[#D8A851] font-medium leading-none mt-0.5">Sample Plumbing Services (Pty) Ltd</p>
+        </div>
+        <div class="gold-line"></div>
+
+        <!-- Skeletons -->
+        <div class="phone-scrollable bg-[#F8F6F1] p-4 space-y-3">
+          <!-- Segmented Tab Skeleton -->
+          <div class="h-12 bg-white rounded-xl card-shadow border border-[#E5E0D8] skeleton-pulse mb-3"></div>
+
+          <!-- Exactly 3 grey placeholder cards (PRD 8.2) -->
+          <!-- Card 1 -->
+          <div class="bg-white rounded-xl border border-[#E5E0D8] p-3.5 card-shadow skeleton-pulse">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#E5E0D8] flex-shrink-0"></div>
+              <div class="flex-1 space-y-2">
+                <div class="h-4 bg-[#E5E0D8] rounded w-2/3"></div>
+                <div class="h-3 bg-[#E5E0D8] rounded w-1/3"></div>
+                <div class="h-3 bg-[#E5E0D8] rounded w-5/6"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F8F6F1] flex justify-between items-center">
+              <div class="h-4 bg-[#E5E0D8] rounded w-1/3"></div>
+              <div class="h-10 bg-[#E5E0D8] rounded-lg w-20"></div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white rounded-xl border border-[#E5E0D8] p-3.5 card-shadow skeleton-pulse">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#E5E0D8] flex-shrink-0"></div>
+              <div class="flex-1 space-y-2">
+                <div class="h-4 bg-[#E5E0D8] rounded w-1/2"></div>
+                <div class="h-3 bg-[#E5E0D8] rounded w-1/4"></div>
+                <div class="h-3 bg-[#E5E0D8] rounded w-3/4"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F8F6F1] flex justify-between items-center">
+              <div class="h-4 bg-[#E5E0D8] rounded w-1/3"></div>
+              <div class="h-10 bg-[#E5E0D8] rounded-lg w-20"></div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white rounded-xl border border-[#E5E0D8] p-3.5 card-shadow skeleton-pulse">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#E5E0D8] flex-shrink-0"></div>
+              <div class="flex-1 space-y-2">
+                <div class="h-4 bg-[#E5E0D8] rounded w-3/4"></div>
+                <div class="h-3 bg-[#E5E0D8] rounded w-1/3"></div>
+                <div class="h-3 bg-[#E5E0D8] rounded w-2/3"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F8F6F1] flex justify-between items-center">
+              <div class="h-4 bg-[#E5E0D8] rounded w-1/3"></div>
+              <div class="h-10 bg-[#E5E0D8] rounded-lg w-20"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field Team Tab Bar Skeleton -->
+        <div class="bg-white border-t border-[#E5E0D8] px-6 py-2 flex justify-around items-center select-none shadow-lg">
+          <div class="w-12 h-8 bg-[#E5E0D8] rounded skeleton-pulse"></div>
+          <div class="w-12 h-8 bg-[#E5E0D8] rounded skeleton-pulse"></div>
+          <div class="w-12 h-8 bg-[#E5E0D8] rounded skeleton-pulse"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- FRAME 5: ERROR & OFFLINE STATES                                -->
+    <!-- ============================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FEE4E2] text-[#B42318]">
+          <span class="w-2 h-2 rounded-full bg-[#B42318]"></span>
+          STATE 4 & 5: ERROR & OFFLINE
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Verbatim error message + offline banner with disabled "Update" button</p>
+      </div>
+
+      <div class="phone-container">
+        <!-- Top Grey Offline Banner (PRD 8.2 & Style Guide) -->
+        <div class="bg-[#1C1C1C] text-white px-4 py-2 text-xs flex items-center justify-between select-none">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#EF4718] animate-ping"></span>
+            <span class="font-medium">You're offline. Changes will not be saved.</span>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/20 font-mono">CACHED</span>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="bg-[#531A17] pt-1 px-6 pb-1 flex justify-between items-center text-white text-xs select-none">
+          <span class="font-semibold tracking-tight">09:41</span>
+          <div class="flex items-center space-x-1.5">
+            <span class="text-[10px] text-[#D8A851] font-mono">OFFLINE</span>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center"><div class="h-full bg-white w-full rounded-2xs"></div></div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="bg-[#531A17] px-4 pt-3 pb-3 text-white">
+          <h1 class="text-[22px] font-bold leading-tight tracking-tight text-white">My jobs</h1>
+          <p class="text-[13px] text-[#D8A851] font-medium leading-none mt-0.5">Sample Plumbing Services (Pty) Ltd</p>
+        </div>
+        <div class="gold-line"></div>
+
+        <!-- Content -->
+        <div class="phone-scrollable bg-[#F8F6F1] p-4 flex flex-col justify-between">
+          <!-- Cached Job with Disabled Update Button -->
+          <div class="space-y-3">
+            <div class="p-2.5 bg-[#FFF4ED] border border-[#EF4718]/30 rounded-lg text-xs text-[#1C1C1C] flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#EF4718] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span>Showing last cached jobs from <strong>12 Nov 2026, 09:30</strong></span>
+            </div>
+
+            <!-- Cached Card with disabled update -->
+            <div class="bg-white rounded-xl border border-[#E5E0D8] card-shadow overflow-hidden opacity-90">
+              <div class="p-3.5 flex gap-3">
+                <div class="w-[72px] h-[72px] rounded-lg bg-[#E5E0D8] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <span class="text-xs font-mono text-[#5C5650] font-semibold">FMK-2026-00123</span>
+                  <h3 class="text-[16px] font-bold text-[#1C1C1C]">Burst clean water pipe</h3>
+                  <p class="text-xs text-[#5C5650] mt-1">23 Vilakazi Street, Orlando West</p>
+                </div>
+              </div>
+
+              <!-- Bottom Row: Disabled Update Button (PRD spec: "Update disabled") -->
+              <div class="px-3.5 py-2.5 bg-[#F8F6F1] border-t border-[#E5E0D8] flex items-center justify-between">
+                <span class="text-xs text-[#5C5650]">Due 18 Nov 2026</span>
+                <!-- Disabled button (meets 44x44px target) -->
+                <button disabled class="h-11 px-5 rounded-lg bg-[#E5E0D8] text-[#5C5650] cursor-not-allowed text-[14px] font-semibold flex items-center gap-1.5 min-h-[44px]">
+                  <svg class="w-4 h-4 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  <span>Update (Offline)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error State Modal / Banner Block (PRD Verbatim copy: "Something went wrong. Try again." with "Try again") -->
+          <div class="bg-white rounded-xl border border-[#B42318]/30 p-5 card-shadow text-center my-auto">
+            <div class="w-12 h-12 rounded-full bg-[#FEE4E2] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-[#B42318]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <!-- Verbatim text -->
+            <h3 class="text-[16px] font-bold text-[#1C1C1C] mb-1">Something went wrong. Try again.</h3>
+            <p class="text-xs text-[#5C5650] mb-4">Could not sync field job assignments with the City of Joburg telemetry server.</p>
+            <button class="w-full h-11 rounded-lg bg-[#005D28] hover:bg-[#004d21] text-white text-[14px] font-semibold flex items-center justify-center gap-2 shadow-sm min-h-[44px]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>Try again</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="bg-white border-t border-[#E5E0D8] px-6 py-2 flex justify-around items-center select-none shadow-lg">
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28] font-semibold">
+            <div class="w-9 h-6 flex items-center justify-center rounded-full bg-[#E6EFE9]">
+              <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <span class="text-[11px] mt-0.5 tracking-tight">My jobs</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <svg class="w-5 h-5 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <div class="w-5 h-5 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">KM</div>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Profile</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- FRAME 6: SUCCESS TOAST STATE (AFTER M3 STATUS UPDATE)          -->
+    <!-- ============================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6EFE9] text-[#005D28]">
+          <span class="w-2 h-2 rounded-full bg-[#005D28]"></span>
+          STATE 6: SUCCESS (TOAST NOTIFICATION)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">PRD verbatim toast: "Status updated" after completing M3</p>
+      </div>
+
+      <div class="phone-container">
+        <!-- Status Bar -->
+        <div class="bg-[#531A17] pt-2 px-6 pb-1 flex justify-between items-center text-white text-xs select-none">
+          <span class="font-semibold tracking-tight">09:41</span>
+          <div class="flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center"><div class="h-full bg-white w-full rounded-2xs"></div></div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="bg-[#531A17] px-4 pt-3 pb-3 text-white">
+          <h1 class="text-[22px] font-bold leading-tight tracking-tight text-white">My jobs</h1>
+          <p class="text-[13px] text-[#D8A851] font-medium leading-none mt-0.5">Sample Plumbing Services (Pty) Ltd</p>
+        </div>
+        <div class="gold-line"></div>
+
+        <!-- Success Toast Notification (Top of Content, Near Black #1C1C1C per Style Guide) -->
+        <div class="p-3 bg-[#F8F6F1]">
+          <div class="toast-animate bg-[#1C1C1C] text-white p-3.5 rounded-xl card-shadow flex items-center justify-between border border-white/10">
+            <div class="flex items-center gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] flex items-center justify-center flex-shrink-0">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <!-- Verbatim Toast Text: "Status updated" -->
+                <p class="text-[14px] font-semibold text-white">Status updated</p>
+                <p class="text-xs text-[#E5E0D8]">FMK-2026-00123 moved to 'In progress'</p>
+              </div>
+            </div>
+            <button class="text-[#E5E0D8] hover:text-white p-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Updated Job Card in "In progress" state -->
+        <div class="phone-scrollable bg-[#F8F6F1] px-4 pb-4 space-y-3">
+          <!-- Segmented Tabs -->
+          <div class="bg-white p-1 rounded-xl card-shadow flex border border-[#E5E0D8]">
+            <button class="flex-1 py-2 px-3 rounded-lg bg-[#005D28] text-white text-[14px] font-semibold flex items-center justify-center gap-1.5 min-h-[44px]">
+              <span>To do</span>
+              <span class="px-2 py-0.5 rounded-full text-[11px] bg-white text-[#005D28] font-bold">1</span>
+            </button>
+            <button class="flex-1 py-2 px-3 rounded-lg text-[#5C5650] text-[14px] font-medium flex items-center justify-center gap-1.5 min-h-[44px]">
+              <span>Done</span>
+              <span class="px-1.5 py-0.5 rounded-full text-[11px] bg-[#E5E0D8] text-[#5C5650] font-semibold">0</span>
+            </button>
+          </div>
+
+          <!-- Card updated to In Progress -->
+          <div class="bg-white rounded-xl border border-[#005D28]/40 card-shadow overflow-hidden">
+            <div class="p-3.5 flex gap-3">
+              <div class="relative w-[72px] h-[72px] rounded-lg overflow-hidden bg-[#E6EFE9] border border-[#D5E5DA] flex-shrink-0 flex items-center justify-center">
+                <svg class="w-8 h-8 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918"/></svg>
+                <div class="absolute bottom-1 right-1 bg-[#1C1C1C]/80 text-white text-[10px] font-semibold px-1 rounded">1/2</div>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-1 mb-1">
+                  <span class="text-xs font-mono text-[#5C5650] font-semibold">FMK-2026-00123</span>
+                  <span class="text-[11px] text-[#005D28] font-bold">Just now</span>
+                </div>
+
+                <h3 class="text-[16px] font-bold text-[#1C1C1C] leading-snug">Burst clean water pipe</h3>
+
+                <!-- Status chip updated to In Progress -->
+                <div class="flex flex-wrap items-center gap-1.5 mt-1.5 mb-2">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F8F6F1] border border-[#E5E0D8] text-[#1C1C1C]">
+                    <span class="w-2 h-2 rounded-full bg-[#B46E12]"></span>
+                    In progress
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-[#EF4718] text-[#1C1C1C]">
+                    Urgent
+                  </span>
+                </div>
+
+                <div class="text-[13px] text-[#5C5650]">
+                  <p class="font-medium text-[#1C1C1C]">23 Vilakazi Street, Orlando West</p>
+                  <p class="text-xs text-[#5C5650]">Crew on site: Kagiso Molefe</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-3.5 py-2.5 bg-[#F8F6F1] border-t border-[#E5E0D8] flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-[13px] text-[#1C1C1C]">
+                <svg class="w-4 h-4 text-[#D8A851]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span class="font-semibold">Due 18 Nov 2026</span>
+              </div>
+              <button class="h-11 px-5 rounded-lg bg-[#005D28] hover:bg-[#004d21] text-white text-[14px] font-semibold flex items-center gap-1.5 shadow-sm min-h-[44px]">
+                <span>Update</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field Team Tab Bar -->
+        <div class="bg-white border-t border-[#E5E0D8] px-6 py-2 flex justify-around items-center select-none shadow-lg">
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28] font-semibold">
+            <div class="w-9 h-6 flex items-center justify-center rounded-full bg-[#E6EFE9]">
+              <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <span class="text-[11px] mt-0.5 tracking-tight">My jobs</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <svg class="w-5 h-5 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Faults</span>
+          </button>
+          <button class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+            <div class="w-5 h-5 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">KM</div>
+            <span class="text-[11px] mt-0.5 font-medium tracking-tight">Profile</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Specification & Compliance Verification Panel -->
+  <div class="max-w-[1700px] mx-auto mt-10 bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <h3 class="text-lg font-bold text-[#1C1C1C]">S10 My Jobs Specification & Compliance Notes</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-[#5C5650] leading-relaxed">
+      <div>
+        <h4 class="font-bold text-[#1C1C1C] uppercase tracking-wider mb-2">Ordered Layout & Chrome Enforcement (PRD 8.2 & 8.3)</h4>
+        <ul class="list-disc pl-4 space-y-1.5">
+          <li><strong>Header:</strong> Heritage Brown bar (<code>#531A17</code>) with white title <em>"My jobs"</em>, subtitle with the verbatim field team name (e.g. <em>"Sample Plumbing Services (Pty) Ltd"</em>), and 3px Gold (<code>#D8A851</code>) line underneath. No back arrow as this is a root tab.</li>
+          <li><strong>Tabs:</strong> Segmented control with <em>"To do"</em> (covering Assigned, Scheduled, In progress) and <em>"Done"</em> (covering Fixed, Closed).</li>
+          <li><strong>Job Card Layout:</strong> Ordered strictly per spec: 1. first photo (72px thumbnail with counter), 2. fault type in bold, 3. status chip with status dot, 4. "Urgent" / "Overdue" / "Delayed" labels, 5. street address and landmark, 6. due date ("Due 18 Nov 2026"), 7. primary button "Update" (≥44px touch target, 48px height).</li>
+          <li><strong>Role-based Tab Bar (Field Team, PRD 7.2):</strong> Exactly 3 tabs: <em>My jobs</em> (active in Coat of Arms Green <code>#005D28</code>), <em>Faults</em>, and <em>Profile</em> (with Kagiso Molefe's initials avatar circle <code>KM</code>).</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-[#1C1C1C] uppercase tracking-wider mb-2">State Coverage & Business Rules Verification</h4>
+        <ul class="list-disc pl-4 space-y-1.5">
+          <li><strong>Sorting Rule (PRD 8.2):</strong> Ordered by due date, soonest first. Overdue jobs are placed at the very top (illustrated in State 1B with <code>FMK-2026-00115</code> due 10 Nov 2026).</li>
+          <li><strong>Normal State:</strong> Populated with Kagiso's team seed data: <code>FMK-2026-00123</code> (Burst clean water pipe, Scheduled, due 18 Nov 2026, 14 upvotes).</li>
+          <li><strong>Empty State:</strong> Verbatim PRD copy: <em>"No jobs assigned to your team right now."</em></li>
+          <li><strong>Loading State:</strong> Exactly 3 grey placeholder cards with pulsing CSS animation.</li>
+          <li><strong>Error State:</strong> Verbatim error message: <em>"Something went wrong. Try again."</em> with actionable primary button <em>"Try again"</em>.</li>
+          <li><strong>Offline State:</strong> Top charcoal grey offline banner (<em>"You're offline. Changes will not be saved."</em>), cached data timestamp, and disabled "Update" button.</li>
+          <li><strong>Success State:</strong> Post-M3 completion with verbatim toast notification: <em>"Status updated"</em>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Missing Items & TODOs Declaration -->
+    <div class="mt-6 pt-4 border-t border-[#E5E0D8] bg-[#F8F6F1] p-3.5 rounded-xl">
+      <div class="flex items-center gap-2 text-xs font-semibold text-[#005D28]">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        <span>MISSING ITEMS & TODOS: All required elements, order, labels, states, and seed data were fully provided in PRD Section 8.2, 8.3, 8.4, and BR7. No TODO placeholder boxes were required.</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

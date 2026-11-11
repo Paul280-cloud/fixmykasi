@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S7 My Reports - FixMyKasi (Phone 390x844)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F4F1EA;
+      color: #1C1C1C;
+      margin: 0;
+      padding: 32px 16px;
+    }
+    .phone-frame {
+      width: 390px;
+      height: 844px;
+      background-color: #FFFFFF;
+      border-radius: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 10px #1C1C1C;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    /* Fixed 3px Gold Header Line */
+    .header-gold-line {
+      height: 3px;
+      background-color: #D8A851;
+      width: 100%;
+    }
+    /* Custom Scrollbar hide */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .touch-target {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-start min-h-screen">
+
+  <!-- Design Spec & Meta Header -->
+  <div class="max-w-[1300px] w-full mb-8 bg-white p-6 rounded-2xl shadow-sm border border-[#E5E0D8]">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E5E0D8] pb-4 mb-4">
+      <div>
+        <span class="inline-block px-2.5 py-1 bg-[#E8F3EB] text-[#005D28] text-xs font-semibold rounded-full uppercase tracking-wider mb-2">FixMyKasi Design System</span>
+        <h1 class="text-2xl font-bold text-[#531A17] tracking-tight">S7 My Reports Specification &amp; Comprehensive State Variants</h1>
+        <p class="text-sm text-[#5C5650] mt-1">High-fidelity phone interface (390 × 844 px) for resident tracking of their own reported community faults. Features Open/Closed segmentation, "Please confirm the fix" verification CTA on Fixed faults, overdue/urgent chips, and complete Empty, Loading, Error, and Offline states.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1.5 bg-[#FFF9E6] border border-[#D8A851] text-[#1C1C1C] text-xs font-semibold rounded-lg flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4 text-[#005D28]"></i> WCAG AA Compliant
+        </span>
+        <span class="px-3 py-1.5 bg-[#F8F6F1] border border-[#E5E0D8] text-[#5C5650] text-xs font-semibold rounded-lg">PRD 8.2 &amp; 8.3 &amp; 8.4</span>
+      </div>
+    </div>
+
+    <!-- Quick Navigation Pills for State Comparison -->
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs">
+      <div class="bg-[#F8F6F1] p-2.5 rounded-lg border-l-4 border-[#005D28]">
+        <div class="font-bold text-[#1C1C1C]">STATE 1: NORMAL</div>
+        <div class="text-[#5C5650] truncate">Thandeka (2 open faults)</div>
+      </div>
+      <div class="bg-[#F8F6F1] p-2.5 rounded-lg border-l-4 border-[#D8A851]">
+        <div class="font-bold text-[#1C1C1C]">STATE 1B: FIXED FAULT</div>
+        <div class="text-[#5C5650] truncate">"Please confirm the fix"</div>
+      </div>
+      <div class="bg-[#F8F6F1] p-2.5 rounded-lg border-l-4 border-[#5C5650]">
+        <div class="font-bold text-[#1C1C1C]">STATE 2: EMPTY (OPEN)</div>
+        <div class="text-[#5C5650] truncate">Nomsa Sithole (0 faults)</div>
+      </div>
+      <div class="bg-[#F8F6F1] p-2.5 rounded-lg border-l-4 border-[#825B32]">
+        <div class="font-bold text-[#1C1C1C]">STATE 2B: EMPTY (CLOSED)</div>
+        <div class="text-[#5C5650] truncate">"No closed faults yet"</div>
+      </div>
+      <div class="bg-[#F8F6F1] p-2.5 rounded-lg border-l-4 border-[#005D28]">
+        <div class="font-bold text-[#1C1C1C]">STATE 3: LOADING</div>
+        <div class="text-[#5C5650] truncate">3 grey placeholder cards</div>
+      </div>
+      <div class="bg-[#F8F6F1] p-2.5 rounded-lg border-l-4 border-[#B42318]">
+        <div class="font-bold text-[#1C1C1C]">STATE 4 &amp; 5: ERROR/OFFLINE</div>
+        <div class="text-[#5C5650] truncate">Try again &amp; cached banner</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Showcase Multi-Screen Responsive Horizontal Canvas Container -->
+  <div class="flex flex-row items-start gap-8 overflow-x-auto max-w-[1300px] w-full pb-8 no-scrollbar">
+
+    <!-- ========================================== -->
+    <!-- FRAME 1: NORMAL STATE (OPEN TAB - THANDEKA) -->
+    <!-- ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#E8F3EB] text-[#005D28] text-xs font-bold rounded-full">
+          <span class="w-2 h-2 rounded-full bg-[#005D28]"></span>
+          STATE 1: NORMAL (OPEN TAB)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Thandeka Mokoena (FMK-2026-00123 &amp; FMK-2026-00115)</p>
+      </div>
+
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white px-6 pt-3 flex justify-between items-center text-xs font-semibold select-none z-20">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+            <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+            <i data-lucide="battery" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-[#531A17] text-white px-4 py-3 flex items-center justify-between relative z-10">
+          <div class="flex items-center gap-3">
+            <h1 class="text-[20px] font-bold tracking-tight text-white">My reports</h1>
+          </div>
+          <!-- Resident Quick Badge -->
+          <div class="flex items-center gap-1.5 text-xs text-[#D8A851] bg-[#531A17]/40 px-2 py-1 rounded-md border border-[#D8A851]/30">
+            <span class="w-2 h-2 rounded-full bg-[#005D28]"></span>
+            <span>Ward A Resident</span>
+          </div>
+        </header>
+        <div class="header-gold-line"></div>
+
+        <!-- Segmented Tabs: Open vs Closed -->
+        <div class="bg-[#F8F6F1] px-4 pt-3 pb-2 border-b border-[#E5E0D8]">
+          <div class="bg-[#EBE7DF] p-1 rounded-lg flex items-center">
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md bg-white text-[#005D28] shadow-sm flex items-center justify-center gap-1.5 transition-all">
+              <span>Open</span>
+              <span class="bg-[#005D28] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">2</span>
+            </button>
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md text-[#5C5650] hover:text-[#1C1C1C] flex items-center justify-center gap-1.5 transition-all">
+              <span>Closed</span>
+              <span class="bg-[#D8D2C6] text-[#5C5650] text-[11px] font-bold px-2 py-0.5 rounded-full">0</span>
+            </button>
+          </div>
+          <div class="flex justify-between items-center mt-2 px-1 text-xs text-[#5C5650]">
+            <span>Showing <strong>2 active reports</strong></span>
+            <span class="flex items-center gap-1 text-[#005D28] font-medium"><i data-lucide="arrow-down-up" class="w-3 h-3"></i> Newest first</span>
+          </div>
+        </div>
+
+        <!-- Fault Cards List (Scrollable Area) -->
+        <main class="flex-1 overflow-y-auto p-4 bg-[#F8F6F1] space-y-3 no-scrollbar">
+
+          <!-- Card 1: FMK-2026-00123 (Scheduled, Urgent) -->
+          <div class="bg-white rounded-xl p-3 border border-[#E5E0D8] shadow-sm hover:border-[#005D28]/40 transition-all cursor-pointer">
+            <div class="flex gap-3">
+              <!-- Square 72px Thumbnail -->
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#E6F0EA] border border-[#C2DEC9] relative flex-shrink-0 overflow-hidden flex items-center justify-center">
+                <!-- Illustrated water pipe icon badge -->
+                <svg class="w-9 h-9 text-[#005D28]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+                <span class="absolute bottom-1 right-1 bg-black/70 text-white text-[10px] font-bold px-1 rounded">1/2</span>
+              </div>
+
+              <!-- Card Content Right -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-1">
+                  <h2 class="font-bold text-[#1C1C1C] text-sm leading-snug line-clamp-1">Burst clean water pipe</h2>
+                  <span class="text-xs text-[#5C5650] flex-shrink-0">12 Nov 2026</span>
+                </div>
+
+                <!-- Chips Row -->
+                <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                  <!-- Status Chip: Scheduled -->
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#87451A]/10 text-[#87451A]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#87451A]"></span>
+                    Scheduled
+                  </span>
+                  <!-- Urgent Label: Orange with dark text -->
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-[#EF4718] text-[#1C1C1C]">
+                    <i data-lucide="alert-triangle" class="w-3 h-3 text-[#1C1C1C]"></i>
+                    Urgent
+                  </span>
+                </div>
+
+                <!-- Location & Ward -->
+                <p class="text-xs text-[#5C5650] mt-1.5 truncate">
+                  23 Vilakazi Street, Orlando West, Ward A
+                </p>
+
+                <!-- Footer: Ref Number & Upvotes -->
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F0ECE1] text-xs">
+                  <span class="font-mono text-[#5C5650] font-medium">FMK-2026-00123</span>
+                  <span class="flex items-center gap-1 text-[#005D28] font-semibold bg-[#E8F3EB] px-2 py-0.5 rounded-full">
+                    <i data-lucide="thumbs-up" class="w-3 h-3"></i> 14 upvotes
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Due Date & Contractor Note Pill -->
+            <div class="mt-2.5 pt-2 border-t border-dashed border-[#E5E0D8] flex items-center justify-between text-[11px] text-[#5C5650]">
+              <span class="flex items-center gap-1 truncate"><i data-lucide="wrench" class="w-3 h-3 text-[#D8A851]"></i> Sample Plumbing Services (Pty) Ltd</span>
+              <span class="text-[#87451A] font-semibold flex-shrink-0">Due: 18 Nov (2 days)</span>
+            </div>
+          </div>
+
+          <!-- Card 2: FMK-2026-00115 (Assigned, Overdue) -->
+          <div class="bg-white rounded-xl p-3 border border-[#E5E0D8] shadow-sm hover:border-[#005D28]/40 transition-all cursor-pointer">
+            <div class="flex gap-3">
+              <!-- Square 72px Thumbnail -->
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#FFF4E5] border border-[#FCD7AD] relative flex-shrink-0 overflow-hidden flex items-center justify-center">
+                <!-- Illustrated street light icon -->
+                <svg class="w-9 h-9 text-[#87451A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                <span class="absolute bottom-1 right-1 bg-black/70 text-white text-[10px] font-bold px-1 rounded">1/1</span>
+              </div>
+
+              <!-- Card Content Right -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-1">
+                  <h2 class="font-bold text-[#1C1C1C] text-sm leading-snug line-clamp-1">Faulty high-mast light</h2>
+                  <span class="text-xs text-[#5C5650] flex-shrink-0">10 Nov 2026</span>
+                </div>
+
+                <!-- Chips Row -->
+                <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                  <!-- Status Chip: Assigned -->
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#531A17]/10 text-[#531A17]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#531A17]"></span>
+                    Assigned
+                  </span>
+                  <!-- Overdue Label: Red text & clock -->
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-[#FEE4E2] text-[#B42318]">
+                    <i data-lucide="clock" class="w-3 h-3 text-[#B42318]"></i>
+                    Overdue (3 days)
+                  </span>
+                </div>
+
+                <!-- Location & Ward -->
+                <p class="text-xs text-[#5C5650] mt-1.5 truncate">
+                  Near Orlando West Clinic, Ward A
+                </p>
+
+                <!-- Footer: Ref Number & Upvotes -->
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F0ECE1] text-xs">
+                  <span class="font-mono text-[#5C5650] font-medium">FMK-2026-00115</span>
+                  <span class="flex items-center gap-1 text-[#005D28] font-semibold bg-[#E8F3EB] px-2 py-0.5 rounded-full">
+                    <i data-lucide="thumbs-up" class="w-3 h-3"></i> 22 upvotes
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contractor Info -->
+            <div class="mt-2.5 pt-2 border-t border-dashed border-[#E5E0D8] flex items-center justify-between text-[11px] text-[#5C5650]">
+              <span class="flex items-center gap-1 truncate"><i data-lucide="user-check" class="w-3 h-3 text-[#531A17]"></i> Sample Electrical Works (Pty) Ltd</span>
+              <span class="text-[#B42318] font-semibold flex-shrink-0">Due was 10 Nov</span>
+            </div>
+          </div>
+
+          <!-- Helpful Community Tip Callout -->
+          <div class="p-3 bg-white/70 border border-[#E5E0D8] rounded-xl text-xs text-[#5C5650] flex items-center gap-2 mt-4">
+            <i data-lucide="info" class="w-4 h-4 text-[#D8A851] flex-shrink-0"></i>
+            <span>Need to report something else in Orlando West? Tap <strong>Report</strong> below.</span>
+          </div>
+
+        </main>
+
+        <!-- Resident Tab Bar (PRD 8.3: Faults, Report, My reports [Active], Profile) -->
+        <nav class="bg-white border-t border-[#E5E0D8] px-4 py-2 flex justify-between items-center z-10">
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <span class="text-[11px]">Faults</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-7 h-7 rounded-full bg-[#F8F6F1] flex items-center justify-center border border-[#E5E0D8]">
+              <i data-lucide="plus" class="w-4 h-4 text-[#005D28]"></i>
+            </div>
+            <span class="text-[11px]">Report</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#005D28] font-bold touch-target">
+            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+            <span class="text-[11px]">My reports</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-6 h-6 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              TM
+            </div>
+            <span class="text-[11px]">Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FRAME 2: STATE 1B: FIXED FAULT WITH "PLEASE CONFIRM THE FIX" -->
+    <!-- ======================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FFF9E6] text-[#87451A] text-xs font-bold rounded-full border border-[#D8A851]">
+          <span class="w-2 h-2 rounded-full bg-[#87451A]"></span>
+          STATE 1B: FIXED FAULT (CONFIRMATION)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">PRD Requirement: "Please confirm the fix" in bold</p>
+      </div>
+
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white px-6 pt-3 flex justify-between items-center text-xs font-semibold select-none z-20">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+            <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+            <i data-lucide="battery" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-[#531A17] text-white px-4 py-3 flex items-center justify-between relative z-10">
+          <div class="flex items-center gap-3">
+            <h1 class="text-[20px] font-bold tracking-tight text-white">My reports</h1>
+          </div>
+          <span class="text-xs bg-[#005D28] text-white px-2 py-0.5 rounded-full font-medium">1 Action Required</span>
+        </header>
+        <div class="header-gold-line"></div>
+
+        <!-- Tabs -->
+        <div class="bg-[#F8F6F1] px-4 pt-3 pb-2 border-b border-[#E5E0D8]">
+          <div class="bg-[#EBE7DF] p-1 rounded-lg flex items-center">
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md bg-white text-[#005D28] shadow-sm flex items-center justify-center gap-1.5">
+              <span>Open</span>
+              <span class="bg-[#005D28] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">1</span>
+            </button>
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md text-[#5C5650] flex items-center justify-center gap-1.5">
+              <span>Closed</span>
+              <span class="bg-[#D8D2C6] text-[#5C5650] text-[11px] font-bold px-2 py-0.5 rounded-full">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-4 bg-[#F8F6F1] space-y-3 no-scrollbar">
+
+          <!-- Card: FMK-2026-00109 (Fixed, Awaiting Confirmation) -->
+          <div class="bg-white rounded-xl p-3 border-2 border-[#005D28] shadow-md transition-all cursor-pointer">
+            
+            <!-- PRD 8.2 REQUIREMENT: A Fixed fault card also shows "Please confirm the fix" in bold -->
+            <div class="bg-[#E8F3EB] text-[#005D28] px-3 py-2 rounded-lg mb-3 flex items-center justify-between border border-[#C2DEC9]">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#005D28]"></i>
+                <span class="text-xs font-bold tracking-tight">Please confirm the fix</span>
+              </div>
+              <span class="text-[11px] font-semibold text-[#005D28] underline">Verify now →</span>
+            </div>
+
+            <div class="flex gap-3">
+              <!-- Square 72px Thumbnail -->
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#E6F0EA] border border-[#C2DEC9] relative flex-shrink-0 overflow-hidden flex items-center justify-center">
+                <svg class="w-9 h-9 text-[#005D28]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span class="absolute bottom-1 right-1 bg-black/70 text-white text-[10px] font-bold px-1 rounded">Fixed</span>
+              </div>
+
+              <!-- Content -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-1">
+                  <h2 class="font-bold text-[#1C1C1C] text-sm leading-snug line-clamp-1">Blocked manhole</h2>
+                  <span class="text-xs text-[#5C5650] flex-shrink-0">7 Nov 2026</span>
+                </div>
+
+                <!-- Chips Row: Fixed -->
+                <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#E8F3EB] text-[#005D28]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#005D28]"></span>
+                    Fixed
+                  </span>
+                  <span class="text-[11px] text-[#5C5650]">Awaiting your confirmation</span>
+                </div>
+
+                <!-- Location -->
+                <p class="text-xs text-[#5C5650] mt-1.5 truncate">
+                  8 Moroka Street, Diepkloof, Ward B
+                </p>
+
+                <!-- Footer: Ref & Upvotes -->
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F0ECE1] text-xs">
+                  <span class="font-mono text-[#5C5650] font-medium">FMK-2026-00109</span>
+                  <span class="flex items-center gap-1 text-[#005D28] font-semibold bg-[#E8F3EB] px-2 py-0.5 rounded-full">
+                    <i data-lucide="thumbs-up" class="w-3 h-3"></i> 9 upvotes
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Verification Action Trigger from Spec S5 -->
+            <div class="mt-3 pt-2.5 border-t border-[#E5E0D8] flex gap-2">
+              <button class="flex-1 bg-[#005D28] text-white text-xs font-semibold py-2 px-3 rounded-lg hover:bg-[#00481F] flex items-center justify-center gap-1.5 shadow-sm">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i> Yes, it's fixed
+              </button>
+              <button class="px-3 py-2 bg-white border border-[#E5E0D8] text-[#5C5650] text-xs font-semibold rounded-lg hover:bg-[#F8F6F1]">
+                View photos
+              </button>
+            </div>
+          </div>
+
+        </main>
+
+        <!-- Resident Tab Bar -->
+        <nav class="bg-white border-t border-[#E5E0D8] px-4 py-2 flex justify-between items-center z-10">
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <span class="text-[11px]">Faults</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-7 h-7 rounded-full bg-[#F8F6F1] flex items-center justify-center border border-[#E5E0D8]">
+              <i data-lucide="plus" class="w-4 h-4 text-[#005D28]"></i>
+            </div>
+            <span class="text-[11px]">Report</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#005D28] font-bold touch-target">
+            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+            <span class="text-[11px]">My reports</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-6 h-6 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              LD
+            </div>
+            <span class="text-[11px]">Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FRAME 3: STATE 2: EMPTY STATE (OPEN TAB - NOMSA SITHOLE) -->
+    <!-- ======================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F8F6F1] text-[#5C5650] text-xs font-bold rounded-full border border-[#E5E0D8]">
+          <span class="w-2 h-2 rounded-full bg-[#5C5650]"></span>
+          STATE 2: EMPTY (OPEN TAB)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Nomsa Sithole (0 faults reported, PRD 8.4)</p>
+      </div>
+
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white px-6 pt-3 flex justify-between items-center text-xs font-semibold select-none z-20">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+            <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+            <i data-lucide="battery" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-[#531A17] text-white px-4 py-3 flex items-center justify-between relative z-10">
+          <div class="flex items-center gap-3">
+            <h1 class="text-[20px] font-bold tracking-tight text-white">My reports</h1>
+          </div>
+        </header>
+        <div class="header-gold-line"></div>
+
+        <!-- Tabs -->
+        <div class="bg-[#F8F6F1] px-4 pt-3 pb-2 border-b border-[#E5E0D8]">
+          <div class="bg-[#EBE7DF] p-1 rounded-lg flex items-center">
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md bg-white text-[#005D28] shadow-sm flex items-center justify-center gap-1.5">
+              <span>Open</span>
+              <span class="bg-[#5C5650] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">0</span>
+            </button>
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md text-[#5C5650] flex items-center justify-center gap-1.5">
+              <span>Closed</span>
+              <span class="bg-[#D8D2C6] text-[#5C5650] text-[11px] font-bold px-2 py-0.5 rounded-full">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Empty State Container -->
+        <main class="flex-1 flex flex-col items-center justify-center p-6 bg-[#F8F6F1] text-center">
+          
+          <!-- FixMyKasi Flat Graphic Illustration -->
+          <div class="w-20 h-20 rounded-full bg-[#E8F3EB] border-2 border-[#D8A851] flex items-center justify-center mb-4 shadow-sm">
+            <svg class="w-10 h-10 text-[#005D28]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              <path d="M9 14h6"></path>
+              <path d="M9 18h6"></path>
+              <path d="M9 10h6"></path>
+            </svg>
+          </div>
+
+          <!-- Verbatim PRD 8.2 Copy -->
+          <h2 class="text-lg font-bold text-[#1C1C1C]">You haven't reported any faults yet.</h2>
+          <p class="text-sm text-[#5C5650] mt-2 max-w-[260px] leading-relaxed">
+            Spotted a pothole, broken streetlight, or burst pipe in your neighbourhood? Let your ward admin know.
+          </p>
+
+          <!-- Primary Button "Report a fault" (48px height) -->
+          <a href="#" class="mt-6 w-full max-w-[260px] h-12 bg-[#005D28] text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 shadow-sm hover:bg-[#00481F] transition-colors">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            Report a fault
+          </a>
+
+          <p class="text-xs text-[#5C5650] mt-4">
+            Takes under 2 minutes • Free on municipal data
+          </p>
+        </main>
+
+        <!-- Resident Tab Bar -->
+        <nav class="bg-white border-t border-[#E5E0D8] px-4 py-2 flex justify-between items-center z-10">
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <span class="text-[11px]">Faults</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-7 h-7 rounded-full bg-[#F8F6F1] flex items-center justify-center border border-[#E5E0D8]">
+              <i data-lucide="plus" class="w-4 h-4 text-[#005D28]"></i>
+            </div>
+            <span class="text-[11px]">Report</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#005D28] font-bold touch-target">
+            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+            <span class="text-[11px]">My reports</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-6 h-6 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              NS
+            </div>
+            <span class="text-[11px]">Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FRAME 4: STATE 2B: EMPTY STATE (CLOSED TAB) -->
+    <!-- ======================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F8F6F1] text-[#825B32] text-xs font-bold rounded-full border border-[#D8A851]">
+          <span class="w-2 h-2 rounded-full bg-[#825B32]"></span>
+          STATE 2B: EMPTY (CLOSED TAB)
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Verbatim PRD: "No closed faults yet."</p>
+      </div>
+
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white px-6 pt-3 flex justify-between items-center text-xs font-semibold select-none z-20">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+            <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+            <i data-lucide="battery" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-[#531A17] text-white px-4 py-3 flex items-center justify-between relative z-10">
+          <div class="flex items-center gap-3">
+            <h1 class="text-[20px] font-bold tracking-tight text-white">My reports</h1>
+          </div>
+        </header>
+        <div class="header-gold-line"></div>
+
+        <!-- Tabs: Closed active -->
+        <div class="bg-[#F8F6F1] px-4 pt-3 pb-2 border-b border-[#E5E0D8]">
+          <div class="bg-[#EBE7DF] p-1 rounded-lg flex items-center">
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md text-[#5C5650] flex items-center justify-center gap-1.5">
+              <span>Open</span>
+              <span class="bg-[#D8D2C6] text-[#5C5650] text-[11px] font-bold px-2 py-0.5 rounded-full">2</span>
+            </button>
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md bg-white text-[#005D28] shadow-sm flex items-center justify-center gap-1.5">
+              <span>Closed</span>
+              <span class="bg-[#005D28] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Empty Closed State Container -->
+        <main class="flex-1 flex flex-col items-center justify-center p-6 bg-[#F8F6F1] text-center">
+          
+          <div class="w-16 h-16 rounded-full bg-[#E5E0D8]/60 flex items-center justify-center mb-3">
+            <i data-lucide="archive" class="w-8 h-8 text-[#5C5650]"></i>
+          </div>
+
+          <!-- Exact PRD Verbatim Message -->
+          <h2 class="text-base font-bold text-[#1C1C1C]">No closed faults yet.</h2>
+          <p class="text-xs text-[#5C5650] mt-1.5 max-w-[240px] leading-relaxed">
+            When your reported faults are verified as fixed, they will be archived here for your records.
+          </p>
+
+          <button class="mt-5 px-4 py-2 border border-[#E5E0D8] bg-white rounded-lg text-xs font-semibold text-[#005D28] hover:bg-[#F8F6F1] flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Switch to Open faults
+          </button>
+        </main>
+
+        <!-- Resident Tab Bar -->
+        <nav class="bg-white border-t border-[#E5E0D8] px-4 py-2 flex justify-between items-center z-10">
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <span class="text-[11px]">Faults</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-7 h-7 rounded-full bg-[#F8F6F1] flex items-center justify-center border border-[#E5E0D8]">
+              <i data-lucide="plus" class="w-4 h-4 text-[#005D28]"></i>
+            </div>
+            <span class="text-[11px]">Report</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#005D28] font-bold touch-target">
+            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+            <span class="text-[11px]">My reports</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-6 h-6 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              TM
+            </div>
+            <span class="text-[11px]">Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FRAME 5: STATE 3: LOADING STATE -->
+    <!-- ======================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F8F6F1] text-[#1C1C1C] text-xs font-bold rounded-full border border-[#E5E0D8]">
+          <span class="w-2 h-2 rounded-full bg-[#5C5650] animate-ping"></span>
+          STATE 3: LOADING STATE
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">PRD Spec: "3 grey placeholder cards"</p>
+      </div>
+
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white px-6 pt-3 flex justify-between items-center text-xs font-semibold select-none z-20">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+            <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+            <i data-lucide="battery" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-[#531A17] text-white px-4 py-3 flex items-center justify-between relative z-10">
+          <div class="flex items-center gap-3">
+            <h1 class="text-[20px] font-bold tracking-tight text-white">My reports</h1>
+          </div>
+        </header>
+        <div class="header-gold-line"></div>
+
+        <!-- Skeleton Tabs -->
+        <div class="bg-[#F8F6F1] px-4 pt-3 pb-2 border-b border-[#E5E0D8]">
+          <div class="bg-[#EBE7DF] p-1 rounded-lg flex items-center">
+            <div class="flex-1 py-2 rounded-md bg-white shadow-sm flex items-center justify-center">
+              <div class="h-3 w-12 bg-gray-200 rounded animate-pulse"></div>
+            </div>
+            <div class="flex-1 py-2 flex items-center justify-center">
+              <div class="h-3 w-12 bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Grey Placeholder Skeleton Cards -->
+        <main class="flex-1 overflow-y-auto p-4 bg-[#F8F6F1] space-y-3 no-scrollbar">
+
+          <!-- Skeleton Card 1 -->
+          <div class="bg-white rounded-xl p-3 border border-[#E5E0D8] shadow-sm animate-pulse">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] bg-gray-200 rounded-lg flex-shrink-0"></div>
+              <div class="flex-1 space-y-2 py-0.5">
+                <div class="flex justify-between">
+                  <div class="h-4 bg-gray-200 rounded w-3/5"></div>
+                  <div class="h-3 bg-gray-200 rounded w-12"></div>
+                </div>
+                <div class="flex gap-1.5">
+                  <div class="h-4 bg-gray-200 rounded-full w-20"></div>
+                  <div class="h-4 bg-gray-200 rounded-full w-14"></div>
+                </div>
+                <div class="h-3 bg-gray-200 rounded w-4/5 mt-1"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-[#F0ECE1] flex justify-between">
+              <div class="h-3 bg-gray-200 rounded w-24"></div>
+              <div class="h-3 bg-gray-200 rounded w-16"></div>
+            </div>
+          </div>
+
+          <!-- Skeleton Card 2 -->
+          <div class="bg-white rounded-xl p-3 border border-[#E5E0D8] shadow-sm animate-pulse">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] bg-gray-200 rounded-lg flex-shrink-0"></div>
+              <div class="flex-1 space-y-2 py-0.5">
+                <div class="flex justify-between">
+                  <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                  <div class="h-3 bg-gray-200 rounded w-12"></div>
+                </div>
+                <div class="flex gap-1.5">
+                  <div class="h-4 bg-gray-200 rounded-full w-16"></div>
+                </div>
+                <div class="h-3 bg-gray-200 rounded w-3/4 mt-1"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-[#F0ECE1] flex justify-between">
+              <div class="h-3 bg-gray-200 rounded w-24"></div>
+              <div class="h-3 bg-gray-200 rounded w-16"></div>
+            </div>
+          </div>
+
+          <!-- Skeleton Card 3 -->
+          <div class="bg-white rounded-xl p-3 border border-[#E5E0D8] shadow-sm animate-pulse">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] bg-gray-200 rounded-lg flex-shrink-0"></div>
+              <div class="flex-1 space-y-2 py-0.5">
+                <div class="flex justify-between">
+                  <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+                  <div class="h-3 bg-gray-200 rounded w-12"></div>
+                </div>
+                <div class="flex gap-1.5">
+                  <div class="h-4 bg-gray-200 rounded-full w-20"></div>
+                </div>
+                <div class="h-3 bg-gray-200 rounded w-2/3 mt-1"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-[#F0ECE1] flex justify-between">
+              <div class="h-3 bg-gray-200 rounded w-24"></div>
+              <div class="h-3 bg-gray-200 rounded w-16"></div>
+            </div>
+          </div>
+
+          <div class="flex justify-center pt-2">
+            <div class="w-6 h-6 border-2 border-[#005D28] border-t-transparent rounded-full animate-spin"></div>
+          </div>
+
+        </main>
+
+        <!-- Resident Tab Bar -->
+        <nav class="bg-white border-t border-[#E5E0D8] px-4 py-2 flex justify-between items-center z-10">
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <span class="text-[11px]">Faults</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-7 h-7 rounded-full bg-[#F8F6F1] flex items-center justify-center border border-[#E5E0D8]">
+              <i data-lucide="plus" class="w-4 h-4 text-[#005D28]"></i>
+            </div>
+            <span class="text-[11px]">Report</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#005D28] font-bold touch-target">
+            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+            <span class="text-[11px]">My reports</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-6 h-6 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              TM
+            </div>
+            <span class="text-[11px]">Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FRAME 6: STATE 4 & 5: ERROR & OFFLINE STATES -->
+    <!-- ======================================================== -->
+    <div class="flex flex-col items-center">
+      <div class="mb-3 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FEE4E2] text-[#B42318] text-xs font-bold rounded-full">
+          <span class="w-2 h-2 rounded-full bg-[#B42318]"></span>
+          STATE 4 &amp; 5: ERROR &amp; OFFLINE
+        </span>
+        <p class="text-xs text-[#5C5650] mt-1">Verbatim: "Something went wrong" &amp; cached banner</p>
+      </div>
+
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="h-11 bg-[#531A17] text-white px-6 pt-3 flex justify-between items-center text-xs font-semibold select-none z-20">
+          <span>09:41</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[10px] text-gray-300">Offline</span>
+            <i data-lucide="wifi-off" class="w-3.5 h-3.5"></i>
+            <i data-lucide="battery" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Offline Banner (PRD Section 8.2 verbatim spec: grey offline banner) -->
+        <div class="bg-[#475467] text-white px-4 py-2 text-xs font-medium flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="wifi-off" class="w-3.5 h-3.5 text-[#D8A851]"></i>
+            <span>You're offline. Changes will not be saved.</span>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-[#531A17] text-white px-4 py-3 flex items-center justify-between relative z-10">
+          <div class="flex items-center gap-3">
+            <h1 class="text-[20px] font-bold tracking-tight text-white">My reports</h1>
+          </div>
+          <span class="text-[11px] bg-white/10 text-white px-2 py-0.5 rounded">Cached</span>
+        </header>
+        <div class="header-gold-line"></div>
+
+        <!-- Tabs -->
+        <div class="bg-[#F8F6F1] px-4 pt-3 pb-2 border-b border-[#E5E0D8]">
+          <div class="bg-[#EBE7DF] p-1 rounded-lg flex items-center opacity-85">
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md bg-white text-[#005D28] shadow-sm flex items-center justify-center gap-1.5">
+              <span>Open</span>
+              <span class="bg-[#005D28] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">2</span>
+            </button>
+            <button class="flex-1 py-2 text-center text-sm font-semibold rounded-md text-[#5C5650] flex items-center justify-center gap-1.5">
+              <span>Closed</span>
+              <span class="bg-[#D8D2C6] text-[#5C5650] text-[11px] font-bold px-2 py-0.5 rounded-full">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Split Screen showing both Error State and Cached Offline State -->
+        <main class="flex-1 overflow-y-auto p-4 bg-[#F8F6F1] space-y-3 no-scrollbar flex flex-col">
+          
+          <!-- Offline Notice Card with Last Loaded Faults -->
+          <div class="bg-[#FFF9E6] border border-[#D8A851] rounded-lg p-2.5 text-xs text-[#1C1C1C] flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-[#87451A]"></i>
+              <span>Showing 2 cached reports from device</span>
+            </div>
+            <span class="text-[#5C5650] text-[10px]">12 Nov, 08:30</span>
+          </div>
+
+          <!-- Cached Card 1 -->
+          <div class="bg-white rounded-xl p-3 border border-[#E5E0D8] shadow-sm opacity-90">
+            <div class="flex gap-3">
+              <div class="w-[72px] h-[72px] rounded-lg bg-[#E6F0EA] border border-[#C2DEC9] relative flex-shrink-0 flex items-center justify-center">
+                <i data-lucide="droplet" class="w-7 h-7 text-[#005D28]"></i>
+                <span class="absolute bottom-1 right-1 bg-black/70 text-white text-[10px] font-bold px-1 rounded">1/2</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex justify-between items-start">
+                  <h2 class="font-bold text-[#1C1C1C] text-sm truncate">Burst clean water pipe</h2>
+                  <span class="text-[10px] text-[#5C5650]">12 Nov</span>
+                </div>
+                <div class="flex items-center gap-1.5 mt-1">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#87451A]/10 text-[#87451A]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#87451A]"></span> Scheduled
+                  </span>
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#EF4718] text-[#1C1C1C]">Urgent</span>
+                </div>
+                <p class="text-xs text-[#5C5650] mt-1 truncate">23 Vilakazi Street, Orlando West</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom: Error Component Specification Overlay -->
+          <div class="mt-auto bg-white border border-[#FECDCA] rounded-xl p-4 text-center shadow-sm">
+            <div class="w-10 h-10 rounded-full bg-[#FEE4E2] text-[#B42318] flex items-center justify-center mx-auto mb-2">
+              <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            </div>
+            <!-- Verbatim PRD 8.2 Error Copy -->
+            <h3 class="text-sm font-bold text-[#1C1C1C]">Something went wrong. Try again.</h3>
+            <p class="text-xs text-[#5C5650] mt-1">We couldn't refresh your reports list. Please check your network connection.</p>
+            <button class="mt-3 w-full h-10 bg-[#005D28] text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#00481F] shadow-sm">
+              <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i> Try again
+            </button>
+          </div>
+
+        </main>
+
+        <!-- Resident Tab Bar -->
+        <nav class="bg-white border-t border-[#E5E0D8] px-4 py-2 flex justify-between items-center z-10">
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <span class="text-[11px]">Faults</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-7 h-7 rounded-full bg-[#F8F6F1] flex items-center justify-center border border-[#E5E0D8]">
+              <i data-lucide="plus" class="w-4 h-4 text-[#005D28]"></i>
+            </div>
+            <span class="text-[11px]">Report</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#005D28] font-bold touch-target">
+            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+            <span class="text-[11px]">My reports</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-0.5 text-[#5C5650] touch-target">
+            <div class="w-6 h-6 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">
+              TM
+            </div>
+            <span class="text-[11px]">Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Implementation Notes & PRD Compliance Footer -->
+  <footer class="max-w-[1300px] w-full mt-6 bg-white p-6 rounded-2xl shadow-sm border border-[#E5E0D8] text-xs text-[#5C5650]">
+    <div class="flex items-center gap-2 mb-3">
+      <i data-lucide="check-circle" class="w-4 h-4 text-[#005D28]"></i>
+      <h2 class="text-sm font-bold text-[#1C1C1C]">S7 My Reports Implementation &amp; Specification Compliance Notes</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 leading-relaxed">
+      <div>
+        <h3 class="font-bold text-[#1C1C1C] mb-1.5 uppercase tracking-wide">Layout, Components &amp; Business Rules</h3>
+        <ul class="space-y-1.5 list-disc list-inside">
+          <li><strong>Header:</strong> Heritage Brown (<code class="text-[#531A17] font-semibold">#531A17</code>) with white title "My reports", no back button (root tab level), and 3px Gold (<code class="text-[#87451A] font-semibold">#D8A851</code>) underline.</li>
+          <li><strong>Segmented Tabs:</strong> Clean pill container with "Open" (shows count of active/in-progress faults) and "Closed" (resolved/confirmed faults).</li>
+          <li><strong>Fault Card Structure (PRD 8.3):</strong> Exactly 72 px square thumbnail with photo counter badge, fault type in bold, status chip dot with written label, Urgent chip in <code class="text-[#EF4718] font-bold">#EF4718</code> with dark text, Overdue chip in <code class="text-[#B42318] font-bold">#B42318</code>, street address &amp; ward, reference number, and dynamic upvote pill.</li>
+          <li><strong>Fixed Fault Highlight:</strong> When status is Fixed, the card displays verbatim <strong class="text-[#005D28]">"Please confirm the fix"</strong> in bold, with direct one-tap verification action into S5.</li>
+          <li><strong>Resident Tab Bar:</strong> 4 tabs: Faults, Report, My reports (active in Coat of Arms Green <code class="text-[#005D28] font-semibold">#005D28</code>), and Profile with user initials avatar circle (<code class="text-[#005D28] font-semibold">TM</code> for Thandeka Mokoena). All touch targets &ge;44 &times; 44 px.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-[#1C1C1C] mb-1.5 uppercase tracking-wide">State Coverage &amp; Sample Data</h3>
+        <ul class="space-y-1.5 list-disc list-inside">
+          <li><strong>State 1: Normal (Open Tab):</strong> Populated with Thandeka Mokoena's two open faults from Section 8.4: <code class="font-mono">FMK-2026-00123</code> (Burst clean water pipe, Scheduled, Urgent, 14 upvotes) and <code class="font-mono">FMK-2026-00115</code> (Faulty high-mast light, Assigned, Overdue, 22 upvotes).</li>
+          <li><strong>State 1B: Fixed Verification:</strong> Shows <code class="font-mono">FMK-2026-00109</code> (Blocked manhole in Diepkloof, Ward B) with the required "Please confirm the fix" callout.</li>
+          <li><strong>State 2: Empty (Open Tab):</strong> Populated for Nomsa Sithole (0 reports) with verbatim copy: <em>"You haven't reported any faults yet."</em> and primary button <em>"Report a fault"</em> (&rarr; S6).</li>
+          <li><strong>State 2B: Empty (Closed Tab):</strong> Verbatim copy: <em>"No closed faults yet."</em></li>
+          <li><strong>State 3: Loading:</strong> Features exactly 3 grey placeholder cards with pulsing 72px thumbnail silhouettes.</li>
+          <li><strong>State 4: Error:</strong> Displays verbatim message: <em>"Something went wrong. Try again."</em> with a <em>"Try again"</em> primary button.</li>
+          <li><strong>State 5: Offline:</strong> Displays shared top grey banner <em>"You're offline. Changes will not be saved."</em> with cached faults readable.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Missing Items / TODOs Check -->
+    <div class="mt-4 pt-4 border-t border-[#E5E0D8]">
+      <div class="text-[11px] font-bold text-[#1C1C1C] uppercase tracking-wide">Missing Items &amp; TODOs:</div>
+      <p class="text-xs text-[#5C5650] mt-0.5">
+        All required elements, fields, labels, placeholders, errors, and seed data states were fully and unambiguously specified in PRD Section 8.2, 8.3, 8.4, and 9.1. No missing elements or placeholder TODO boxes were required.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

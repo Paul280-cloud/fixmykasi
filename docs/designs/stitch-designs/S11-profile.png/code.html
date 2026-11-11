@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S11 Profile and Settings - FixMyKasi (Phone 390x844)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Design Tokens strictly following FixMyKasi Style Guide */
+    :root {
+      --color-primary-green: #005D28;
+      --color-heritage-brown: #531A17;
+      --color-gold: #D8A851;
+      --color-urgent-orange: #EF4718;
+      --color-bg-page: #FFFFFF;
+      --color-bg-section: #F8F6F1;
+      --color-text-main: #1C1C1C;
+      --color-text-secondary: #5C5650;
+      --color-error: #B42318;
+      --color-success: #1E7B34;
+      --color-warning: #87451A;
+      --color-border: #E5E0D8;
+      --color-border-focus: #005D28;
+      --color-input-bg: #FFFFFF;
+      --radius-card: 12px;
+      --radius-input: 8px;
+      --radius-button: 8px;
+      --radius-chip: 9999px;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow-card: 0 2px 8px rgba(28, 28, 28, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: #EDE8DF;
+      color: var(--color-text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px 20px;
+    }
+
+    /* Overall Showcase Header */
+    .showcase-header {
+      width: 100%;
+      max-width: 1280px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-left: 6px solid var(--color-primary-green);
+    }
+
+    .showcase-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-heritage-brown);
+      margin-bottom: 6px;
+    }
+
+    .showcase-header p {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .showcase-badges {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .spec-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-chip);
+      font-size: 12px;
+      font-weight: 600;
+      background: #E8F5E9;
+      color: var(--color-primary-green);
+    }
+
+    .spec-badge.role {
+      background: #FFF9E6;
+      color: var(--color-heritage-brown);
+      border: 1px solid var(--color-gold);
+    }
+
+    /* Multi-frame responsive presentation grid */
+    .frames-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      width: 100%;
+      max-width: 1400px;
+      margin-bottom: 40px;
+    }
+
+    .frame-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .frame-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-heritage-brown);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .frame-label .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--color-primary-green);
+    }
+
+    .frame-label.error .badge-dot {
+      background-color: var(--color-error);
+    }
+
+    .frame-label.loading .badge-dot {
+      background-color: var(--color-gold);
+    }
+
+    /* Standard Phone Shell 390px x 844px */
+    .phone-screen {
+      width: 390px;
+      height: 844px;
+      background-color: var(--color-bg-page);
+      border-radius: 36px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15), 0 0 0 8px #2A2A2A;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Phone Status Bar */
+    .status-bar {
+      height: 44px;
+      background-color: var(--color-heritage-brown);
+      color: #FFFFFF;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Offline Toast Banner */
+    .offline-banner {
+      background-color: #2F3337;
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    .offline-banner svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: var(--color-gold);
+      stroke-width: 2;
+    }
+
+    /* Fixed App Header */
+    .app-header {
+      background-color: var(--color-heritage-brown);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      position: relative;
+      flex-shrink: 0;
+      border-bottom: 3px solid var(--color-gold);
+      z-index: 10;
+    }
+
+    .header-back-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      cursor: pointer;
+      margin-left: -8px;
+    }
+
+    .header-back-btn svg {
+      width: 24px;
+      height: 24px;
+      stroke: #FFFFFF;
+      stroke-width: 2.2;
+      fill: none;
+    }
+
+    .header-title {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      margin-left: 4px;
+      flex-grow: 1;
+    }
+
+    .header-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      padding: 3px 8px;
+      border-radius: var(--radius-chip);
+    }
+
+    /* Success Toast Notification */
+    .toast-success {
+      position: absolute;
+      top: 108px;
+      left: 16px;
+      right: 16px;
+      background-color: #1A3826;
+      border: 1px solid var(--color-primary-green);
+      color: #FFFFFF;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      z-index: 30;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .toast-success svg {
+      width: 22px;
+      height: 22px;
+      stroke: #4ADE80;
+      stroke-width: 2.5;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .toast-text {
+      font-size: 14px;
+      font-weight: 600;
+      flex-grow: 1;
+    }
+
+    /* Screen Content Scrollable Area */
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background-color: var(--color-bg-page);
+    }
+
+    /* Scrollbar styling */
+    .screen-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .screen-content::-webkit-scrollbar-thumb {
+      background: #D8D2C7;
+      border-radius: 4px;
+    }
+
+    /* 2. User Profile Summary Header Card */
+    .profile-card {
+      background-color: var(--color-bg-section);
+      border-radius: var(--radius-card);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .profile-avatar-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: var(--color-primary-green);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0, 93, 40, 0.2);
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-heritage-brown);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .profile-email-readonly {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .profile-role-badge {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 2px 8px;
+      background-color: #E8F5E9;
+      color: var(--color-primary-green);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-chip);
+    }
+
+    /* Form Fields Section */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    .field-label .required-star {
+      color: var(--color-error);
+      margin-left: 2px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      height: 48px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-input);
+      padding: 0 14px;
+      font-size: 15px;
+      font-family: var(--font-family);
+      color: var(--color-text-main);
+      background-color: var(--color-input-bg);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--color-border-focus);
+      box-shadow: 0 0 0 3px rgba(0, 93, 40, 0.12);
+    }
+
+    .form-input.is-error, .form-select.is-error {
+      border-color: var(--color-error);
+      background-color: #FEF3F2;
+    }
+
+    .form-input.is-error:focus {
+      box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.15);
+    }
+
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235C5650' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    .field-error-msg {
+      font-size: 13px;
+      color: var(--color-error);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .field-error-msg svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--color-error);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* General Form Error Banner */
+    .form-alert-error {
+      background-color: #FEF3F2;
+      border: 1px solid #FECDCA;
+      color: var(--color-error);
+      border-radius: var(--radius-input);
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-alert-error svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--color-error);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* Actions Section */
+    .actions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      height: 48px;
+      background-color: var(--color-primary-green);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-button);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-primary:active {
+      background-color: #00461E;
+    }
+
+    .btn-primary:disabled {
+      background-color: #D0D5DD;
+      color: #667085;
+      cursor: not-allowed;
+      border: none;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      height: 48px;
+      background-color: transparent;
+      color: var(--color-text-main);
+      font-size: 16px;
+      font-weight: 600;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-button);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-secondary:active {
+      background-color: var(--color-bg-section);
+      border-color: #B8B0A2;
+    }
+
+    .btn-danger {
+      width: 100%;
+      height: 48px;
+      background-color: #FFFFFF;
+      color: var(--color-error);
+      font-size: 16px;
+      font-weight: 600;
+      border: 1.5px solid #FECDCA;
+      border-radius: var(--radius-button);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .btn-danger:active {
+      background-color: #FEE4E2;
+    }
+
+    .privacy-link-wrapper {
+      text-align: center;
+      padding: 4px 0;
+    }
+
+    .privacy-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-primary-green);
+      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: 0 12px;
+      cursor: pointer;
+    }
+
+    /* Skeleton Loading Utilities */
+    .skeleton-pulse {
+      background: linear-gradient(90deg, #ECE8DF 25%, #F5F2EA 50%, #ECE8DF 75%);
+      background-size: 200% 100%;
+      animation: skeletonPulse 1.5s infinite;
+      border-radius: 4px;
+    }
+
+    @keyframes skeletonPulse {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+
+    .skeleton-line {
+      height: 16px;
+      border-radius: 4px;
+    }
+
+    .skeleton-input {
+      height: 48px;
+      border-radius: var(--radius-input);
+      width: 100%;
+    }
+
+    /* Spinner Animation */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Role-based Bottom Tab Bar (Resident 4 Tabs) */
+    .tab-bar {
+      height: 64px;
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 4px;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      width: 64px;
+      height: 48px;
+      text-decoration: none;
+      color: var(--color-text-secondary);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .tab-item svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--color-text-secondary);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .tab-item.active {
+      color: var(--color-primary-green);
+      font-weight: 600;
+    }
+
+    .tab-item.active svg {
+      stroke: var(--color-primary-green);
+    }
+
+    .tab-avatar-pill {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--color-primary-green);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tab-item.active .tab-avatar-pill {
+      outline: 2px solid var(--color-primary-green);
+      outline-offset: 2px;
+    }
+
+    /* Staff Role Demo Sub-Card (Optional visual proof of role adaptation) */
+    .role-adaptation-note {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      background: #F8F6F1;
+      border: 1px dashed var(--color-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Compliance & Verification Footer Note */
+    .spec-notes {
+      width: 100%;
+      max-width: 1280px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px 32px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-top: 24px;
+    }
+
+    .spec-notes h3 {
+      font-size: 18px;
+      color: var(--color-heritage-brown);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .spec-item strong {
+      color: var(--color-text-main);
+    }
+
+    .spec-item ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Specification Header -->
+  <header class="showcase-header">
+    <div style="font-size: 12px; font-weight: 700; color: var(--color-primary-green); text-transform: uppercase; margin-bottom: 4px;">
+      FixMyKasi Design System • PRD 8.2, 8.3 & BR18 Specification
+    </div>
+    <h1>S11 Profile and Settings — Mobile Phone (390 × 844 px)</h1>
+    <p>Comprehensive high-fidelity presentation covering Resident and Staff profiles, real South African sample content (Thandeka Mokoena), official 4-language support (BR18), editable fields, privacy/account controls, and complete UI state variants.</p>
+    <div class="showcase-badges">
+      <span class="spec-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        WCAG AA Compliant (≥44px touch targets)
+      </span>
+      <span class="spec-badge role">
+        Role: Resident (Thandeka Mokoena) & Staff Compatible
+      </span>
+      <span class="spec-badge">
+        Languages: English, Afrikaans, isiZulu, Sepedi (BR18)
+      </span>
+    </div>
+  </header>
+
+  <!-- Multi-Frame State Presentation Container -->
+  <main class="frames-container">
+
+    <!-- ==========================================
+         FRAME 1: NORMAL STATE (Filled Form)
+         ========================================== -->
+    <div class="frame-wrapper">
+      <div class="frame-label">
+        <span class="badge-dot"></span>
+        State 1: Normal (Filled Form)
+      </div>
+      <div class="phone-screen" id="screen-normal">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>09:41</span>
+          <div class="status-icons">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+          </div>
+        </div>
+
+        <!-- 1. Header: title "Profile" -->
+        <header class="app-header">
+          <button class="header-back-btn" aria-label="Go back">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+          <h2 class="header-title">Profile</h2>
+          <span class="header-badge">Ward Resident</span>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="screen-content">
+          <!-- 2. Initials circle (64 px), full name, email (not editable), role label -->
+          <section class="profile-card">
+            <div class="profile-avatar-circle" aria-hidden="true">TM</div>
+            <div class="profile-info">
+              <div class="profile-name">Thandeka Mokoena</div>
+              <div class="profile-email-readonly" title="Email address cannot be changed">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                thandeka.m@example.com
+              </div>
+              <span class="profile-role-badge">Resident</span>
+            </div>
+          </section>
+
+          <!-- 3. Form fields in exact order -->
+          <form class="profile-form" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 16px;">
+            <!-- Field 1: Full name -->
+            <div class="form-group">
+              <label class="field-label" for="normal-fullname">
+                Full name <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="normal-fullname" class="form-input" value="Thandeka Mokoena" placeholder="Your full name">
+              </div>
+            </div>
+
+            <!-- Field 2: Phone number -->
+            <div class="form-group">
+              <label class="field-label" for="normal-phone">
+                Phone number
+              </label>
+              <div class="input-wrapper">
+                <input type="tel" id="normal-phone" class="form-input" value="+27 82 555 0134" placeholder="+27 82 123 4567">
+              </div>
+            </div>
+
+            <!-- Field 3: Home ward (Residents only) -->
+            <div class="form-group">
+              <label class="field-label" for="normal-ward">
+                Home ward <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <select id="normal-ward" class="form-select">
+                  <option value="Ward A" selected>Ward A: Orlando West</option>
+                  <option value="Ward B">Ward B: Diepkloof</option>
+                  <option value="Ward C">Ward C: Braamfontein</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Field 4: Language (English, Afrikaans, isiZulu, Sepedi) -->
+            <div class="form-group">
+              <label class="field-label" for="normal-language">
+                Language <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <select id="normal-language" class="form-select">
+                  <option value="isiZulu" selected>isiZulu</option>
+                  <option value="English">English</option>
+                  <option value="Afrikaans">Afrikaans</option>
+                  <option value="Sepedi">Sepedi</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Actions Stack -->
+            <div class="actions-stack">
+              <!-- Primary button "Save changes" -->
+              <button type="submit" class="btn-primary">
+                Save changes
+              </button>
+
+              <!-- 4. Link "Privacy Notice" -->
+              <div class="privacy-link-wrapper">
+                <a href="#m7" class="privacy-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  Privacy Notice
+                </a>
+              </div>
+
+              <!-- 5. Secondary button "Log out" -->
+              <button type="button" class="btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Log out
+              </button>
+
+              <!-- 6. Danger button "Delete account" (Residents only) -->
+              <button type="button" class="btn-danger">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Delete account
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 7. Tab bar, Profile active (Resident 4 tabs) -->
+        <nav class="tab-bar">
+          <a class="tab-item" href="#faults">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Faults</span>
+          </a>
+          <a class="tab-item" href="#report">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            <span>Report</span>
+          </a>
+          <a class="tab-item" href="#myreports">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>My reports</span>
+          </a>
+          <a class="tab-item active" href="#profile">
+            <div class="tab-avatar-pill">TM</div>
+            <span>Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 2: SUCCESS STATE (Toast "Profile saved")
+         ========================================== -->
+    <div class="frame-wrapper">
+      <div class="frame-label">
+        <span class="badge-dot" style="background-color: var(--color-success);"></span>
+        State 2: Success (Toast Notification)
+      </div>
+      <div class="phone-screen" id="screen-success">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>09:41</span>
+          <div class="status-icons">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="app-header">
+          <button class="header-back-btn" aria-label="Go back">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+          <h2 class="header-title">Profile</h2>
+          <span class="header-badge">Ward Resident</span>
+        </header>
+
+        <!-- Toast: "Profile saved" -->
+        <div class="toast-success" role="alert">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span class="toast-text">Profile saved</span>
+          <button style="background:none; border:none; color:#FFFFFF; cursor:pointer;" aria-label="Dismiss">
+            <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="screen-content">
+          <section class="profile-card">
+            <div class="profile-avatar-circle">TM</div>
+            <div class="profile-info">
+              <div class="profile-name">Thandeka Mokoena</div>
+              <div class="profile-email-readonly">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                thandeka.m@example.com
+              </div>
+              <span class="profile-role-badge">Resident</span>
+            </div>
+          </section>
+
+          <form class="profile-form" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="form-group">
+              <label class="field-label" for="success-fullname">Full name <span class="required-star">*</span></label>
+              <input type="text" id="success-fullname" class="form-input" value="Thandeka Mokoena">
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="success-phone">Phone number</label>
+              <input type="tel" id="success-phone" class="form-input" value="+27 82 555 0134">
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="success-ward">Home ward <span class="required-star">*</span></label>
+              <select id="success-ward" class="form-select">
+                <option value="Ward A" selected>Ward A: Orlando West</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="success-language">Language <span class="required-star">*</span></label>
+              <select id="success-language" class="form-select">
+                <option value="isiZulu" selected>isiZulu</option>
+                <option value="English">English</option>
+              </select>
+            </div>
+
+            <div class="actions-stack">
+              <button type="submit" class="btn-primary">
+                Save changes
+              </button>
+
+              <div class="privacy-link-wrapper">
+                <a href="#m7" class="privacy-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  Privacy Notice
+                </a>
+              </div>
+
+              <button type="button" class="btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Log out
+              </button>
+
+              <button type="button" class="btn-danger">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Delete account
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab bar -->
+        <nav class="tab-bar">
+          <a class="tab-item" href="#faults"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span>Faults</span></a>
+          <a class="tab-item" href="#report"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg><span>Report</span></a>
+          <a class="tab-item" href="#myreports"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span>My reports</span></a>
+          <a class="tab-item active" href="#profile"><div class="tab-avatar-pill">TM</div><span>Profile</span></a>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 3: LOADING STATE
+         (Grey lines while loading + spinner saving)
+         ========================================== -->
+    <div class="frame-wrapper">
+      <div class="frame-label loading">
+        <span class="badge-dot"></span>
+        State 3: Loading (Grey Lines & Spinner)
+      </div>
+      <div class="phone-screen" id="screen-loading">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>09:41</span>
+          <div class="status-icons">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="app-header">
+          <button class="header-back-btn" aria-label="Go back">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+          <h2 class="header-title">Profile</h2>
+        </header>
+
+        <!-- Scrollable Content: Skeletons & Spinner Saving -->
+        <div class="screen-content">
+          <!-- Skeleton Profile Card -->
+          <section class="profile-card">
+            <div class="skeleton-pulse skeleton-avatar"></div>
+            <div class="profile-info" style="flex: 1; gap: 8px;">
+              <div class="skeleton-pulse skeleton-line" style="width: 65%;"></div>
+              <div class="skeleton-pulse skeleton-line" style="width: 80%;"></div>
+              <div class="skeleton-pulse skeleton-line" style="width: 30%;"></div>
+            </div>
+          </section>
+
+          <!-- Skeleton Form Fields with real saving spinner CTA -->
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="form-group">
+              <div class="skeleton-pulse skeleton-line" style="width: 30%; height: 14px;"></div>
+              <div class="skeleton-pulse skeleton-input"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="skeleton-pulse skeleton-line" style="width: 40%; height: 14px;"></div>
+              <div class="skeleton-pulse skeleton-input"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="skeleton-pulse skeleton-line" style="width: 35%; height: 14px;"></div>
+              <div class="skeleton-pulse skeleton-input"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="skeleton-pulse skeleton-line" style="width: 30%; height: 14px;"></div>
+              <div class="skeleton-pulse skeleton-input"></div>
+            </div>
+
+            <div class="actions-stack">
+              <!-- "Save changes" shows a spinner while saving -->
+              <button class="btn-primary" disabled style="background-color: var(--color-primary-green); opacity: 0.9;">
+                <span class="spinner" aria-hidden="true"></span>
+                <span>Saving changes…</span>
+              </button>
+
+              <div class="privacy-link-wrapper">
+                <div class="skeleton-pulse skeleton-line" style="width: 110px; margin: 10px auto;"></div>
+              </div>
+
+              <div class="skeleton-pulse skeleton-input"></div>
+              <div class="skeleton-pulse skeleton-input" style="height: 48px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab bar -->
+        <nav class="tab-bar">
+          <a class="tab-item" href="#faults"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span>Faults</span></a>
+          <a class="tab-item" href="#report"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg><span>Report</span></a>
+          <a class="tab-item" href="#myreports"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span>My reports</span></a>
+          <a class="tab-item active" href="#profile"><div class="tab-avatar-pill">TM</div><span>Profile</span></a>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 4: ERROR STATE
+         ("Something went wrong. Try again." + field error & kept changes)
+         ========================================== -->
+    <div class="frame-wrapper">
+      <div class="frame-label error">
+        <span class="badge-dot"></span>
+        State 4: Error State (Changes Kept)
+      </div>
+      <div class="phone-screen" id="screen-error">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>09:41</span>
+          <div class="status-icons">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="app-header">
+          <button class="header-back-btn" aria-label="Go back">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+          <h2 class="header-title">Profile</h2>
+          <span class="header-badge">Ward Resident</span>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="screen-content">
+          <!-- Verbatim Error Notice: "Something went wrong. Try again." -->
+          <div class="form-alert-error" role="alert">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <div>
+              <strong>Something went wrong. Try again.</strong>
+              <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: 2px;">Your recent updates were preserved in the form.</div>
+            </div>
+          </div>
+
+          <section class="profile-card">
+            <div class="profile-avatar-circle">TM</div>
+            <div class="profile-info">
+              <div class="profile-name">Thandeka Mokoena</div>
+              <div class="profile-email-readonly">thandeka.m@example.com</div>
+              <span class="profile-role-badge">Resident</span>
+            </div>
+          </section>
+
+          <!-- Form keeping user's attempted edits + showing validation -->
+          <form class="profile-form" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="form-group">
+              <label class="field-label" for="error-fullname">Full name <span class="required-star">*</span></label>
+              <input type="text" id="error-fullname" class="form-input" value="Thandeka Mokoena">
+            </div>
+
+            <!-- Demonstrating PRD Phone Error Rule: "Enter a South African number, like +27 82 123 4567." -->
+            <div class="form-group">
+              <label class="field-label" for="error-phone">Phone number</label>
+              <input type="tel" id="error-phone" class="form-input is-error" value="082555">
+              <div class="field-error-msg">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Enter a South African number, like +27 82 123 4567.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="error-ward">Home ward <span class="required-star">*</span></label>
+              <select id="error-ward" class="form-select">
+                <option value="Ward A" selected>Ward A: Orlando West</option>
+                <option value="Ward B">Ward B: Diepkloof</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="error-language">Language <span class="required-star">*</span></label>
+              <select id="error-language" class="form-select">
+                <option value="isiZulu" selected>isiZulu</option>
+                <option value="English">English</option>
+              </select>
+            </div>
+
+            <div class="actions-stack">
+              <button type="submit" class="btn-primary">
+                Save changes
+              </button>
+
+              <div class="privacy-link-wrapper">
+                <a href="#m7" class="privacy-link">Privacy Notice</a>
+              </div>
+
+              <button type="button" class="btn-secondary">Log out</button>
+              <button type="button" class="btn-danger">Delete account</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab bar -->
+        <nav class="tab-bar">
+          <a class="tab-item" href="#faults"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span>Faults</span></a>
+          <a class="tab-item" href="#report"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg><span>Report</span></a>
+          <a class="tab-item" href="#myreports"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span>My reports</span></a>
+          <a class="tab-item active" href="#profile"><div class="tab-avatar-pill">TM</div><span>Profile</span></a>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 5: OFFLINE STATE
+         (Top offline banner, Save changes disabled)
+         ========================================== -->
+    <div class="frame-wrapper">
+      <div class="frame-label">
+        <span class="badge-dot" style="background-color: var(--color-warning);"></span>
+        State 5: Offline State
+      </div>
+      <div class="phone-screen" id="screen-offline">
+        <!-- Top Grey Offline Banner (Shared FixMyKasi Component) -->
+        <div class="offline-banner">
+          <svg viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+          <span style="flex-grow: 1;">You're offline. Changes will not be saved.</span>
+          <span style="background: rgba(255,255,255,0.15); padding: 2px 6px; border-radius: 4px; font-size: 10px;">OFFLINE</span>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" style="height: 38px;">
+          <span>09:41</span>
+          <div class="status-icons">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="app-header">
+          <button class="header-back-btn" aria-label="Go back">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+          <h2 class="header-title">Profile</h2>
+          <span class="header-badge">Ward Resident</span>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="screen-content">
+          <section class="profile-card">
+            <div class="profile-avatar-circle">TM</div>
+            <div class="profile-info">
+              <div class="profile-name">Thandeka Mokoena</div>
+              <div class="profile-email-readonly">thandeka.m@example.com</div>
+              <span class="profile-role-badge">Resident</span>
+            </div>
+          </section>
+
+          <form class="profile-form" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="form-group">
+              <label class="field-label" for="offline-fullname">Full name <span class="required-star">*</span></label>
+              <input type="text" id="offline-fullname" class="form-input" value="Thandeka Mokoena">
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="offline-phone">Phone number</label>
+              <input type="tel" id="offline-phone" class="form-input" value="+27 82 555 0134">
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="offline-ward">Home ward <span class="required-star">*</span></label>
+              <select id="offline-ward" class="form-select">
+                <option value="Ward A" selected>Ward A: Orlando West</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="offline-language">Language <span class="required-star">*</span></label>
+              <select id="offline-language" class="form-select">
+                <option value="isiZulu" selected>isiZulu</option>
+              </select>
+            </div>
+
+            <div class="actions-stack">
+              <!-- "Save changes" disabled in offline state -->
+              <button type="button" class="btn-primary" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Save changes (Offline)
+              </button>
+
+              <div class="privacy-link-wrapper">
+                <a href="#m7" class="privacy-link">Privacy Notice</a>
+              </div>
+
+              <button type="button" class="btn-secondary">Log out</button>
+              <button type="button" class="btn-danger" disabled style="opacity: 0.6; cursor: not-allowed;">Delete account</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab bar -->
+        <nav class="tab-bar">
+          <a class="tab-item" href="#faults"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span>Faults</span></a>
+          <a class="tab-item" href="#report"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg><span>Report</span></a>
+          <a class="tab-item" href="#myreports"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span>My reports</span></a>
+          <a class="tab-item active" href="#profile"><div class="tab-avatar-pill">TM</div><span>Profile</span></a>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 6: STAFF ROLE COMPARISON (Ward Admin & Field Team)
+         (Shows no "Home ward" & no "Delete account" per PRD rule)
+         ========================================== -->
+    <div class="frame-wrapper">
+      <div class="frame-label">
+        <span class="badge-dot" style="background-color: var(--color-heritage-brown);"></span>
+        Staff View: Ward Admin / Field Team Adaptation
+      </div>
+      <div class="phone-screen" id="screen-staff">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>09:41</span>
+          <div class="status-icons">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="18" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <header class="app-header">
+          <button class="header-back-btn" aria-label="Go back">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+          <h2 class="header-title">Profile</h2>
+          <span class="header-badge" style="background: var(--color-gold); color: #1C1C1C;">Ward Admin</span>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="screen-content">
+          <!-- Zanele Khumalo (Ward Admin seed user) -->
+          <section class="profile-card">
+            <div class="profile-avatar-circle" style="background-color: var(--color-heritage-brown);">ZK</div>
+            <div class="profile-info">
+              <div class="profile-name">Zanele Khumalo</div>
+              <div class="profile-email-readonly">zanele.k@example.com</div>
+              <span class="profile-role-badge" style="background: #FFF3E0; color: #87451A;">Ward Admin (Staff)</span>
+            </div>
+          </section>
+
+          <form class="profile-form" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="form-group">
+              <label class="field-label" for="staff-fullname">Full name <span class="required-star">*</span></label>
+              <input type="text" id="staff-fullname" class="form-input" value="Zanele Khumalo">
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="staff-phone">Phone number</label>
+              <input type="tel" id="staff-phone" class="form-input" value="+27 82 555 0199">
+            </div>
+
+            <!-- Home ward field is omitted for staff per PRD Section 8.2 ("Residents only") -->
+            <div class="role-adaptation-note">
+              <strong>Staff Role Notice:</strong> Home Ward is locked to municipal administrative assignment (Ward A: Orlando West) and not self-editable.
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="staff-language">Language <span class="required-star">*</span></label>
+              <select id="staff-language" class="form-select">
+                <option value="English" selected>English</option>
+                <option value="isiZulu">isiZulu</option>
+                <option value="Afrikaans">Afrikaans</option>
+                <option value="Sepedi">Sepedi</option>
+              </select>
+            </div>
+
+            <div class="actions-stack">
+              <button type="submit" class="btn-primary">
+                Save changes
+              </button>
+
+              <div class="privacy-link-wrapper">
+                <a href="#m7" class="privacy-link">Privacy Notice</a>
+              </div>
+
+              <button type="button" class="btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Log out
+              </button>
+
+              <!-- Per PRD Section 8.2: Staff accounts are removed by the admin, so "Delete account" button is hidden -->
+              <div class="role-adaptation-note" style="text-align: center; font-size: 11px;">
+                Staff accounts are managed & removed by municipal system administration.
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab bar (Ward Admin Role: Queue, Dashboard, Faults, Profile) -->
+        <nav class="tab-bar">
+          <a class="tab-item" href="#queue"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span>Queue</span></a>
+          <a class="tab-item" href="#dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg><span>Dashboard</span></a>
+          <a class="tab-item" href="#faults"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span>Faults</span></a>
+          <a class="tab-item active" href="#profile"><div class="tab-avatar-pill">ZK</div><span>Profile</span></a>
+        </nav>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- S11 Profile & Settings Specification Notes & Compliance -->
+  <section class="spec-notes">
+    <h3>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      S11 Profile and Settings Specification & Compliance Notes
+    </h3>
+    <div class="spec-grid">
+      <div class="spec-item">
+        <strong>Ordered Layout & Chrome Enforcement (PRD 8.2 & 8.3)</strong>
+        <ul>
+          <li><strong>Header:</strong> Heritage Brown (<code>#531A17</code>) top bar with white back arrow (≥44px touch target), white title <em>"Profile"</em>, and 3px Gold (<code>#D8A851</code>) underline.</li>
+          <li><strong>Profile Summary Card:</strong> 64px circular initials badge (<code>TM</code> for Thandeka Mokoena), full name, read-only email (<code>thandeka.m@example.com</code> with lock icon), and role label (<em>"Resident"</em>).</li>
+          <li><strong>Form Fields (Table Order):</strong>
+            1. Full name (required, 2-60 chars, error: <em>"Enter your full name."</em>)<br>
+            2. Phone number (optional, +27 format, error: <em>"Enter a South African number, like +27 82 123 4567."</em>)<br>
+            3. Home ward (required for residents, error: <em>"Choose your ward."</em>)<br>
+            4. Language dropdown (required, BR18: English, Afrikaans, isiZulu, Sepedi).
+          </li>
+          <li><strong>Action Stack Order:</strong> Primary <em>"Save changes"</em> button → Link <em>"Privacy Notice"</em> (→ M7) → Secondary button <em>"Log out"</em> (→ S1) → Danger button <em>"Delete account"</em> (Residents only → M5).</li>
+          <li><strong>Role-Based Tab Bar:</strong> Profile active with green badge / initials avatar. Resident 4-tab bar (Faults, Report, My reports, Profile) and Ward Admin 4-tab bar (Queue, Dashboard, Faults, Profile) fully demonstrated.</li>
+        </ul>
+      </div>
+
+      <div class="spec-item">
+        <strong>State Coverage & Business Rules Verification</strong>
+        <ul>
+          <li><strong>State 1 (Normal):</strong> Pre-filled with Thandeka Mokoena's verified seed profile (Ward A: Orlando West, isiZulu).</li>
+          <li><strong>State 2 (Success):</strong> Displays the verbatim toast notification: <em>"Profile saved"</em>.</li>
+          <li><strong>State 3 (Loading):</strong> Grey pulsing placeholder lines while profile loads + <em>"Save changes"</em> button displaying animated spinner with <em>"Saving changes…"</em>.</li>
+          <li><strong>State 4 (Error):</strong> Verbatim message <em>"Something went wrong. Try again."</em> + exact phone validation error, preserving all user edits in the form.</li>
+          <li><strong>State 5 (Offline):</strong> Top charcoal grey banner <em>"You're offline. Changes will not be saved."</em> + disabled <em>"Save changes"</em> button.</li>
+          <li><strong>Role Differences Handled:</strong> <em>"Home ward"</em> and <em>"Delete account"</em> are restricted to Residents. Staff view (Zanele Khumalo) demonstrates omitted/locked ward and system-managed staff deletion note.</li>
+          <li><strong>Empty State:</strong> Explicitly marked as <em>not needed</em> per PRD Section 8.2.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--color-border); font-size: 13px; color: var(--color-primary-green); font-weight: 600;">
+      ✔ MISSING ITEMS &amp; TODOS: All required elements, order, labels, states, and seed data were fully provided in PRD Section 8.2, 8.3, 8.4, and BR18. No TODO placeholder boxes were required.
+    </div>
+  </section>
+
+</body>
+</html>

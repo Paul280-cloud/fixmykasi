@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>S9 Ward Dashboard - FixMyKasi (Phone 390x844)</title>
+<!-- Tailwind CSS v3 with forms & container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#005D28',
+              'green-dark': '#00471F',
+              'green-light': '#E8F5E9',
+              brown: '#531A17',
+              'brown-dark': '#3D1311',
+              gold: '#D8A851',
+              'gold-light': '#FCF6EC',
+              cream: '#F8F6F1',
+              charcoal: '#1C1C1C',
+              error: '#B42318',
+              'error-light': '#FEE4E2',
+              warning: '#EF4718',
+              'warning-light': '#FEF0C7',
+              muted: '#667085',
+              border: '#E4E7EC'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          boxShadow: {
+            'phone': '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 12px #262626, 0 0 0 14px #404040',
+            'card': '0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04)',
+            'card-hover': '0 4px 6px -2px rgba(16, 24, 40, 0.05), 0 12px 16px -4px rgba(16, 24, 40, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#F4F1EA] text-brand-charcoal antialiased min-h-screen py-10 px-4 sm:px-8">
+<!-- BEGIN: ShowcaseCanvasContainer -->
+<div class="max-w-[2140px] mx-auto">
+<!-- BEGIN: TitleHeaderAndBadges -->
+<header class="mb-10 bg-white p-8 rounded-2xl shadow-sm border border-[#E8E4D9]">
+<div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF5EE] text-brand-green font-semibold text-xs tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+          FixMyKasi Design System • PRD 8.2, 8.3 &amp; BR15 Specification
+        </div>
+<div class="flex items-center gap-2.5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F5E9] text-brand-green border border-[#C8E6C9] text-xs font-semibold">
+<svg class="w-3.5 h-3.5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            WCAG AA Compliant
+          </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold-light text-[#7A5413] border border-brand-gold/40 text-xs font-semibold">
+<svg class="w-3.5 h-3.5 text-[#7A5413]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            Role: Ward Admin (Zanele Khumalo)
+          </span>
+</div>
+</div>
+<h1 class="text-3xl font-extrabold text-[#111827] tracking-tight mb-2">
+        S9 Ward Dashboard — Mobile Phone (390 × 844 px)
+      </h1>
+<p class="text-base text-brand-muted max-w-4xl leading-relaxed">
+        High-fidelity phone interface for municipal Ward Admin overview. Features 3 core stat cards (Open, Overdue, Average fix time), Category bar chart breakdown, secondary shortcut to overdue faults, and complete state variants.
+      </p>
+</header>
+<!-- END: TitleHeaderAndBadges -->
+<!-- BEGIN: PhoneStatesRow -->
+<main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-8 justify-items-center mb-12">
+<!-- ========================================================================= -->
+<!-- STATE 1: NORMAL STATE -->
+<!-- ========================================================================= -->
+<!-- BEGIN: State1Normal -->
+<section class="flex flex-col items-center" data-purpose="phone-state-normal">
+<!-- State Title & Subtitle Badge -->
+<div class="mb-4 text-center">
+<div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-green mb-1">
+<span class="w-2 h-2 rounded-full bg-brand-green"></span>
+            STATE 1: NORMAL STATE
+          </div>
+<p class="text-xs text-brand-muted font-medium">Standard Ward A telemetry with active open &amp; overdue</p>
+</div>
+<!-- Phone Mockup Container (390x844) -->
+<div class="w-[390px] h-[844px] bg-brand-cream rounded-[46px] shadow-phone flex flex-col overflow-hidden relative border-[4px] border-[#222]">
+<!-- BEGIN: DeviceStatusBar -->
+<header class="w-full bg-brand-brown text-white pt-3 px-6 pb-2 flex items-center justify-between text-xs select-none">
+<span class="font-semibold tracking-tight">09:41</span>
+<div class="flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 13c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"></path></svg>
+<div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</header>
+<!-- END: DeviceStatusBar -->
+<!-- BEGIN: AppHeader -->
+<div class="bg-brand-brown px-5 pt-1 pb-4 text-white border-b-[3px] border-brand-gold shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-medium tracking-wide uppercase text-brand-gold">Ward Overview</span>
+<h2 class="text-xl font-bold tracking-tight text-white leading-tight">Ward Dashboard</h2>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/20 backdrop-blur-sm">
+                Ward A: Orlando West
+              </span>
+</div>
+</div>
+<!-- END: AppHeader -->
+<!-- BEGIN: ScrollableContent -->
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+<!-- Three Stat Cards (PRD 8.3) -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Open Faults Card -->
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-brand-muted">Open faults</span>
+<span class="w-2 h-2 rounded-full bg-brand-green"></span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-2xl font-extrabold text-brand-charcoal">4</span>
+<span class="text-[11px] text-brand-green font-medium">Active queue</span>
+</div>
+</div>
+<!-- Overdue Faults Card -->
+<div class="bg-white p-3.5 rounded-xl border border-[#FECDCA] shadow-card bg-gradient-to-br from-white to-[#FEF3F2] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-brand-error">Overdue faults</span>
+<svg class="w-4 h-4 text-brand-error animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+</div>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="text-2xl font-extrabold text-brand-error">1</span>
+<span class="text-[11px] font-bold text-brand-error bg-[#FEE4E2] px-1.5 py-0.5 rounded">Action required</span>
+</div>
+</div>
+<!-- Average Time to Fix Card (Spans across 2 cols) -->
+<div class="col-span-2 bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex items-center justify-between">
+<div>
+<span class="text-xs font-semibold text-brand-muted block">Average time to fix</span>
+<span class="text-2xl font-extrabold text-brand-charcoal">5.0 days</span>
+<span class="text-[11px] text-brand-muted block mt-0.5">Last 30 days (BR15 calculation)</span>
+</div>
+<div class="w-11 h-11 rounded-full bg-[#EBF5EE] text-brand-green flex items-center justify-center">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Breakdown: Open Faults by Category -->
+<div class="bg-white p-4 rounded-xl border border-brand-border shadow-card">
+<div class="flex items-center justify-between pb-2 mb-3 border-b border-gray-100">
+<h3 class="text-xs font-bold uppercase tracking-wider text-brand-charcoal">Open Faults by Category</h3>
+<span class="text-[11px] text-brand-muted font-medium">4 total open</span>
+</div>
+<!-- Category Bars -->
+<div class="space-y-3">
+<!-- Electricity: 3 faults (75%) -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#87451A]"></span>
+<span class="font-medium text-brand-charcoal">Electricity</span>
+</div>
+<span class="font-bold text-brand-charcoal">3</span>
+</div>
+<div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-[#87451A] rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Clean water: 1 fault (25%) -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-brand-green"></span>
+<span class="font-medium text-brand-charcoal">Clean water</span>
+</div>
+<span class="font-bold text-brand-charcoal">1</span>
+</div>
+<div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-brand-green rounded-full" style="width: 25%;"></div>
+</div>
+</div>
+<!-- Roads: 0 faults (0%) -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-gray-300"></span>
+<span class="font-medium text-brand-muted">Roads</span>
+</div>
+<span class="font-semibold text-brand-muted">0</span>
+</div>
+<div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-gray-300 rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Sewer: 0 faults (0%) -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-gray-300"></span>
+<span class="font-medium text-brand-muted">Sewer</span>
+</div>
+<span class="font-semibold text-brand-muted">0</span>
+</div>
+<div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-gray-300 rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Waste: 0 faults (0%) -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-gray-300"></span>
+<span class="font-medium text-brand-muted">Waste</span>
+</div>
+<span class="font-semibold text-brand-muted">0</span>
+</div>
+<div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-gray-300 rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Public spaces: 0 faults (0%) -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-gray-300"></span>
+<span class="font-medium text-brand-muted">Public spaces</span>
+</div>
+<span class="font-semibold text-brand-muted">0</span>
+</div>
+<div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-gray-300 rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Shortcut Button (48px Touch target) -->
+<button class="w-full h-12 bg-white hover:bg-gray-50 border-2 border-brand-error text-brand-error font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-[0.99]" type="button">
+<svg class="w-4 h-4 text-brand-error" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span>View overdue faults (1)</span>
+<svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+<!-- END: ScrollableContent -->
+<!-- BEGIN: PersistentWardAdminTabBar -->
+<nav class="h-16 bg-white border-t border-brand-border grid grid-cols-4 items-center select-none z-10 px-1 shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
+<!-- Queue -->
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted hover:text-brand-green py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium tracking-tight">Queue</span>
+</a>
+<!-- Dashboard (ACTIVE) -->
+<a class="flex flex-col items-center justify-center gap-1 text-brand-green font-bold py-1" href="#">
+<div class="relative">
+<svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<span class="text-[10px] tracking-tight">Dashboard</span>
+</a>
+<!-- Faults -->
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted hover:text-brand-green py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span class="text-[10px] font-medium tracking-tight">Faults</span>
+</a>
+<!-- Profile (ZK Avatar) -->
+<a class="flex flex-col items-center justify-center gap-0.5 py-1 text-brand-muted hover:text-brand-green" href="#">
+<div class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-[10px] font-extrabold ring-2 ring-white">
+                ZK
+              </div>
+<span class="text-[10px] font-medium tracking-tight">Profile</span>
+</a>
+</nav>
+<!-- END: PersistentWardAdminTabBar -->
+</div>
+</section>
+<!-- END: State1Normal -->
+<!-- ========================================================================= -->
+<!-- STATE 2: EMPTY STATE -->
+<!-- ========================================================================= -->
+<!-- BEGIN: State2Empty -->
+<section class="flex flex-col items-center" data-purpose="phone-state-empty">
+<div class="mb-4 text-center">
+<div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-green mb-1">
+<span class="w-2 h-2 rounded-full bg-brand-green"></span>
+            STATE 2: EMPTY STATE
+          </div>
+<p class="text-xs text-brand-muted font-medium">Ward with 0 open faults &amp; no 30-day fix data</p>
+</div>
+<div class="w-[390px] h-[844px] bg-brand-cream rounded-[46px] shadow-phone flex flex-col overflow-hidden relative border-[4px] border-[#222]">
+<!-- Device Status Bar -->
+<header class="w-full bg-brand-brown text-white pt-3 px-6 pb-2 flex items-center justify-between text-xs select-none">
+<span class="font-semibold tracking-tight">09:41</span>
+<div class="flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 13c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"></path></svg>
+<div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</header>
+<!-- App Header -->
+<div class="bg-brand-brown px-5 pt-1 pb-4 text-white border-b-[3px] border-brand-gold shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-medium tracking-wide uppercase text-brand-gold">Ward Overview</span>
+<h2 class="text-xl font-bold tracking-tight text-white leading-tight">Ward Dashboard</h2>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/20">
+                Ward A: Orlando West
+              </span>
+</div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+<!-- Congratulatory Banner -->
+<div class="bg-brand-green text-white p-3.5 rounded-xl shadow-card flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-white/20 flex-shrink-0 flex items-center justify-center mt-0.5">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-brand-gold">Clean Queue</p>
+<p class="text-xs font-medium text-white/95 mt-0.5">No open faults in your ward. Well done!</p>
+</div>
+</div>
+<!-- Three Stat Cards with Zeroes -->
+<div class="grid grid-cols-2 gap-2.5">
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex flex-col justify-between">
+<span class="text-xs font-semibold text-brand-muted">Open faults</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-2xl font-extrabold text-brand-charcoal">0</span>
+<span class="text-[11px] text-brand-green font-medium">All cleared</span>
+</div>
+</div>
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex flex-col justify-between">
+<span class="text-xs font-semibold text-brand-muted">Overdue faults</span>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="text-2xl font-extrabold text-brand-charcoal">0</span>
+<span class="text-[11px] text-brand-muted font-normal">None overdue</span>
+</div>
+</div>
+<!-- Average Time: No Data Variant -->
+<div class="col-span-2 bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex items-center justify-between">
+<div>
+<span class="text-xs font-semibold text-brand-muted block">Average time to fix</span>
+<span class="text-xl font-bold text-brand-muted">No data</span>
+<span class="text-[11px] text-brand-muted block mt-0.5 italic">No faults fixed in the last 30 days.</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+</div>
+</div>
+<!-- Empty Category Breakdown with subtle illustration icon -->
+<div class="bg-white p-6 rounded-xl border border-brand-border shadow-card text-center flex flex-col items-center">
+<div class="w-14 h-14 rounded-full bg-[#EBF5EE] text-brand-green flex items-center justify-center mb-3">
+<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h3 class="text-sm font-bold text-brand-charcoal">No open faults in your ward.</h3>
+<p class="text-xs text-brand-muted max-w-[220px] mt-1">All municipal categories in Ward A are fully resolved and up to date.</p>
+<div class="w-full mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-brand-muted font-medium px-2">
+<span>Categories tracked: 6</span>
+<span class="text-brand-green font-semibold">100% Resolved</span>
+</div>
+</div>
+</div>
+<!-- Bottom Tab Bar -->
+<nav class="h-16 bg-white border-t border-brand-border grid grid-cols-4 items-center select-none z-10 px-1">
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium tracking-tight">Queue</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-brand-green font-bold py-1" href="#">
+<svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] tracking-tight">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span class="text-[10px] font-medium tracking-tight">Faults</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 py-1 text-brand-muted" href="#">
+<div class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-[10px] font-extrabold ring-2 ring-white">ZK</div>
+<span class="text-[10px] font-medium tracking-tight">Profile</span>
+</a>
+</nav>
+</div>
+</section>
+<!-- END: State2Empty -->
+<!-- ========================================================================= -->
+<!-- STATE 3: LOADING STATE -->
+<!-- ========================================================================= -->
+<!-- BEGIN: State3Loading -->
+<section class="flex flex-col items-center" data-purpose="phone-state-loading">
+<div class="mb-4 text-center">
+<div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">
+<span class="w-2 h-2 rounded-full bg-blue-600"></span>
+            STATE 3: LOADING STATE
+          </div>
+<p class="text-xs text-brand-muted font-medium">3 placeholder cards + 6 category bars pulsing</p>
+</div>
+<div class="w-[390px] h-[844px] bg-brand-cream rounded-[46px] shadow-phone flex flex-col overflow-hidden relative border-[4px] border-[#222]">
+<!-- Device Status Bar -->
+<header class="w-full bg-brand-brown text-white pt-3 px-6 pb-2 flex items-center justify-between text-xs select-none">
+<span class="font-semibold tracking-tight">09:41</span>
+<div class="flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 13c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"></path></svg>
+<div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</header>
+<!-- App Header -->
+<div class="bg-brand-brown px-5 pt-1 pb-4 text-white border-b-[3px] border-brand-gold shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-medium tracking-wide uppercase text-brand-gold">Ward Overview</span>
+<h2 class="text-xl font-bold tracking-tight text-white leading-tight">Ward Dashboard</h2>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/20">
+                Ward A: Orlando West
+              </span>
+</div>
+</div>
+<!-- Pulsing Skeleton Content -->
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-4 animate-pulse">
+<!-- Skeleton Stat Cards -->
+<div class="grid grid-cols-2 gap-2.5">
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card h-20 flex flex-col justify-between">
+<div class="w-16 h-3 bg-gray-200 rounded"></div>
+<div class="w-10 h-6 bg-gray-200 rounded"></div>
+</div>
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card h-20 flex flex-col justify-between">
+<div class="w-20 h-3 bg-gray-200 rounded"></div>
+<div class="w-8 h-6 bg-gray-200 rounded"></div>
+</div>
+<div class="col-span-2 bg-white p-3.5 rounded-xl border border-brand-border shadow-card h-20 flex items-center justify-between">
+<div class="space-y-2">
+<div class="w-28 h-3 bg-gray-200 rounded"></div>
+<div class="w-20 h-6 bg-gray-200 rounded"></div>
+</div>
+<div class="w-11 h-11 rounded-full bg-gray-200"></div>
+</div>
+</div>
+<!-- Skeleton Category Bar Card (6 rows) -->
+<div class="bg-white p-4 rounded-xl border border-brand-border shadow-card space-y-4">
+<div class="flex justify-between items-center pb-2 border-b border-gray-100">
+<div class="w-36 h-3.5 bg-gray-200 rounded"></div>
+<div class="w-12 h-3 bg-gray-200 rounded"></div>
+</div>
+<!-- 6 skeleton rows -->
+<div class="space-y-3.5">
+<div class="space-y-1.5">
+<div class="flex justify-between"><div class="w-20 h-3 bg-gray-200 rounded"></div><div class="w-4 h-3 bg-gray-200 rounded"></div></div>
+<div class="w-full h-2.5 bg-gray-200 rounded-full"></div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between"><div class="w-24 h-3 bg-gray-200 rounded"></div><div class="w-4 h-3 bg-gray-200 rounded"></div></div>
+<div class="w-full h-2.5 bg-gray-200 rounded-full"></div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between"><div class="w-16 h-3 bg-gray-200 rounded"></div><div class="w-4 h-3 bg-gray-200 rounded"></div></div>
+<div class="w-full h-2.5 bg-gray-200 rounded-full"></div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between"><div class="w-14 h-3 bg-gray-200 rounded"></div><div class="w-4 h-3 bg-gray-200 rounded"></div></div>
+<div class="w-full h-2.5 bg-gray-200 rounded-full"></div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between"><div class="w-16 h-3 bg-gray-200 rounded"></div><div class="w-4 h-3 bg-gray-200 rounded"></div></div>
+<div class="w-full h-2.5 bg-gray-200 rounded-full"></div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between"><div class="w-24 h-3 bg-gray-200 rounded"></div><div class="w-4 h-3 bg-gray-200 rounded"></div></div>
+<div class="w-full h-2.5 bg-gray-200 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Skeleton Button Placeholder -->
+<div class="w-full h-12 bg-gray-200 rounded-xl"></div>
+</div>
+<!-- Tab Bar -->
+<nav class="h-16 bg-white border-t border-brand-border grid grid-cols-4 items-center select-none z-10 px-1 opacity-70">
+<div class="flex flex-col items-center justify-center gap-1 text-gray-300">
+<div class="w-5 h-5 bg-gray-200 rounded"></div>
+<div class="w-8 h-2 bg-gray-200 rounded"></div>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-brand-green">
+<div class="w-5 h-5 bg-brand-green/30 rounded"></div>
+<div class="w-10 h-2 bg-brand-green/30 rounded"></div>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-gray-300">
+<div class="w-5 h-5 bg-gray-200 rounded"></div>
+<div class="w-8 h-2 bg-gray-200 rounded"></div>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-gray-300">
+<div class="w-6 h-6 rounded-full bg-gray-200"></div>
+<div class="w-8 h-2 bg-gray-200 rounded"></div>
+</div>
+</nav>
+</div>
+</section>
+<!-- END: State3Loading -->
+<!-- ========================================================================= -->
+<!-- STATE 4: ERROR STATE -->
+<!-- ========================================================================= -->
+<!-- BEGIN: State4Error -->
+<section class="flex flex-col items-center" data-purpose="phone-state-error">
+<div class="mb-4 text-center">
+<div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-error mb-1">
+<span class="w-2 h-2 rounded-full bg-brand-error"></span>
+            STATE 4: ERROR STATE
+          </div>
+<p class="text-xs text-brand-muted font-medium">Verbatim message: "Something went wrong. Try again."</p>
+</div>
+<div class="w-[390px] h-[844px] bg-brand-cream rounded-[46px] shadow-phone flex flex-col overflow-hidden relative border-[4px] border-[#222]">
+<!-- Device Status Bar -->
+<header class="w-full bg-brand-brown text-white pt-3 px-6 pb-2 flex items-center justify-between text-xs select-none">
+<span class="font-semibold tracking-tight">09:41</span>
+<div class="flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 13c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"></path></svg>
+<div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</header>
+<!-- App Header -->
+<div class="bg-brand-brown px-5 pt-1 pb-4 text-white border-b-[3px] border-brand-gold shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-medium tracking-wide uppercase text-brand-gold">Ward Overview</span>
+<h2 class="text-xl font-bold tracking-tight text-white leading-tight">Ward Dashboard</h2>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/20">
+                Ward A: Orlando West
+              </span>
+</div>
+</div>
+<!-- Error Centered Card -->
+<div class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+<div class="w-16 h-16 rounded-full bg-brand-error-light border border-brand-error/20 flex items-center justify-center text-brand-error mb-4">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" x2="12" y1="8" y2="12"></line>
+<line x1="12" x2="12.01" y1="16" y2="16"></line>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-brand-charcoal mb-1">
+              Something went wrong. Try again.
+            </h3>
+<p class="text-xs text-brand-muted max-w-[260px] mb-6">
+              Could not sync with the municipal telemetry service. Please check your data connection or retry.
+            </p>
+<!-- Primary 48px Action Button in Coat of Arms Green -->
+<button class="w-full max-w-[240px] h-12 bg-brand-green hover:bg-brand-green-dark text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-md transition-colors active:scale-[0.98]" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Try again</span>
+</button>
+</div>
+<!-- Tab Bar -->
+<nav class="h-16 bg-white border-t border-brand-border grid grid-cols-4 items-center select-none z-10 px-1">
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium tracking-tight">Queue</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-brand-green font-bold py-1" href="#">
+<svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] tracking-tight">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span class="text-[10px] font-medium tracking-tight">Faults</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 py-1 text-brand-muted" href="#">
+<div class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-[10px] font-extrabold ring-2 ring-white">ZK</div>
+<span class="text-[10px] font-medium tracking-tight">Profile</span>
+</a>
+</nav>
+</div>
+</section>
+<!-- END: State4Error -->
+<!-- ========================================================================= -->
+<!-- STATE 5: OFFLINE STATE -->
+<!-- ========================================================================= -->
+<!-- BEGIN: State5Offline -->
+<section class="flex flex-col items-center" data-purpose="phone-state-offline">
+<div class="mb-4 text-center">
+<div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+            STATE 5: OFFLINE STATE
+          </div>
+<p class="text-xs text-brand-muted font-medium">Cached view + top grey banner + timestamp</p>
+</div>
+<div class="w-[390px] h-[844px] bg-brand-cream rounded-[46px] shadow-phone flex flex-col overflow-hidden relative border-[4px] border-[#222]">
+<!-- Persistent Top Offline Alert Banner -->
+<div class="w-full bg-[#344054] text-white px-4 py-2 flex items-center justify-between text-[11px] font-medium z-20">
+<div class="flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<line x1="1" x2="23" y1="1" y2="23"></line>
+<path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+<path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+<path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+<path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+<path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+<line x1="12" x2="12.01" y1="20" y2="20"></line>
+</svg>
+<span>You're offline. Changes will not be saved.</span>
+</div>
+<span class="text-[10px] uppercase font-bold text-gray-300 bg-white/10 px-1.5 py-0.5 rounded">Cached</span>
+</div>
+<!-- Device Status Bar with Offline indicator -->
+<header class="w-full bg-brand-brown text-white pt-2 px-6 pb-2 flex items-center justify-between text-xs select-none">
+<span class="font-semibold tracking-tight">09:41</span>
+<div class="flex items-center gap-2">
+<span class="text-[10px] bg-red-500/80 px-1 rounded font-bold uppercase tracking-wider text-white">Offline</span>
+<div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</header>
+<!-- App Header -->
+<div class="bg-brand-brown px-5 pt-1 pb-4 text-white border-b-[3px] border-brand-gold shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-medium tracking-wide uppercase text-brand-gold">Ward Overview</span>
+<h2 class="text-xl font-bold tracking-tight text-white leading-tight">Ward Dashboard</h2>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/20">
+                Ward A: Orlando West
+              </span>
+</div>
+</div>
+<!-- Content (Cached snapshot visible) -->
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+<!-- Timestamp banner (Verbatim 12 Nov 2026, 10:15) -->
+<div class="bg-white/80 backdrop-blur-sm border border-brand-border rounded-lg px-3 py-2 flex items-center justify-between text-xs">
+<span class="text-brand-muted flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5 text-brand-muted" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Last updated:
+              </span>
+<span class="font-semibold text-brand-charcoal">12 Nov 2026, 10:15</span>
+</div>
+<!-- Cached Stat Cards -->
+<div class="grid grid-cols-2 gap-2.5 opacity-90">
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex flex-col justify-between">
+<span class="text-xs font-semibold text-brand-muted">Open faults</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-2xl font-extrabold text-brand-charcoal">4</span>
+<span class="text-[11px] text-gray-500 font-medium">Cached</span>
+</div>
+</div>
+<div class="bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex flex-col justify-between">
+<span class="text-xs font-semibold text-brand-error">Overdue faults</span>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="text-2xl font-extrabold text-brand-error">1</span>
+<span class="text-[10px] font-bold text-brand-error bg-[#FEE4E2] px-1 py-0.5 rounded">Action</span>
+</div>
+</div>
+<div class="col-span-2 bg-white p-3.5 rounded-xl border border-brand-border shadow-card flex items-center justify-between">
+<div>
+<span class="text-xs font-semibold text-brand-muted block">Average time to fix</span>
+<span class="text-2xl font-extrabold text-brand-charcoal">5.0 days</span>
+<span class="text-[11px] text-brand-muted block mt-0.5">Last 30 days</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+</div>
+</div>
+<!-- Cached Category Breakdown -->
+<div class="bg-white p-4 rounded-xl border border-brand-border shadow-card opacity-90">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-gray-100">
+<h3 class="text-xs font-bold uppercase tracking-wider text-brand-charcoal">Open Faults by Category</h3>
+<span class="text-[11px] text-brand-muted font-medium">4 total open</span>
+</div>
+<div class="space-y-2.5">
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<span class="font-medium text-brand-charcoal">Electricity</span>
+<span class="font-bold text-brand-charcoal">3</span>
+</div>
+<div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-[#87451A] rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<span class="font-medium text-brand-charcoal">Clean water</span>
+<span class="font-bold text-brand-charcoal">1</span>
+</div>
+<div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-brand-green rounded-full" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Disabled Secondary Action with tooltip indicator -->
+<div class="relative">
+<button class="w-full h-12 bg-gray-100 border border-gray-300 text-gray-400 font-bold text-xs rounded-xl flex items-center justify-center gap-2 cursor-not-allowed" disabled="" type="button">
+<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><line x1="1" x2="23" y1="1" y2="23"></line><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+<span>View overdue faults (Offline)</span>
+</button>
+</div>
+</div>
+<!-- Bottom Tab Bar -->
+<nav class="h-16 bg-white border-t border-brand-border grid grid-cols-4 items-center select-none z-10 px-1">
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium tracking-tight">Queue</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-brand-green font-bold py-1" href="#">
+<svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] tracking-tight">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-brand-muted py-1" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span class="text-[10px] font-medium tracking-tight">Faults</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 py-1 text-brand-muted" href="#">
+<div class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-[10px] font-extrabold ring-2 ring-white">ZK</div>
+<span class="text-[10px] font-medium tracking-tight">Profile</span>
+</a>
+</nav>
+</div>
+</section>
+<!-- END: State5Offline -->
+</main>
+<!-- END: PhoneStatesRow -->
+<!-- BEGIN: SpecificationNotesBlock -->
+<footer class="bg-white rounded-2xl p-8 border border-[#E8E4D9] shadow-sm text-brand-charcoal">
+<div class="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+<svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<h2 class="text-base font-bold text-brand-charcoal uppercase tracking-wider">
+          S9 Ward Dashboard Specification &amp; Compliance Notes
+        </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs leading-relaxed text-gray-700">
+<div>
+<h3 class="font-bold text-brand-brown uppercase text-[11px] mb-2 tracking-wide">Ordered Layout &amp; Chrome Enforcement (PRD 8.2, 8.3 &amp; BR15)</h3>
+<ul class="space-y-1.5 list-disc list-inside">
+<li><strong>Header:</strong> Heritage Brown (<code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">#531A17</code>) with 3px solid Gold line (<code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">#D8A851</code>). Subtitle badge indicates designated ward (<code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">Ward A: Orlando West</code>).</li>
+<li><strong>Core Stat Cards (PRD 8.3):</strong> Open faults (value 4), Overdue faults (value 1 in <code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">#B42318</code> with animated pulse clock), and Average time to fix (5.0 days) calculated over the last 30 days as prescribed by BR15.</li>
+<li><strong>Category Breakdown:</strong> Visual progress bars for all 6 standard municipal categories (Electricity at 75%, Clean water at 25%, Roads at 0%, Sewer at 0%, Waste at 0%, Public spaces at 0%).</li>
+<li><strong>Secondary Action:</strong> 48px touch target button "View overdue faults (1)" that navigates to S8 Ward Queue with the "Overdue only" filter chip active.</li>
+<li><strong>Persistent Navigation:</strong> Tab bar with <code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">Dashboard</code> highlighted in South African Coat of Arms Green (<code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">#005D28</code>) and Ward Admin ZK avatar.</li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-brand-brown uppercase text-[11px] mb-2 tracking-wide">State Coverage &amp; Business Rules Verification</h3>
+<ul class="space-y-1.5 list-disc list-inside">
+<li><strong>State 1 (Normal):</strong> Shows active telemetry with 4 open faults, 1 overdue fault, and category proportional fills.</li>
+<li><strong>State 2 (Empty):</strong> Displays celebratory green banner, 0 open faults, 0 overdue, and verbatim copy: <code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">"No faults fixed in the last 30 days."</code> for average fix time.</li>
+<li><strong>State 3 (Loading):</strong> 3 skeleton cards, 6 skeleton category bar rows, and 1 skeleton action button in smooth CSS pulse animation.</li>
+<li><strong>State 4 (Error):</strong> Centered warning icon, verbatim message <code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">"Something went wrong. Try again."</code>, and 48px primary "Try again" button in brand green.</li>
+<li><strong>State 5 (Offline):</strong> Top charcoal grey banner <code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">"You're offline. Changes will not be saved."</code>, offline status bar badge, and cached timestamp <code class="bg-gray-100 px-1 py-0.5 rounded text-[10px]">"Last updated 12 Nov 2026, 10:15"</code>.</li>
+</ul>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-gray-100 bg-[#FAF9F5] p-3 rounded-lg border border-[#EDE9DF]">
+<p class="text-xs text-brand-charcoal font-semibold">
+<span class="text-brand-green font-bold">MISSING ITEMS &amp; TODOS:</span> All required elements, metrics, categories, states, and seed data were fully provided in PRD Section 8.2, 8.3, 8.4, and BR15. No TODO placeholder boxes were required.
+        </p>
+</div>
+</footer>
+<!-- END: SpecificationNotesBlock -->
+</div>
+<!-- END: ShowcaseCanvasContainer -->
+</body></html>
