@@ -9,7 +9,7 @@
 | App name | FixMyKasi |
 | Built from PRD version | v0.4 (`docs/PRD.md`, 11 Nov 2026) |
 | Screen designs | Not finished yet. Stitch prompts are in `docs/designs/STITCH_PROMPTS.md`. The exported screens (S1 to S12, M1 to M7, plus desktop versions of S8 and S9) will be saved in `docs/designs/` by Issue #6. Until then, every screen and token marked "TBD until docs/designs is merged" is not final (Section 7). |
-| Plan version | v0.2 |
+| Plan version | v0.3 |
 | Repository | https://github.com/Paul280-cloud/fixmykasi |
 | Project board | https://github.com/users/Paul280-cloud/projects/1 |
 | Status | Draft (waiting for the designs in #6 and the answers in Section 18) |
@@ -117,6 +117,7 @@ From PRD 3.2 and 4.3:
 - Dark mode (PRD 9.1)
 - Editing or deleting a fault after it is submitted (PRD 2.4)
 - Submitting a report while offline (the form is kept, but "Submit report" stays disabled, PRD 6.2)
+- HEIC/HEIF photos (and WebP): only JPG and PNG are accepted for now (Section 18 #3, 11 Nov 2026). A HEIC/HEIF file shows "Please choose a JPG or PNG photo." and is not uploaded.
 
 ### 3.4 Key terms (use these names in code)
 
@@ -525,7 +526,7 @@ Every rule below is enforced by the database or Storage, never only by hiding th
 | SEC12 | `faults` | update (reporter) | The reporter, status Fixed | Fixed → Closed or Reopened (max 2) | `confirm_fault_fixed`, `reopen_fault` | T-SEC-12a / T-SEC-12b | #16 |
 | SEC13 | `faults` | delete | Nobody in the app | | No delete grant | T-SEC-13b (deny only) | #11 |
 | SEC14 | `fault_photos` | read / create | Everyone reads. Reporter creates "before" while creating the fault; its field team creates "after". Nobody updates or deletes. | BR2, BR13 | RLS + `limit_fault_photos` | T-SEC-14a / T-SEC-14b | #11, #14 |
-| SEC15 | Storage bucket `fault-photos` | upload / read | Upload: logged-in user into a path that belongs to a fault they may add photos to; under 10 MB; JPG, PNG, HEIC, WebP. Read: everyone. | BR2 | Storage policies + bucket limits | T-SEC-15a / T-SEC-15b | #14 |
+| SEC15 | Storage bucket `fault-photos` | upload / read | Upload: logged-in user into a path that belongs to a fault they may add photos to; up to 10 MB; JPG and PNG only (Section 18 #3). Read: everyone. | BR2 | Storage policies + bucket limits | T-SEC-15a / T-SEC-15b | #14 |
 | SEC16 | `upvotes` | create / delete / read | Verified residents create, not on their own or a Closed fault; delete their own; read their own (counts are public via `upvote_count`) | BR5 | RLS + `guard_upvote` | T-SEC-16a / T-SEC-16b | #11 |
 | SEC17 | `status_changes` | read / write | Everyone reads; only the trigger writes; nobody updates or deletes | BR9 | Grants + RLS | T-SEC-17a / T-SEC-17b | #11 |
 | SEC18 | Dashboard figures | read | Ward admin, own ward only | BR15 | `ward_dashboard_figures()` checks the caller | T-SEC-18a / T-SEC-18b | #21 |
@@ -563,7 +564,7 @@ All operations live in `src/lib/api/`. Each returns data or one of the exact mes
 | OP11 | List faults | Everyone | search, ward, category, status, sort, page | 20 faults per page | BR6, BR16 | "Something went wrong. Try again." | Select from `faults_public`; reference number exact match or `ilike` on street address; `range` for 20 per page | T-US5-1 to 3, T-BR6-1 | #12 |
 | OP12 | Get fault details | Everyone (more for some roles) | reference number | Fault, photos, status history, responsibility block; for the ward admin also municipal reference and field team contact | BR16 | "We couldn't load this fault. Try again."; "We couldn't find this fault." | `faults_public` (or `faults` for permitted roles), `fault_photos`, `status_changes`, OP26 | T-US9-1, T-S5-1 | #13 (read-only) / #17 |
 | OP13 | Find similar faults | Verified resident | ward, fault type, latitude, longitude | Up to 5 faults with distance | BR4 | "We couldn't check for similar faults." | Database function `similar_faults(...)` (distance in SQL) | T-BR4-1 to 3, T-US6-1 | #11 (function), #13 |
-| OP14 | Upload fault photos | Verified resident (before), field team (after) | 1 to 3 files, fault id | Storage paths | BR2, SEC15 | "This photo is too big or not a supported type. Use a JPG, PNG, HEIC or WebP under 10 MB."; "Upload failed. Check your connection." | Resize to 1600 px, compress under 500 KB, strip EXIF in the browser; upload to `fault-photos/{fault id}/{photo id}.jpg`; insert `fault_photos` rows | T-BR2-1 to 4, T-US3-4 | #14 |
+| OP14 | Upload fault photos | Verified resident (before), field team (after) | 1 to 3 files, fault id | Storage paths | BR2, SEC15 | "Please choose a JPG or PNG photo." (HEIC/HEIF, Section 18 #3); "This photo is too big or not a supported type. Use a JPG, PNG, HEIC or WebP under 10 MB." (too big or other type, wording under Section 18 #27); "Upload failed. Check your connection." | Resize to 1600 px, compress under 500 KB, strip EXIF in the browser; upload to `fault-photos/{fault id}/{photo id}.jpg`; insert `fault_photos` rows | T-BR2-1 to 5, T-S6-3, T-US3-4 | #14 |
 | OP15 | Create fault | Verified resident | photos or no-photo flag, fault type, urgent, ward, address, landmark, GPS, description | Saved fault with reference number; S5 with "Fault reported. Your reference number is FMK-2026-00125." | BR1, BR2, BR3, BR17, BR19 | "Add at least 1 photo."; "You can report up to 5 faults a day. Please try again tomorrow."; "Upload failed. Check your connection."; field messages from S6 | Insert into `faults` (id made by the app so photo paths can use it), then OP14. If photos fail, the fault and uploaded files are removed (Section 18 #8). | T-US3-1 to 4, T-BR17-1 to 2 | #13 |
 | OP16 | Upvote / remove upvote | Verified resident | fault id | New count; toast "Thanks, your upvote was added." from M6 | BR5 | "This fault is closed and can't be upvoted."; "You reported this fault" (disabled button) | Insert / delete own `upvotes` row | T-US6-2, T-US6-3, T-BR5-1 to 3, T-EDGE-8 | #12 |
 | OP17 | Mark fault viewed | Ward admin of the ward | fault id | Status Viewed (first open only) | BR10 | none shown | `mark_fault_viewed(fault_id)` | T-US7-1 | #16 (function), #19 (call) |
@@ -992,7 +993,7 @@ Checkpoint 3 must show, on the live link: **the live link itself, log-in, the da
 
 **Covers:** Section 8.1 (faults tables), 8.5 (#11 triggers), 9 (SEC8, SEC9, SEC13 to SEC17, SEC19) · Rules BR1, BR2 (bucket), BR4 (function), BR5, BR9 (history), BR16, BR17, BR19 · Issues #11 (SIJABULILE-NCUBE), #14 (Bafana-Ndlovu) · Milestone Checkpoint 3
 
-**Starts when:** Phase 2 is done (it is), and Section 18 #11, #16, #17 and #23 are answered (#3 and #13 too, for #14). #14 starts when the #11 `faults` migration is merged (photo paths use the fault id). Can run in parallel with Phase 5.
+**Starts when:** Phase 2 is done (it is), and Section 18 #11, #16, #17 and #23 are answered (#13 too, for #14; #3 is answered). #14 starts when the #11 `faults` migration is merged (photo paths use the fault id). Can run in parallel with Phase 5.
 
 **Step 1: Write the failing tests first (Red)**
 
@@ -1013,7 +1014,7 @@ All pgTAP files go in `supabase/tests/` starting at `07_`. Unit tests are for th
 | T-BR5-3 | Database | same | `upvote_count` goes up on insert and down on delete |
 | T-BR9-2 | Database | `08_fault_rules.test.sql` | Inserting a fault writes one `status_changes` row (null → received, `changed_by` = reporter) |
 | T-BR4-1 | Database | `10_similar_faults.test.sql` | `similar_faults` returns same ward + type, not Closed, last 30 days; within 200 m when both have GPS; at most 5; closest first, or newest first without GPS |
-| T-BR2-3 | Database | `11_storage.test.sql` | Bucket `fault-photos` exists; size limit 10 MB; JPG, PNG, HEIC, WebP only |
+| T-BR2-3 | Database | `11_storage.test.sql` | Bucket `fault-photos` exists; size limit 10 MB; allowed types `image/jpeg` and `image/png` only (a HEIC or WebP upload is refused) |
 | T-BR2-4 | Database | same | A 4th "before" photo is rejected; an "after" photo by a resident is rejected |
 | T-SEC-8a/b, 9a/b, 13b, 14a/b, 15a/b, 16a/b, 17a/b, 19b | Database | `12_faults_rls.test.sql`, `11_storage.test.sql` | One allow and one deny test per Section 9 row, acting as Thandeka, Nomsa, Zanele, Kagiso and anon; unverified resident cannot report or upvote |
 | T-BR16-1 | Database | `12_faults_rls.test.sql` | `faults_public` has no `reporter_id` or `municipal_reference`; anon cannot select from `faults` or `profiles` |
@@ -1030,7 +1031,8 @@ All pgTAP files go in `supabase/tests/` starting at `07_`. Unit tests are for th
 
 | Test ID | Level | File | What it checks |
 | --- | --- | --- | --- |
-| T-BR2-1 | Unit | `tests/unit/photo.test.ts` | JPG, PNG, HEIC, WebP up to 10 MB accepted; 10 MB + 1 byte, GIF and PDF rejected with the exact message |
+| T-BR2-1 | Unit | `tests/unit/photo.test.ts` | JPG and PNG up to 10 MB accepted; 10 MB + 1 byte, WebP, GIF and PDF rejected with the too-big / unsupported message (Section 18 #27) |
+| T-BR2-5 | Unit | `tests/unit/photo.test.ts` | A HEIC or HEIF file (by MIME type `image/heic` / `image/heif`, or by `.heic` / `.heif` extension when the type is empty) is rejected with "Please choose a JPG or PNG photo.", and the upload function is never called (Section 18 #3) |
 | T-BR2-2 | Unit | `tests/unit/photoProcessing.test.ts` | Output longest side ≤ 1600 px, under 500 KB, and has no EXIF block (canvas mocked) |
 
 **Step 3: Frontend (Green)**
@@ -1122,7 +1124,7 @@ All pgTAP files go in `supabase/tests/` starting at `07_`. Unit tests are for th
 
 **Covers:** Features F1 (report), F2 (M6) · Stories US3, US6 · Screens S6, M6, S5 (read-only base: photos, type, status chip, labels, location, description, "Not assigned yet", upvote button, Received row) · Rules BR2, BR3, BR4, BR17, BR19 · Operations OP12 (read-only), OP13, OP14, OP15 · Issue #13 (Bafana-Ndlovu) · Milestone Checkpoint 3
 
-**Starts when:** Phases 5, 6 and 7 are merged, the S6, M6 and S5 designs exist, and Section 18 #3, #8 and #9 are answered.
+**Starts when:** Phases 5, 6 and 7 are merged, the S6, M6 and S5 designs exist, and Section 18 #8 and #9 are answered (#3 is answered: JPG and PNG only).
 
 **Step 1: Write the failing tests first (Red)**
 
@@ -1143,7 +1145,8 @@ All pgTAP files go in `supabase/tests/` starting at `07_`. Unit tests are for th
 | T-S5-1 | Screen | `FaultDetails.test.tsx` | Read-only S5: title is the reference number; no reporter name anywhere (BR16); loading; "We couldn't load this fault. Try again."; unknown reference → "We couldn't find this fault." with "Back to faults" |
 | T-EDGE-1 | Screen | `ReportFault.test.tsx` | Offline → "You're offline. Your report will be saved when you're back online.", "Submit report" disabled, form kept |
 | T-EDGE-6 | Screen | same | Location refused → "Location is off. Please type the street address." and the report saves without GPS |
-| T-EDGE-7 | Screen | same | A 12 MB photo → "This photo is too big or not a supported type. Use a JPG, PNG, HEIC or WebP under 10 MB." and other photos stay |
+| T-EDGE-7 | Screen | same | A 12 MB photo → "This photo is too big or not a supported type. Use a JPG, PNG, HEIC or WebP under 10 MB." and other photos stay (wording under Section 18 #27) |
+| T-S6-3 | Screen | same | Choosing a HEIC/HEIF photo on S6 shows "Please choose a JPG or PNG photo.", the photo is not added, nothing is uploaded (OP14 mock not called), and photos already added stay (Section 18 #3) |
 
 - [ ] All tests above are written, run, and fail for the expected reason.
 
@@ -1670,7 +1673,7 @@ All pgTAP files go in `supabase/tests/` starting at `07_`. Unit tests are for th
 
 | Feature | Stories | Acceptance tests | Rule tests | Screens | Operations | Phase | Issues |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| F1 Account and report a fault | US1, US2, US3, US4 | T-US1-1 to 3, T-US2-1 to 4, T-US3-1 to 4, T-US4-1 to 3 | T-AUTH-1 to 4, T-BR1-1 to 2, T-BR2-1 to 4, T-BR3-1 to 2, T-BR17-1 to 2, T-BR18-1 to 3, T-BR19-1 to 2, T-SEC-9, T-EDGE-1, 2, 6, 7 | S1, S2, S3, S6, S11, S12, M1, M5, M7 | OP1 to OP10, OP14, OP15 | 5, 6, 8, 13, 14 | #10, #11, #13, #14, #23, #24 |
+| F1 Account and report a fault | US1, US2, US3, US4 | T-US1-1 to 3, T-US2-1 to 4, T-US3-1 to 4, T-US4-1 to 3 | T-AUTH-1 to 4, T-BR1-1 to 2, T-BR2-1 to 5, T-S6-3, T-BR3-1 to 2, T-BR17-1 to 2, T-BR18-1 to 3, T-BR19-1 to 2, T-SEC-9, T-EDGE-1, 2, 6, 7 | S1, S2, S3, S6, S11, S12, M1, M5, M7 | OP1 to OP10, OP14, OP15 | 5, 6, 8, 13, 14 | #10, #11, #13, #14, #23, #24 |
 | F2 Public fault list and upvotes | US5, US6 | T-US5-1 to 3, T-US6-1 to 3 | T-BR4-1 to 2, T-BR5-1 to 3, T-BR6-1, T-BR11-1, T-BR16-1, T-SEC-8, T-SEC-16, T-SEC-19, T-EDGE-8 | S4, S5, M6 | OP11, OP12, OP13, OP16 | 6, 7, 8 | #11, #12, #13 |
 | F3 Assign the work | US7 | T-US7-1 to 4 | T-BR7-1, T-BR8-1 to 2, T-BR9-1 to 4, T-BR10-1, T-SEC-7, T-SEC-10, T-EDGE-4, T-EDGE-5 | S5, S8, M2 | OP17, OP18, OP22, OP26 | 9, 10 | #16, #18, #19 |
 | F4 Track progress | US8, US9, US10 | T-US8-1 to 3, T-US9-1 to 3, T-US10-1 to 4 | T-BR9-1 to 4, T-BR11-1, T-BR12-1 to 2, T-BR13-1, T-BR14-1 to 4, T-SEC-11, T-SEC-12, T-SEC-17, T-EDGE-3 | S5, S7, S10, M3, M4 | OP12, OP19, OP20, OP21, OP23, OP24 | 9, 11 | #16, #17, #20 |
@@ -1774,13 +1777,13 @@ Bao992 runs this list on the live link before each checkpoint (PRD 11.7). Tick o
 
 ## 18. Clarifications needed
 
-These are open questions found in the PRD (v0.4), the repo and the board while writing this plan. Row #2 was answered by the human on 11 Nov 2026; every other row is still **Open**. The coding agent must not change a row to Answered itself: the human writes the answer and the date, and if the answer changes the PRD, the PRD gets a change log row first. The "Blocks" column says which phase cannot start until the row is answered; other phases may go ahead.
+These are open questions found in the PRD (v0.4), the repo and the board while writing this plan. Rows #2 and #3 were answered by the human on 11 Nov 2026; every other row is still **Open**. The coding agent must not change a row to Answered itself: the human writes the answer and the date, and if the answer changes the PRD, the PRD gets a change log row first. The "Blocks" column says which phase cannot start until the row is answered; other phases may go ahead.
 
 | # | Question | Where (section / ID) | Blocks | Answer | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | PRD 11.1 says "React Router 6", but the repo uses React Router 7.18.x (PR #28), and the README tech stack table also still says 6. #32 will also move Vite and Vitest past "Vite 5". PRD 11.1 and 11.7 also do not mention pgTAP, which #9 uses. Should PRD 11.1 / 11.7 and the README be updated (with a change log row) now, and again when #32 lands? | PRD 11.1, 11.7; README; #32 | none (docs) | | Open |
 | 2 | The app needs `@supabase/supabase-js` to talk to Supabase, and PRD 9.1 names Lucide icons, but neither package is in the PRD stack table or `package.json`. May they be added in Phase 4/5 (Rule 13)? | PRD 9.1, 11.1, 11.3 | 4, 5 | Yes. `@supabase/supabase-js` (v2) and `lucide-react` are approved and added to the Section 4.1 stack table. Decided by the human, 11 Nov 2026. | Answered |
-| 3 | BR2 allows HEIC photos and requires the browser to resize, compress and strip EXIF. Only Safari can decode HEIC natively; Chrome on Android cannot draw HEIC to a canvas. Should we add a HEIC-decoding library (which one), or accept HEIC only where the browser can decode it? | BR2, S6, M3, US3 | 6 (#14), 8 | | Open |
+| 3 | BR2 allows HEIC photos and requires the browser to resize, compress and strip EXIF. Only Safari can decode HEIC natively; Chrome on Android cannot draw HEIC to a canvas. Should we add a HEIC-decoding library (which one), or accept HEIC only where the browser can decode it? | BR2, S6, M3, US3 | 6 (#14), 8 | Accept JPG and PNG only for now. If a HEIC/HEIF file is chosen, the photo util and S6 show "Please choose a JPG or PNG photo." and do not upload. Tests: T-BR2-5 (Phase 6, #14) and T-S6-3 (Phase 8, #13). HEIC support moved to Deferred (Section 3.3). Decided by the human, 11 Nov 2026. | Answered |
 | 4 | The edge case "A field team is removed while it has assigned faults" says the ward admin sees "This field team no longer exists. Please reassign." on S5, but the same row says the database blocks deleting a field team with faults that are not Closed. If the delete is blocked, when can the message appear? Should it be dropped, or should removal be a "deactivate" flag instead of a delete? | PRD 6.2, 10.1 FieldTeam | 10 | | Open |
 | 5 | BR6 says the S4 search matches "a street address containing the typed words". Must the address contain all typed words in any order, the exact phrase, or any one of the words? | BR6, S4, T-US5-2 | 7 | | Open |
 | 6 | Delete account (PRD 5, M5) must delete the user's **login**. That needs the service role key, which may never be in the browser (PRD 11.5). PRD 11.3 only mentions an Edge Function for AI. May we add an Edge Function `delete-account` (takes the user from the request token, deletes the Auth user; the cascade does the rest)? | PRD 5, 11.3, 11.5, M5, US4 | 13 | | Open |
@@ -1804,6 +1807,7 @@ These are open questions found in the PRD (v0.4), the repo and the board while w
 | 24 | PRD 2.4 says a ward admin "can mark faults Viewed", and BR10 says it happens automatically on first open. Is there also a manual "Mark as viewed" action, or only the automatic one? | PRD 2.4, BR10 | 10 | | Open |
 | 25 | BR15 "Average time to fix" counts faults "fixed in the last 30 days". Does that include faults that were later Closed or Reopened, and for a reopened fault, is the first or the latest `fixed_at` used? | BR15, S9 | 12 | | Open |
 | 26 | F7 AI provider: PRD 11.2 says the Tech Lead chooses OpenAI or Anthropic "when F7 work starts". Which provider and model? | PRD 11.2, BR20 | 16 (F7) | | Open |
+| 27 | Section 18 #3 limits photos to JPG and PNG, but the PRD message for a too-big or unsupported photo is "This photo is too big or not a supported type. Use a JPG, PNG, HEIC or WebP under 10 MB.", which still names HEIC and WebP, and PRD BR2, S6 and M3 still list HEIC and WebP. What exact text should that message use now, and should BR2 / S6 / M3 in the PRD get a change log row? | BR2, S6, M3, PRD 6.2, Section 18 #3 | 6 (#14), 8 | | Open |
 
 ---
 
@@ -1813,3 +1817,4 @@ These are open questions found in the PRD (v0.4), the repo and the board while w
 | --- | --- | --- | --- |
 | v0.1 | 11 Nov 2026 | First version | Generated from PRD v0.4, the repo after PR #28 and PR #29, and the GitHub Issues #5 to #26 and #32. Designs not ready yet, so tokens and screen designs are "TBD until docs/designs is merged". 26 open questions in Section 18. |
 | v0.2 | 11 Nov 2026 | Sections 4.1, 18 and Phases 4 and 5 | Section 18 #2 answered: `@supabase/supabase-js` (v2) and `lucide-react` approved and added to the stack table. | Human decision |
+| v0.3 | 11 Nov 2026 | Sections 3.3, 9 (SEC15), 10 (OP14), 14, 18 and Phases 6 and 8 | Section 18 #3 answered: JPG and PNG only; HEIC/HEIF shows "Please choose a JPG or PNG photo." and is not uploaded; tests T-BR2-5 (#14) and T-S6-3 (#13) added; HEIC moved to Deferred. New question #27 on the PRD wording for other unsupported types. | Human decision |
