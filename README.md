@@ -65,7 +65,25 @@ Roles show who leads each area. Every member builds at least one screen and one 
 
 ## Run it locally
 
-Setup steps will be added once the project is set up.
+You need Node.js 22 or newer and npm.
+
+```bash
+git clone https://github.com/Paul280-cloud/fixmykasi.git
+cd fixmykasi
+npm install
+cp .env.example .env   # then fill in real values (never commit .env)
+npm run dev            # opens the app at http://localhost:5173
+```
+
+Other commands:
+
+| Command | What it does |
+| --- | --- |
+| `npm run lint` | Checks the code with ESLint |
+| `npm run typecheck` | Checks TypeScript types |
+| `npm test` | Runs the Vitest tests once |
+| `npm run build` | Builds the app into `dist/` |
+| `npm run check` | Runs lint, typecheck, test and build in that order (run this before opening a PR) |
 
 ## Test logins
 
