@@ -114,8 +114,8 @@ Hosting details will be added once the app is deployed.
 ## Project documents
 
 - [Product Requirements Document (PRD)](docs/PRD.md)
-- Designs: coming soon in `docs/designs/`
-- Implementation plan: coming soon in `IMPLEMENTATION_PLAN.md`
+- [Designs](docs/designs/) (Stitch screens for S1 to S12 and M1 to M7)
+- [Implementation plan](IMPLEMENTATION_PLAN.md)
 
 ## How we work
 
