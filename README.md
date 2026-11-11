@@ -85,6 +85,8 @@ Other commands:
 | `npm run build` | Builds the app into `dist/` |
 | `npm run check` | Runs lint, typecheck, test and build in that order (run this before opening a PR) |
 
+**CI:** GitHub Actions runs `npm run check` on every pull request to `main` (and on every push to `main`).
+
 ### Local database
 
 The database runs locally with the Supabase CLI. **You also need:** Docker Desktop (running).
