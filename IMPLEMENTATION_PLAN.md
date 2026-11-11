@@ -1,6 +1,6 @@
 # FixMyKasi: Implementation Plan
 
-**Built from PRD version v0.4** ([docs/PRD.md](docs/PRD.md)) · Team Grok · Last updated 11 Nov 2026
+**Built from PRD version v0.4** ([docs/PRD.md](docs/PRD.md)) · **Plan version v1.1** · Team Grok · Last updated 11 Nov 2026
 
 This is the build plan the team and our AI coding assistants follow, phase by phase. It follows Section 14, Step 2 of the course PRD template. The course names this file `IMPLEMENTATION_PLAN.md` instead of `MASTER.md`. Every ID (F#, US#, S#, M#, BR#, T-) comes from the PRD, and nothing is added that is not in the PRD.
 
@@ -8,7 +8,44 @@ This is the build plan the team and our AI coding assistants follow, phase by ph
 
 ## Clarifications needed
 
-None. The PRD's open questions (13.3) were all answered in v0.3.
+The PRD's own open questions (13.3) were all answered in v0.3. The questions below were found while planning. **Answered** rows are decisions to build to. **Open** rows block the phase in the "Blocks" column until the human answers them; other phases may go ahead.
+
+**Answered decisions**
+
+| # | Question | Where | Blocks | Answer | Status |
+| --- | --- | --- | --- | --- | --- |
+| 2 | The app needs `@supabase/supabase-js` to talk to Supabase, and PRD 9.1 names Lucide icons, but neither package is in the PRD stack table or `package.json`. May they be added? | PRD 9.1, 11.1, 11.3 |  | Yes. `@supabase/supabase-js` (v2) and `lucide-react` are approved and added to the stack (Section 2). Decided by the human, 11 Nov 2026. | Answered |
+| 3 | BR2 allows HEIC photos and requires the browser to resize, compress and strip EXIF. Only Safari can decode HEIC natively; Chrome on Android cannot draw HEIC to a canvas. Should we add a HEIC-decoding library (which one), or accept HEIC only where the browser can decode it? | BR2, S6, M3, US3 |  | Accept JPG and PNG only for now. If a HEIC/HEIF file is chosen, the photo util and S6 show "Please choose a JPG or PNG photo." and do not upload. Tests T-BR2-5 (photo util, #14) and T-S6-3 (S6, #13). HEIC/HEIF and WebP are deferred (Section 1). Decided by the human, 11 Nov 2026. | Answered |
+| 9 | Checkpoint 3 needs F1 end to end, and T-US3-1 lands on S5 after submitting. But S5 is in #17 (Bao992, milestone Final). Who builds the S5 needed for Checkpoint 3? | #13, #17, US3, PRD 13.4 M4 | Phase 2 (#13) | A read-only S5 base is built in #13 (Phase 2) for Checkpoint 3; the full S5 (timeline, role actions) stays in #17 (Phase 5). Decided in this follow-up, 11 Nov 2026. | Answered |
+
+**Open questions to answer**
+
+| # | Question | Where | Blocks | Answer | Status |
+| --- | --- | --- | --- | --- | --- |
+| 1 | PRD 11.1 says "React Router 6", but the repo uses React Router 7.18.x (PR #28), and the README tech stack table also still says 6. #32 will also move Vite and Vitest past "Vite 5". PRD 11.1 and 11.7 also do not mention pgTAP, which #9 uses. Should PRD 11.1 / 11.7 and the README be updated (with a change log row) now, and again when #32 lands? | PRD 11.1, 11.7; README; #32 | none (docs) |  | Open |
+| 4 | The edge case "A field team is removed while it has assigned faults" says the ward admin sees "This field team no longer exists. Please reassign." on S5, but the same row says the database blocks deleting a field team with faults that are not Closed. If the delete is blocked, when can the message appear? Should it be dropped, or should removal be a "deactivate" flag instead of a delete? | PRD 6.2, 10.1 FieldTeam | Phase 4 (#18, #19) |  | Open |
+| 5 | BR6 says the S4 search matches "a street address containing the typed words". Must the address contain all typed words in any order, the exact phrase, or any one of the words? | BR6, S4, T-US5-2 | Phase 2 (#12) |  | Open |
+| 6 | Delete account (PRD 5, M5) must delete the user's **login**. That needs the service role key, which may never be in the browser (PRD 11.5). PRD 11.3 only mentions an Edge Function for AI. May we add an Edge Function `delete-account` (takes the user from the request token, deletes the Auth user; the cascade does the rest)? | PRD 5, 11.3, 11.5, M5, US4 | Phase 3 (#23) |  | Open |
+| 7 | BR12 "delayed": when is `is_delayed` cleared (on the next status change, on Fixed, on reassign, or never)? Can a fault be marked delayed while Assigned and Scheduled, or only In progress (BR12 says "an assigned fault", US8-2 shows In progress)? | BR12, M3, US8 | Phase 5 (#16) |  | Open |
+| 8 | Creating a fault and uploading its photos are two steps. If the fault row is saved but the photo upload fails (US3-4 keeps the form for "Try again"), what happens to the saved row? Nobody may delete faults in the app (PRD 11.4), and a half-saved fault would also count towards the 5-a-day limit (BR17). Proposed options: upload photos first to a temporary path, or let a database function delete the reporter's own fault only when it has no photos and was created in the last few minutes. | US3-4, BR17, PRD 11.4 | Phase 2 (#13) |  | Open |
+| 10 | PRD 12.4 says the reporter's phone number is kept "so a ward admin can contact a resident about a fault", and the ward admin can read reporters' name and email (12.4, 11.4). But the S5 spec (8.2) shows no reporter details in the ward admin block. Should S5 show the reporter's name and phone to the ward admin of the ward? If yes, where and with what label? | PRD 8.2 S5, 11.4, 12.4 | Phase 4 (#19) |  | Open |
+| 11 | PRD 8.4 says the Ward A dashboard seed includes 'one Electricity fault "Streetlight flickering" (Viewed)'. "Streetlight flickering" is not a fault type in 10.4. Is it fault type "Faulty streetlight" with that text as its description? | PRD 8.4, 10.4, T-US11-1 | Phase 2 (#11 seed) |  | Open |
+| 12 | Design file names: Issue #6 says `S1.png`, `M2.png`, but `docs/designs/STITCH_PROMPTS.md` says `S01-welcome.png`, `M02-assign-fault.png`. Which naming should be used (and how are the desktop versions of S8 and S9 named)? | #6, `docs/designs/STITCH_PROMPTS.md` | Phase 1 (#6) |  | Open |
+| 13 | PRD 10.4 says the seed faults come "with their photos". Who supplies the sample photos (free to use, no faces or number plates), and by when? | PRD 10.4, 12.4 | Phase 2 (#14 seed) |  | Open |
+| 14 | "CI required" cannot be switched on in branch protection until #8 is merged, and #8 is assigned to Paul280-cloud on GitHub while this plan proposes Mikel17croc. Who does #8 and who changes the branch protection? Until then, is a pasted local `npm run check` enough to merge? | #8, PRD 13.4 M3 | none (process) |  | Open |
+| 15 | #15, #21, #22, #23, #24, #25, #26 and #32 have no assignee on GitHub, and #8 is assigned to Paul280-cloud. This plan proposes: Mikel17croc #8, #15, #21, #22, #32; Bafana-Ndlovu #23; SIJABULILE-NCUBE #24; Bao992 #25; Paul280-cloud #26. Please confirm or change them on the board. | Board, Section 12 | Phase 1 (#8), 2 (#15), 3 (#23), 6 (#21, #22), 7 (#24, #25, #26, #32) |  | Open |
+| 16 | BR17 says "at most 5 faults in any 24 hours" (a rolling window), but the message says "Please try again tomorrow." Is the limit a rolling 24 hours, or per calendar day in SAST? | BR17, T-US3-3 | Phase 2 (#11) |  | Open |
+| 17 | BR1 says the number restarts "each year" using "the year it was reported". Is that the year in SAST (proposed) or UTC? It only matters between 22:00 and 24:00 UTC on 31 December. | BR1 | Phase 2 (#11) |  | Open |
+| 18 | After a fault is Reopened, 10.3 only allows Reopened → Assigned. Should the old field team, due date and `is_delayed` be cleared on reopen? Should the old due date still make it "Overdue" while it sits in the "New" tab? | 10.3, BR7, BR11, BR14 | Phase 5 (#16) |  | Open |
+| 19 | M7 must say where the data is stored, but the Supabase region is only recorded when the hosted project is created (PRD 12.4. Also, the contact "privacy@fixmykasi.example" is a placeholder domain. What is the region, and what contact address should M7 show? | M7, PRD 12.4 | Phase 3 (#23) |  | Open |
+| 20 | BR18 says the first visit uses the browser's language if it is one of the four, and S1/S11 show all four languages. Until #24 adds af, zu and nso, should the picker show only the languages that exist (proposed), or all four with English text behind them? | BR18, S1, S11, #24 | Phase 3 (#23), Phase 7 (#24) |  | Open |
+| 21 | Ward admins and field team members are "Created by the admin in the Supabase dashboard" (PRD 2.4). The sign-up trigger requires a home ward and 18+ for residents, and creates every login as a resident. What are the exact admin steps for a staff account (create login, then set role and ward / field team)? Should they be written in the README? | PRD 2.4, 2.5 | none (docs) |  | Open |
+| 22 | S9 "View overdue faults" opens S8 with "Overdue only" on. Overdue faults can be in the "New" or "In progress" tab (BR7). Which tab should be active, or should the filter apply across tabs? | S9, S8, BR7, BR11 | Phase 6 (#22) |  | Open |
+| 23 | US11-1 expects "Open faults 4, Overdue faults 1" with the seed data, using "today" = 12 Nov 2026. On the demo days (16 and 20 Nov) more seed faults will be overdue (FMK-2026-00123 is due 18 Nov). Should the seed dates be relative to the day the database is reset, so the demo always shows the PRD figures? | PRD 8.4, T-US11-1, final demo | Phase 2 (#11 seed), Phase 6 (#21) |  | Open |
+| 24 | PRD 2.4 says a ward admin "can mark faults Viewed", and BR10 says it happens automatically on first open. Is there also a manual "Mark as viewed" action, or only the automatic one? | PRD 2.4, BR10 | Phase 4 (#19) |  | Open |
+| 25 | BR15 "Average time to fix" counts faults "fixed in the last 30 days". Does that include faults that were later Closed or Reopened, and for a reopened fault, is the first or the latest `fixed_at` used? | BR15, S9 | Phase 6 (#21) |  | Open |
+| 26 | F7 AI provider: PRD 11.2 says the Tech Lead chooses OpenAI or Anthropic "when F7 work starts". Which provider and model? | PRD 11.2, BR20 | Phase 7 (#26) |  | Open |
+| 27 | Question #3 limits photos to JPG and PNG, but the PRD message for a too-big or unsupported photo is "This photo is too big or not a supported type. Use a JPG, PNG, HEIC or WebP under 10 MB.", which still names HEIC and WebP, and PRD BR2, S6 and M3 still list HEIC and WebP. What exact text should that message use now, and should BR2 / S6 / M3 in the PRD get a change log row? | BR2, S6, M3, PRD 6.2, question #3 | Phase 2 (#13, #14) |  | Open |
 
 **Follow-ups for the PRD** (small mismatches found while building, to fix in a PRD PR with a change log row; they do not block any phase):
 - 11.1 says React Router 6, but the scaffold (PR #28) upgraded to the patched React Router 7 for security.
@@ -29,11 +66,11 @@ None. The PRD's open questions (13.3) were all answered in v0.3.
 
 **Non-goals (PRD 3.2):** no link to real municipal systems, no native app, no SMS/WhatsApp/push messages, no private-property faults, no chat between residents and field teams, no ward councillor accounts.
 
-**Deferred: must NOT be built (PRD 4.3):** ward councillor view, WhatsApp reporting, the other 7 official languages, voice notes and low-data mode, monthly PDF reports.
+**Deferred: must NOT be built (PRD 4.3):** ward councillor view, WhatsApp reporting, the other 7 official languages, voice notes and low-data mode, monthly PDF reports. Also deferred by decision #3: HEIC/HEIF and WebP photos (JPG and PNG only for now).
 
 ## 2. Tech stack, folders and setup
 
-Stack from PRD 11.1, as set up in PR #28: React 18, Vite 5, TypeScript 5, React Router 7, Tailwind CSS 3, i18next, Supabase (Postgres, Auth, Storage, Edge Functions, pg_cron), Vitest + React Testing Library, pgTAP for database tests, Vercel hosting, **Node.js 22 LTS** (`.nvmrc`).
+Stack from PRD 11.1, as set up in PR #28: React 18, Vite 5, TypeScript 5, React Router 7, Tailwind CSS 3, i18next, Supabase (Postgres, Auth, Storage, Edge Functions, pg_cron), Vitest + React Testing Library, pgTAP for database tests, Vercel hosting, **Node.js 22 LTS** (`.nvmrc`). Approved additions (decision #2), installed by the first PR that needs them: `@supabase/supabase-js` v2 (Supabase client) and `lucide-react` (Lucide icons, PRD 9.1).
 
 Folder structure: PRD 11.6. Database work lives only in `supabase/migrations/` (one file per change, merged through a PR) and `supabase/tests/`.
 
@@ -101,7 +138,7 @@ One rule per row of 11.4, enforced in the database with RLS, column grants and d
 | BR | Where it runs | Logic |
 | --- | --- | --- |
 | BR1 | Database trigger on Fault insert | year := current year (SAST); n := atomically increment that year's counter; reference := 'FMK-' + year + '-' + n padded to 5 digits; never changes |
-| BR2 | Browser (S6, M3) + Storage policy | accept 1 to 3 files, JPG/PNG/HEIC/WebP, ≤ 10 MB each; resize to ≤ 1600 px, compress < 500 KB, strip EXIF; if "not safe" ticked, 0 photos allowed and description ≥ 30 chars |
+| BR2 | Browser (S6, M3) + Storage policy | accept 1 to 3 files, **JPG/PNG only** (decision #3; a HEIC/HEIF file shows "Please choose a JPG or PNG photo." and is not uploaded), ≤ 10 MB each; resize to ≤ 1600 px, compress < 500 KB, strip EXIF; if "not safe" ticked, 0 photos allowed and description ≥ 30 chars |
 | BR3 | Browser (S6) + check constraints | ward required (default home ward); street 5 to 120 chars; landmark ≤ 60; ask GPS once, save lat/long if allowed |
 | BR4 | Database query (S6 → M6) | same ward, same fault type, not Closed, last 30 days; if both have GPS, within 200 m; up to 5, closest first (else newest first); none → skip M6 |
 | BR5 | Database (RLS + trigger) | one upvote per resident per fault; removable; not own fault; not Closed; trigger keeps upvote_count in step |
@@ -186,29 +223,29 @@ Each phase ends with an app that runs. All Must features come before any Should.
 | Issue | Work | Owner | Status |
 | --- | --- | --- | --- |
 | #5 | Project scaffold, folders, tokens, `.env.example`, home screen | Bheki | ✅ PR #28 |
-| #9 | Core tables, RLS and reference data, seed users | Bheki | ✅ PR #29 |
-| #8 | GitHub Actions CI: lint, typecheck, test, build on every PR | Bheki | To do |
+| #8 | GitHub Actions CI: lint, typecheck, test, build on every PR | Mhlengi (Mikel17croc, proposed; assigned to Bheki on GitHub) | To do |
 | #7 | Test plan, manual checklist and test accounts | Bao | To do |
 | #6 | Stitch style guide and all screens S1 to S12, M1 to M7 | Bafana | In progress |
 
 **Definition of Done**
 - [x] `npm run check` passes (lint, typecheck, test, build)
 - [x] The app runs and shows the FixMyKasi home screen
-- [x] Core migrations apply and all pgTAP tests pass
 - [ ] CI runs on every PR and is required to pass on `main`
 - [ ] Designs in `docs/designs/` and the Stitch link in the README
 
-### Phase 2: F1 Account and report a fault (Checkpoint 3, Mon 16 Nov)
+### Phase 2: F1 Account and report a fault + F2 list and upvotes (Checkpoint 3, Mon 16 Nov)
 
-Covers F1 · US1, US2, US3 · S2, S3, S6, S12, M1 · BR1, BR2, BR3, BR17, BR19. Checkpoint 3 needs log-in, the database and at least one Must feature on the live link, with every member having merged at least one PR.
+Covers F1 (account and report), F2 (list, upvotes, similar reports) · US1, US2, US3, US5, US6 · S2, S3, S4, S5 (read-only base), S6, S12, M1, M6 · BR1, BR2, BR3, BR4, BR5, BR6, BR16, BR17, BR19. Checkpoint 3 needs log-in, the database and at least one Must feature on the live link, with every member having merged at least one PR.
 
-| Issue | Work | Owner |
-| --- | --- | --- |
-| #10 | Auth screens S2, S3, M1, S12 | Bheki |
-| #11 | Fault tables, reference number, upvote_count, public view, RLS | Sijabulile |
-| #14 | `fault-photos` bucket, policies and photo resizing | Bafana |
-| #13 | S6 Report a fault + M6 Similar reports | Bafana |
-| #15 | Deploy to Vercel, env vars, auto-redeploy on merge | Bheki |
+| Issue | Work | Owner | Status |
+| --- | --- | --- | --- |
+| #9 | Core tables, RLS and reference data, seed users | Bheki | ✅ PR #29 |
+| #10 | Auth screens S2, S3, M1, S12 | Bheki | To do |
+| #11 | Fault tables, reference number, upvote_count, public view, RLS | Sijabulile | To do |
+| #14 | `fault-photos` bucket, policies and photo resizing (JPG/PNG only, decision #3) | Bafana | To do |
+| #12 | S4 Fault list: search, filters, sort, infinite scroll, upvote | Sijabulile | To do |
+| #13 | S6 Report a fault + M6 Similar reports + **read-only S5 base** (photos, fault type, status chip and labels, location, description, "Not assigned yet", upvote button, Received row) so a resident lands on S5 after submitting. The full S5 (timeline, role actions) stays in #17. | Bafana | To do |
+| #15 | Deploy to Vercel, env vars, auto-redeploy on merge | Mhlengi (Mikel17croc, proposed) | To do |
 
 **Definition of Done**
 - [ ] **T-US1-1** (manual): Given I am on S2, when I enter my full name, email, a password like "kasi2026", tick both checkboxes and tap "Create account", then I go to S3 with the banner "Check your email to confirm your account."
@@ -222,27 +259,29 @@ Covers F1 · US1, US2, US3 · S2, S3, S6, S12, M1 · BR1, BR2, BR3, BR17, BR19. 
 - [ ] **T-US3-2** (automated + manual): Given I have not added a photo or ticked "It is not safe to take a photo", when I tap "Submit report", then S6 shows "Add at least 1 photo."
 - [ ] **T-US3-3** (automated + manual): Given I have already reported 5 faults in the last 24 hours, when I tap "Submit report", then S6 shows "You can report up to 5 faults a day. Please try again tomorrow." and keeps my form.
 - [ ] **T-US3-4** (manual): Given my upload fails, when I tap "Submit report", then S6 shows "Upload failed. Check your connection." with "Try again", and keeps my photos and text.
-- [ ] Live link works in a private window
-
-### Phase 3: F1 completed + F2 Public fault list and upvotes
-
-Covers F1, F2 · US4, US5, US6 · S1, S4, S11, M5, M6, M7 · BR4, BR5, BR6, BR16, BR18.
-
-| Issue | Work | Owner |
-| --- | --- | --- |
-| #12 | S4 Fault list: search, filters, sort, infinite scroll, upvote | Sijabulile |
-| #23 | S1 Welcome, S11 Profile, M5 Delete account, M7 Privacy notice | To assign |
-
-**Definition of Done**
-- [ ] **T-US4-1** (manual): Given I am on S11, when I change Language to "isiZulu", then every label on every screen changes to isiZulu, and the choice is kept after I log out and in again.
-- [ ] **T-US4-2** (manual): Given I tap "Delete account" on S11 and confirm on M5, when the deletion finishes, then I go to S1 with the message "Your account has been deleted." and my faults show no link to me.
-- [ ] **T-US4-3** (manual): Given the deletion fails, when I confirm on M5, then M5 shows "Something went wrong. Try again." and my account stays.
 - [ ] **T-US5-1** (manual): Given there are faults, when I open S4, then I see up to 20 fault cards, newest first.
 - [ ] **T-US5-2** (automated + manual): Given I type "FMK-2026-00123" in search, when I tap search, then only that fault is shown.
 - [ ] **T-US5-3** (manual): Given my filters match nothing, when the list loads, then S4 shows "No faults match your filters." with a "Clear filters" button.
 - [ ] **T-US6-1** (manual): Given a Scheduled burst pipe exists 80 m away in my ward, when I tap "Next" on S6, then M6 shows it with the title "Is this the same fault?"
 - [ ] **T-US6-2** (manual): Given M6 is open, when I tap "Upvote instead", then the upvote is saved, I go to S5 for that fault, and I see the toast "Thanks, your upvote was added."
 - [ ] **T-US6-3** (automated + manual): Given I reported the fault myself, when I view it on S5, then the upvote button is disabled with the text "You reported this fault".
+- [ ] **T-BR2-5** (automated, #14, `tests/unit/photo.test.ts`): a HEIC or HEIF file (MIME type `image/heic` / `image/heif`, or a `.heic` / `.heif` extension when the type is empty) is rejected by the photo util with "Please choose a JPG or PNG photo.", and the upload function is never called.
+- [ ] **T-S6-3** (automated, #13, `tests/screens/ReportFault.test.tsx`): choosing a HEIC/HEIF photo on S6 shows "Please choose a JPG or PNG photo.", the photo is not added, nothing is uploaded, and photos already added stay.
+- [ ] Core migrations apply and all pgTAP tests pass (#9 ✅; #11 and #14 still to add theirs)
+- [ ] Live link works in a private window
+
+### Phase 3: F1 completed
+
+Covers F1 · US4 · S1, S11, M5, M7 · BR18. (S4, M6, US5 and US6 moved to Phase 2 for Checkpoint 3.)
+
+| Issue | Work | Owner |
+| --- | --- | --- |
+| #23 | S1 Welcome, S11 Profile, M5 Delete account, M7 Privacy notice | Bafana (proposed) |
+
+**Definition of Done**
+- [ ] **T-US4-1** (manual): Given I am on S11, when I change Language to "isiZulu", then every label on every screen changes to isiZulu, and the choice is kept after I log out and in again.
+- [ ] **T-US4-2** (manual): Given I tap "Delete account" on S11 and confirm on M5, when the deletion finishes, then I go to S1 with the message "Your account has been deleted." and my faults show no link to me.
+- [ ] **T-US4-3** (manual): Given the deletion fails, when I confirm on M5, then M5 shows "Something went wrong. Try again." and my account stays.
 
 ### Phase 4: F3 Assign the work
 
@@ -287,8 +326,8 @@ Covers F5 · US11 · S9 · BR11, BR15.
 
 | Issue | Work | Owner |
 | --- | --- | --- |
-| #21 | Ward dashboard figures function (BR15) | To assign |
-| #22 | S9 Ward dashboard | To assign |
+| #21 | Ward dashboard figures function (BR15) | Mhlengi (Mikel17croc, proposed) |
+| #22 | S9 Ward dashboard | Mhlengi (Mikel17croc, proposed) |
 
 **Definition of Done**
 - [ ] **T-US11-1** (automated + manual): Given my ward has the sample data, when I open S9, then I see Open faults 4, Overdue faults 1 and Average time to fix 5.0 days, matching BR15.
@@ -301,10 +340,10 @@ Covers F6, F7, F8 · US12, US13, US14 · S4, S5, S6, M3 · BR13, BR18, BR20, BR2
 
 | Issue | Work | Owner |
 | --- | --- | --- |
-| #25 | F6 Proof of work: after photos | To assign |
-| #26 | F7 AI help and F8 Map view | To assign |
-| #24 | i18n setup and Afrikaans, isiZulu, Sepedi | To assign |
-| #32 | Upgrade Vite and Vitest to patched major versions | Bheki |
+| #25 | F6 Proof of work: after photos | Bao (proposed) |
+| #26 | F7 AI help and F8 Map view | Bheki (proposed) |
+| #24 | i18n setup and Afrikaans, isiZulu, Sepedi | Sijabulile (proposed) |
+| #32 | Upgrade Vite and Vitest to patched major versions | Mhlengi (Mikel17croc, proposed) |
 
 **Definition of Done**
 - [ ] **T-US12-1** (manual): Given I choose "Fixed" on M3, when I add 1 after photo and save, then S5 shows "Before" and "After" photos side by side.
@@ -365,3 +404,10 @@ Every acceptance criterion from PRD Section 6. **Automated** means a Vitest or p
 - [ ] **T-US14-2** (automated + manual): Given 2 faults have no GPS, when the map loads, then a note under it says "2 faults without a map location are not shown."
 
 **Demo script:** PRD 11.7 (6 steps, about 5 minutes).
+
+## Change log
+
+| Plan version | Date | What changed | Why |
+| --- | --- | --- | --- |
+| v1.0 | 11 Nov 2026 | First version | PR #37 (Issue #35), from PRD v0.4 |
+| v1.1 | 11 Nov 2026 | Proposed owners for #8, #15, #21, #22, #23, #24, #25, #26, #32 (Mikel17croc now has frontend and backend work). Phase 2 (Checkpoint 3) now holds #9, #12 (S4), M6/US5/US6 and a read-only S5 base in #13; Phase 3 keeps only F1 completion. Stack adds `@supabase/supabase-js` v2 and `lucide-react` (decision #2). Photos JPG/PNG only, HEIC/HEIF/WebP deferred, tests T-BR2-5 and T-S6-3 (decision #3). Clarifications now list 3 answered decisions and 24 open questions with the phase each blocks. | Follow-up to #37 |
