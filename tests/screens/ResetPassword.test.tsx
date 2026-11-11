@@ -1,4 +1,4 @@
-import { fireEvent, screen, within } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import * as auth from '../helpers/authMock';
 import { renderApp, setOnline } from '../helpers/renderApp';
 import { act } from 'react';

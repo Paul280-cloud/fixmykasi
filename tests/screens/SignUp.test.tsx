@@ -164,7 +164,10 @@ describe('S2 Sign Up', () => {
 
     const dialog = screen.getByRole('dialog', { name: 'Privacy Notice' });
     expect(within(dialog).getByText(/Europe \(Stockholm, Sweden\)/)).toBeInTheDocument();
-    fireEvent.click(within(dialog).getByRole('button', { name: 'Close' }));
+    // The X in the corner and the "Close" button at the bottom both close M7.
+    const closeButtons = within(dialog).getAllByRole('button', { name: 'Close' });
+    expect(closeButtons).toHaveLength(2);
+    fireEvent.click(closeButtons[1]);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
