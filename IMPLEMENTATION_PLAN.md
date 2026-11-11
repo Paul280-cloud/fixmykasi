@@ -9,7 +9,7 @@
 | App name | FixMyKasi |
 | Built from PRD version | v0.4 (`docs/PRD.md`, 11 Nov 2026) |
 | Screen designs | Not finished yet. Stitch prompts are in `docs/designs/STITCH_PROMPTS.md`. The exported screens (S1 to S12, M1 to M7, plus desktop versions of S8 and S9) will be saved in `docs/designs/` by Issue #6. Until then, every screen and token marked "TBD until docs/designs is merged" is not final (Section 7). |
-| Plan version | v0.1 |
+| Plan version | v0.2 |
 | Repository | https://github.com/Paul280-cloud/fixmykasi |
 | Project board | https://github.com/users/Paul280-cloud/projects/1 |
 | Status | Draft (waiting for the designs in #6 and the answers in Section 18) |
@@ -152,8 +152,8 @@ From PRD 3.2 and 4.3:
 | Routing | React Router (`react-router-dom`) | 7 (`^7.18.5`, v7.18.x) | Routes and redirect rules (Section 11). PRD 11.1 still says 6, see Section 18 #1. | Yes |
 | Styling | Tailwind CSS | 3 (`^3.4.19`) | Styling from the design tokens | Yes |
 | Translations | i18next + react-i18next | 23 / 15 | English first (`en.json`). `af`, `zu`, `nso` added later, one language per PR (BR18, #24). | Yes |
-| Backend client | @supabase/supabase-js | v2 | Talking to Supabase from the browser | **No: added in Phase 5 (#10)**, see Section 18 #2 |
-| Icons | lucide-react | Latest stable when added | Lucide outline icons, 24 px (PRD 9.1) | **No: added in Phase 5 (#10)**, see Section 18 #2 |
+| Backend client | @supabase/supabase-js | v2 | Talking to Supabase from the browser | Approved (Section 18 #2, 11 Nov 2026). **Not installed yet: added in Phase 4 (#15) or Phase 5 (#10), whichever merges first** |
+| Icons | lucide-react | Latest stable when added | Lucide outline icons, 24 px (PRD 9.1) | Approved (Section 18 #2, 11 Nov 2026). **Not installed yet: added in Phase 5 (#10)** |
 | Map (F8) | Leaflet 1.9 + react-leaflet + OpenStreetMap tiles | 1.9 | Map view (BR21) | **No: added in Phase 16 (#26)** |
 | Database | Supabase PostgreSQL | Supabase CLI (`npx supabase`) | Data, constraints, triggers, RLS | Yes |
 | Log-in | Supabase Auth (email and password) | n/a | Sign-up, verification and reset emails | Yes (local config) |
@@ -870,7 +870,7 @@ Checkpoint 3 must show, on the live link: **the live link itself, log-in, the da
 
 **Covers:** PRD 11.1 (hosting), 11.5, 12.4 (region) · Issue #15 (Mikel17croc, proposed) · Milestone Checkpoint 3
 
-**Starts when:** Phase 1 #5 is done (it is) and Section 18 #2 is answered (for `@supabase/supabase-js`). Can run in parallel with Phases 3, 5 and 6.
+**Starts when:** Phase 1 #5 is done (it is). Section 18 #2 is answered (`@supabase/supabase-js` approved). Can run in parallel with Phases 3, 5 and 6.
 
 **Step 1: Write the failing tests first (Red)**
 
@@ -891,7 +891,7 @@ Checkpoint 3 must show, on the live link: **the live link itself, log-in, the da
 
 **Step 3: Frontend (Green)**
 
-- [ ] `src/lib/supabase.ts` (T-SETUP-4). `@supabase/supabase-js` added only after Section 18 #2 is answered.
+- [ ] `src/lib/supabase.ts` (T-SETUP-4). Install `@supabase/supabase-js` v2 (approved, Section 18 #2) and record the exact version in the Progress log.
 - [ ] Vercel project from GitHub; `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` set in Vercel; `vercel.json` rewrites every route to `index.html`.
 - [ ] Live link added to the README Links table.
 
@@ -922,7 +922,7 @@ Checkpoint 3 must show, on the live link: **the live link itself, log-in, the da
 
 **Covers:** Features F1 (account part) · Stories US1, US2 · Screens S2, S3, S12, M1, M7 (from S2), app shell (Header, TabBar, routes) · Operations OP1 to OP7, OP10 · PRD 5 · Issue #10 (Paul280-cloud) · Milestone Checkpoint 3
 
-**Starts when:** Phase 2 is done (it is) the designs for S2, S3, S12, M1, M7 and the shared components are in `docs/designs/` (Phase 3), and Section 18 #2 is answered. If a design is missing, stop and ask (Section 7).
+**Starts when:** Phase 2 is done (it is) and the designs for S2, S3, S12, M1, M7 and the shared components are in `docs/designs/` (Phase 3). Section 18 #2 is answered (`@supabase/supabase-js` v2 and lucide-react approved; install them here if Phase 4 has not, and record the versions in the Progress log). If a design is missing, stop and ask (Section 7).
 
 **Step 1: Write the failing tests first (Red)**
 
@@ -1774,12 +1774,12 @@ Bao992 runs this list on the live link before each checkpoint (PRD 11.7). Tick o
 
 ## 18. Clarifications needed
 
-These are open questions found in the PRD (v0.4), the repo and the board while writing this plan. None has been answered yet, so every row is **Open**. The coding agent must not change a row to Answered itself: the human writes the answer and the date, and if the answer changes the PRD, the PRD gets a change log row first. The "Blocks" column says which phase cannot start until the row is answered; other phases may go ahead.
+These are open questions found in the PRD (v0.4), the repo and the board while writing this plan. Row #2 was answered by the human on 11 Nov 2026; every other row is still **Open**. The coding agent must not change a row to Answered itself: the human writes the answer and the date, and if the answer changes the PRD, the PRD gets a change log row first. The "Blocks" column says which phase cannot start until the row is answered; other phases may go ahead.
 
 | # | Question | Where (section / ID) | Blocks | Answer | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | PRD 11.1 says "React Router 6", but the repo uses React Router 7.18.x (PR #28), and the README tech stack table also still says 6. #32 will also move Vite and Vitest past "Vite 5". PRD 11.1 and 11.7 also do not mention pgTAP, which #9 uses. Should PRD 11.1 / 11.7 and the README be updated (with a change log row) now, and again when #32 lands? | PRD 11.1, 11.7; README; #32 | none (docs) | | Open |
-| 2 | The app needs `@supabase/supabase-js` to talk to Supabase, and PRD 9.1 names Lucide icons, but neither package is in the PRD stack table or `package.json`. May they be added in Phase 4/5 (Rule 13)? | PRD 9.1, 11.1, 11.3 | 4, 5 | | Open |
+| 2 | The app needs `@supabase/supabase-js` to talk to Supabase, and PRD 9.1 names Lucide icons, but neither package is in the PRD stack table or `package.json`. May they be added in Phase 4/5 (Rule 13)? | PRD 9.1, 11.1, 11.3 | 4, 5 | Yes. `@supabase/supabase-js` (v2) and `lucide-react` are approved and added to the Section 4.1 stack table. Decided by the human, 11 Nov 2026. | Answered |
 | 3 | BR2 allows HEIC photos and requires the browser to resize, compress and strip EXIF. Only Safari can decode HEIC natively; Chrome on Android cannot draw HEIC to a canvas. Should we add a HEIC-decoding library (which one), or accept HEIC only where the browser can decode it? | BR2, S6, M3, US3 | 6 (#14), 8 | | Open |
 | 4 | The edge case "A field team is removed while it has assigned faults" says the ward admin sees "This field team no longer exists. Please reassign." on S5, but the same row says the database blocks deleting a field team with faults that are not Closed. If the delete is blocked, when can the message appear? Should it be dropped, or should removal be a "deactivate" flag instead of a delete? | PRD 6.2, 10.1 FieldTeam | 10 | | Open |
 | 5 | BR6 says the S4 search matches "a street address containing the typed words". Must the address contain all typed words in any order, the exact phrase, or any one of the words? | BR6, S4, T-US5-2 | 7 | | Open |
@@ -1812,3 +1812,4 @@ These are open questions found in the PRD (v0.4), the repo and the board while w
 | Plan version | Date | What changed | Why |
 | --- | --- | --- | --- |
 | v0.1 | 11 Nov 2026 | First version | Generated from PRD v0.4, the repo after PR #28 and PR #29, and the GitHub Issues #5 to #26 and #32. Designs not ready yet, so tokens and screen designs are "TBD until docs/designs is merged". 26 open questions in Section 18. |
+| v0.2 | 11 Nov 2026 | Sections 4.1, 18 and Phases 4 and 5 | Section 18 #2 answered: `@supabase/supabase-js` (v2) and `lucide-react` approved and added to the stack table. | Human decision |
