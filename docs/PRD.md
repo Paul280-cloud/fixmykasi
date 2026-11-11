@@ -10,7 +10,7 @@
 | Facilitator / reviewer | Mnelisi Maswanganyi |
 | Link to our original app idea | [docs/FixMyKasi-Team-Brief.pdf](FixMyKasi-Team-Brief.pdf): team brief "FixMyKasi: What Our App Does" (9 Nov 2026) |
 | GitHub repository | https://github.com/Paul280-cloud/fixmykasi (this file is `docs/PRD.md`) |
-| Version | v0.3 |
+| Version | v0.4 |
 | Status | Draft |
 
 ### Change log
@@ -20,6 +20,7 @@
 | v0.1 | 10 Nov 2026 | All | First draft, written from the team brief of 9 Nov 2026. Should features cut from 4 to 3 to fit the template: the ward councillor view moved to Future features (4.3). | None |
 | v0.2 | 10 Nov 2026 | 9.1, 8.3 | Colour scheme changed to the national Coat of Arms colours used on South African government websites (green, brown, gold, orange and white). Header is now Heritage Brown with a gold line. | None |
 | v0.3 | 10 Nov 2026 | Document details, 4.4 (BR18), 8.2 (S1), 11.2, 12.4, 13.2, 13.3 | Open questions answered by the Tech Lead and moved into their sections: photo stays required with the "not safe" option (BR2); AI provider chosen when F7 starts; translations English first, one language per PR; Supabase region confirmed when the project is created; team brief committed to docs/. | None |
+| v0.4 | 11 Nov 2026 | 11.1 | Node.js version changed from 20 LTS to 22 to match the project scaffold (PR #28), which requires Node 22 or newer. | None |
 
 ---
 
@@ -1025,7 +1026,7 @@ Closed is final. Nobody can change a Closed fault.
 | File / image storage | Supabase Storage, bucket `fault-photos` | Same project and permissions as the database |
 | Scheduled jobs | Supabase pg_cron, daily at 02:00 SAST | Closes faults Fixed for 7 days with no response (BR14) |
 | Hosting | Vercel, connected to GitHub so every merge to `main` redeploys | Required by the project brief |
-| Language and package manager | TypeScript 5, npm, Node.js 20 LTS | Type checking runs in CI |
+| Language and package manager | TypeScript 5, npm, Node.js 22 | Type checking runs in CI. The scaffold requires Node 22 or newer. |
 | Translations | i18next with react-i18next | Interface in 4 languages (BR18) |
 | Map (F8) | Leaflet 1.9 with react-leaflet and OpenStreetMap tiles | Free and needs no key |
 | Testing | Vitest and React Testing Library for business rules and screens, plus the manual checklist from Section 6 | Runs in GitHub Actions CI |
