@@ -4,7 +4,7 @@ import HomeScreen from './screens/home/HomeScreen';
 
 export default function App() {
   return (
-    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
       </Routes>
