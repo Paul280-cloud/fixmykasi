@@ -85,6 +85,20 @@ Other commands:
 | `npm run build` | Builds the app into `dist/` |
 | `npm run check` | Runs lint, typecheck, test and build in that order (run this before opening a PR) |
 
+### Local database
+
+The database runs locally with the Supabase CLI. **You also need:** Docker Desktop (running).
+
+```bash
+npx supabase start                          # start the local stack (first run downloads the Docker images)
+npx supabase db reset                       # apply supabase/migrations and load supabase/seed.sql
+cp .env.example .env                        # then paste the URL and keys from: npx supabase status
+node --env-file=.env supabase/seed/seed.js  # set the test passwords (PRD 10.4)
+npx supabase test db                        # run the pgTAP tests in supabase/tests
+```
+
+The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http://127.0.0.1:55323) so it can run next to another Supabase project. Stop it with `npx supabase stop`. Test logins are listed in [supabase/seed/README.md](supabase/seed/README.md).
+
 ## Test logins
 
 Test accounts for each role will be added here. These are test accounts only, never real passwords.
