@@ -13,7 +13,7 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 | Link | URL |
 | --- | --- |
 | Live app | Coming soon |
-| Stitch project | Coming soon |
+| Stitch project | FixMyKasi designs (https://stitch.withgoogle.com/projects/16313615270709945959) |
 | Project board | [FixMyKasi board](https://github.com/users/Paul280-cloud/projects/1) |
 | Team Loom | Coming soon |
 
