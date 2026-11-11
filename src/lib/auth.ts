@@ -158,3 +158,21 @@ export async function updatePassword(password: string): Promise<{ error?: AuthEr
 export async function logOut(): Promise<void> {
   await supabase.auth.signOut({ scope: 'local' });
 }
+
+// Tells the app who is logged in, now and after every change.
+export function onAuthChange(callback: (userId: string | null) => void): () => void {
+  const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    callback(session?.user.id ?? null);
+  });
+  return () => data.subscription.unsubscribe();
+}
+
+// The "Confirm email" link logs the user in. PRD 4.5 and 7.1 want S3 with
+// "Email confirmed. Please log in.", so the link's session is ended here.
+// Returns false when the link came back with an error.
+export async function finishEmailConfirmation(): Promise<boolean> {
+  if (linkHasError()) return false;
+  const { data } = await supabase.auth.getSession();
+  if (data.session) await supabase.auth.signOut({ scope: 'local' });
+  return true;
+}
