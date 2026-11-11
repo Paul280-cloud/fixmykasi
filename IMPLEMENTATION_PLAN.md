@@ -32,8 +32,8 @@ The PRD's own open questions (13.3) were all answered in v0.3. The questions bel
 | 11 | PRD 8.4 says the Ward A dashboard seed includes 'one Electricity fault "Streetlight flickering" (Viewed)'. "Streetlight flickering" is not a fault type in 10.4. Is it fault type "Faulty streetlight" with that text as its description? | PRD 8.4, 10.4, T-US11-1 | Phase 2 (#11 seed) |  | Open |
 | 12 | Design file names: Issue #6 says `S1.png`, `M2.png`, but `docs/designs/STITCH_PROMPTS.md` says `S01-welcome.png`, `M02-assign-fault.png`. Which naming should be used (and how are the desktop versions of S8 and S9 named)? | #6, `docs/designs/STITCH_PROMPTS.md` | Phase 1 (#6) |  | Open |
 | 13 | PRD 10.4 says the seed faults come "with their photos". Who supplies the sample photos (free to use, no faces or number plates), and by when? | PRD 10.4, 12.4 | Phase 2 (#14 seed) |  | Open |
-| 14 | "CI required" cannot be switched on in branch protection until #8 is merged, and #8 is assigned to Paul280-cloud on GitHub while this plan proposes Mikel17croc. Who does #8 and who changes the branch protection? Until then, is a pasted local `npm run check` enough to merge? | #8, PRD 13.4 M3 | none (process) |  | Open |
-| 15 | #15, #21, #22, #23, #24, #25, #26 and #32 have no assignee on GitHub, and #8 is assigned to Paul280-cloud. This plan proposes: Mikel17croc #8, #15, #21, #22, #32; Bafana-Ndlovu #23; SIJABULILE-NCUBE #24; Bao992 #25; Paul280-cloud #26. Please confirm or change them on the board. | Board, Section 12 | Phase 1 (#8), 2 (#15), 3 (#23), 6 (#21, #22), 7 (#24, #25, #26, #32) |  | Open |
+| 14 | "CI required" cannot be switched on in branch protection until #8 (Paul280-cloud) is merged. Who changes the branch protection, and by when? Until then, is a pasted local `npm run check` enough to merge? | #8, PRD 13.4 M3 | none (process) |  | Open |
+| 15 | #15, #21, #22, #23, #24, #25, #26 and #32 have no assignee on GitHub (#8 is already Paul280-cloud's). This plan proposes: Paul280-cloud #15, #26, #32; Mikel17croc #21, #22 (reassign if no response by 13 Nov); Bafana-Ndlovu #23; SIJABULILE-NCUBE #24; Bao992 #25. Please confirm or change them on the board. | Board, Section 12 | Phase 2 (#15), 3 (#23), 6 (#21, #22), 7 (#24, #25, #26, #32) |  | Open |
 | 16 | BR17 says "at most 5 faults in any 24 hours" (a rolling window), but the message says "Please try again tomorrow." Is the limit a rolling 24 hours, or per calendar day in SAST? | BR17, T-US3-3 | Phase 2 (#11) |  | Open |
 | 17 | BR1 says the number restarts "each year" using "the year it was reported". Is that the year in SAST (proposed) or UTC? It only matters between 22:00 and 24:00 UTC on 31 December. | BR1 | Phase 2 (#11) |  | Open |
 | 18 | After a fault is Reopened, 10.3 only allows Reopened → Assigned. Should the old field team, due date and `is_delayed` be cleared on reopen? Should the old due date still make it "Overdue" while it sits in the "New" tab? | 10.3, BR7, BR11, BR14 | Phase 5 (#16) |  | Open |
@@ -223,7 +223,7 @@ Each phase ends with an app that runs. All Must features come before any Should.
 | Issue | Work | Owner | Status |
 | --- | --- | --- | --- |
 | #5 | Project scaffold, folders, tokens, `.env.example`, home screen | Bheki | ✅ PR #28 |
-| #8 | GitHub Actions CI: lint, typecheck, test, build on every PR | Mhlengi (Mikel17croc, proposed; assigned to Bheki on GitHub) | To do |
+| #8 | GitHub Actions CI: lint, typecheck, test, build on every PR | Bheki | To do |
 | #7 | Test plan, manual checklist and test accounts | Bao | To do |
 | #6 | Stitch style guide and all screens S1 to S12, M1 to M7 | Bafana | In progress |
 
@@ -245,7 +245,7 @@ Covers F1 (account and report), F2 (list, upvotes, similar reports) · US1, US2,
 | #14 | `fault-photos` bucket, policies and photo resizing (JPG/PNG only, decision #3) | Bafana | To do |
 | #12 | S4 Fault list: search, filters, sort, infinite scroll, upvote | Sijabulile | To do |
 | #13 | S6 Report a fault + M6 Similar reports + **read-only S5 base** (photos, fault type, status chip and labels, location, description, "Not assigned yet", upvote button, Received row) so a resident lands on S5 after submitting. The full S5 (timeline, role actions) stays in #17. | Bafana | To do |
-| #15 | Deploy to Vercel, env vars, auto-redeploy on merge | Mhlengi (Mikel17croc, proposed) | To do |
+| #15 | Deploy to Vercel, env vars, auto-redeploy on merge | Bheki (proposed) | To do |
 
 **Definition of Done**
 - [ ] **T-US1-1** (manual): Given I am on S2, when I enter my full name, email, a password like "kasi2026", tick both checkboxes and tap "Create account", then I go to S3 with the banner "Check your email to confirm your account."
@@ -326,8 +326,8 @@ Covers F5 · US11 · S9 · BR11, BR15.
 
 | Issue | Work | Owner |
 | --- | --- | --- |
-| #21 | Ward dashboard figures function (BR15) | Mhlengi (Mikel17croc, proposed) |
-| #22 | S9 Ward dashboard | Mhlengi (Mikel17croc, proposed) |
+| #21 | Ward dashboard figures function (BR15) | Mhlengi (Mikel17croc, proposed; reassign if no response by 13 Nov) |
+| #22 | S9 Ward dashboard | Mhlengi (Mikel17croc, proposed; reassign if no response by 13 Nov) |
 
 **Definition of Done**
 - [ ] **T-US11-1** (automated + manual): Given my ward has the sample data, when I open S9, then I see Open faults 4, Overdue faults 1 and Average time to fix 5.0 days, matching BR15.
@@ -343,7 +343,7 @@ Covers F6, F7, F8 · US12, US13, US14 · S4, S5, S6, M3 · BR13, BR18, BR20, BR2
 | #25 | F6 Proof of work: after photos | Bao (proposed) |
 | #26 | F7 AI help and F8 Map view | Bheki (proposed) |
 | #24 | i18n setup and Afrikaans, isiZulu, Sepedi | Sijabulile (proposed) |
-| #32 | Upgrade Vite and Vitest to patched major versions | Mhlengi (Mikel17croc, proposed) |
+| #32 | Upgrade Vite and Vitest to patched major versions | Bheki (proposed) |
 
 **Definition of Done**
 - [ ] **T-US12-1** (manual): Given I choose "Fixed" on M3, when I add 1 after photo and save, then S5 shows "Before" and "After" photos side by side.
@@ -410,4 +410,4 @@ Every acceptance criterion from PRD Section 6. **Automated** means a Vitest or p
 | Plan version | Date | What changed | Why |
 | --- | --- | --- | --- |
 | v1.0 | 11 Nov 2026 | First version | PR #37 (Issue #35), from PRD v0.4 |
-| v1.1 | 11 Nov 2026 | Proposed owners for #8, #15, #21, #22, #23, #24, #25, #26, #32 (Mikel17croc now has frontend and backend work). Phase 2 (Checkpoint 3) now holds #9, #12 (S4), M6/US5/US6 and a read-only S5 base in #13; Phase 3 keeps only F1 completion. Stack adds `@supabase/supabase-js` v2 and `lucide-react` (decision #2). Photos JPG/PNG only, HEIC/HEIF/WebP deferred, tests T-BR2-5 and T-S6-3 (decision #3). Clarifications now list 3 answered decisions and 24 open questions with the phase each blocks. | Follow-up to #37 |
+| v1.1 | 11 Nov 2026 | Owners: #8 Paul280-cloud (as on GitHub); proposed Paul280-cloud for #15, #26, #32; Mikel17croc for #21 and #22 only (reassign if no response by 13 Nov); Bafana-Ndlovu #23; SIJABULILE-NCUBE #24; Bao992 #25. Phase 2 (Checkpoint 3) now holds #9, #12 (S4), M6/US5/US6 and a read-only S5 base in #13; Phase 3 keeps only F1 completion. Stack adds `@supabase/supabase-js` v2 and `lucide-react` (decision #2). Photos JPG/PNG only, HEIC/HEIF/WebP deferred, tests T-BR2-5 and T-S6-3 (decision #3). Clarifications now list 3 answered decisions and 24 open questions with the phase each blocks. | Follow-up to #37 |
