@@ -13,6 +13,12 @@ export const colors = {
   error: '#B42318',
   success: '#1E7B34',
   warning: '#87451A', // Ochre Brown
+  border: '#D0D5DD', // Text field border (8.3: grey border)
+  disabled: {
+    DEFAULT: '#D0D5DD', // Disabled button background (8.3)
+    text: '#667085', // Disabled button text (8.3)
+  },
+  offline: '#5C5650', // Offline banner (8.3: grey bar)
   status: {
     received: '#5C5650',
     viewed: '#825B32',

@@ -1,13 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './i18n';
-import HomeScreen from './screens/home/HomeScreen';
+import OfflineBanner from './components/OfflineBanner';
+import { AuthProvider } from './lib/AuthProvider';
+import AppRoutes from './routes';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-      </Routes>
+      <AuthProvider>
+        <OfflineBanner />
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
