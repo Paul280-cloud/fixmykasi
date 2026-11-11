@@ -52,11 +52,10 @@ select is_empty($$
   where p.pronamespace = 'public'::regnamespace
     and not coalesce('search_path=""' = any(p.proconfig), false)
 $$, 'every function in public sets search_path = ''''');
-select results_eq($$
-  select p.proname::text from pg_proc p
-  where p.pronamespace = 'public'::regnamespace and p.prosecdef
-  order by 1
-$$, $$ values ('field_team_contacts'), ('handle_new_user') $$,
+select is(
+  (select array_agg(p.proname::text order by p.proname) from pg_proc p
+   where p.pronamespace = 'public'::regnamespace and p.prosecdef),
+  array['field_team_contacts', 'handle_new_user'],
   'only handle_new_user and field_team_contacts are security definer');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'anon', array[]::text[], 'anon cannot call handle_new_user');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call handle_new_user');

@@ -3,7 +3,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(41);
+select plan(42);
 
 -- Test data (as postgres) ----------------------------------------------------
 insert into public.wards (id, name) values ('0000000a-0000-0000-0000-000000000301', 'Ref Ward One');

@@ -3,7 +3,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(97);
+select plan(99);
 
 -- Choice types ---------------------------------------------------------------
 select has_enum('public', 'user_role', 'user_role enum exists');
