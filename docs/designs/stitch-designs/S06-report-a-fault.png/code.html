@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S6 Report a Fault - FixMyKasi (Phone 390x844)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        fmk: {
+          green: '#005D28',
+          greenDark: '#00471F',
+          brown: '#531A17',
+          gold: '#D8A851',
+          orange: '#EF4718',
+          bgPage: '#FFFFFF',
+          bgSection: '#F8F6F1',
+          textDark: '#1C1C1C',
+          textSecondary: '#5C5650',
+          error: '#B42318',
+          success: '#1E7B34',
+          warning: '#87451A',
+        }
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+      boxShadow: {
+        card: '0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04)',
+      }
+    }
+  }
+}
+</script>
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F3F1EC;
+  color: #1C1C1C;
+  -webkit-font-smoothing: antialiased;
+}
+/* Touch target enforcement */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+/* Custom scrollbar hide */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+  <div class="max-w-[1540px] mx-auto">
+    <!-- Header Documentation banner -->
+    <header class="mb-8 bg-white border border-[#E4DFD5] rounded-2xl p-6 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#EAE6DF] pb-4 mb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-2.5 py-1 text-xs font-semibold uppercase tracking-wider bg-[#E8F3EB] text-[#005D28] rounded-full">FixMyKasi Design System</span>
+          <span class="text-xs text-[#5C5650] font-medium">• Screen S6 Report a Fault (Phone 390 × 844 px)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#F8F6F1] text-[#531A17] border border-[#D8A851]">WCAG AA Compliant</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#E8F3EB] text-[#005D28]">PRD 8.2 &amp; BR2, 3, 4, 17, 19, 20</span>
+        </div>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-bold text-[#1C1C1C] tracking-tight">S6 Report a Fault Specification &amp; Comprehensive State Variants</h1>
+      <p class="text-sm md:text-base text-[#5C5650] mt-1">
+        High-fidelity phone interface (390 × 844 px) for resident fault reporting. Features camera/photo tiles, "not safe" exemption flow, AI category suggestion, danger auto-lock, GPS location toggling, character counters, similar report checking (M6 hook), and all error, loading progress, and offline states.
+      </p>
+    </header>
+
+    <!-- Main Grid of Screen States -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 items-start">
+
+      <!-- ========================================================= -->
+      <!-- STATE 1: NORMAL (EMPTY FORM WITH HOME WARD DEFAULTED) -->
+      <!-- ========================================================= -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F3EB] border border-[#005D28]/20 text-[#005D28] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#005D28]"></span> State 1: Normal (Initial Form)
+          </div>
+          <p class="text-xs text-[#5C5650] mt-1">Empty form with resident's home ward defaulted</p>
+        </div>
+
+        <!-- Phone Frame 390 x 844 -->
+        <div class="w-[390px] h-[844px] bg-[#FFFFFF] rounded-[44px] shadow-2xl border-[8px] border-[#222222] flex flex-col relative overflow-hidden ring-1 ring-black/5">
+          <!-- Status bar -->
+          <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-6 pt-1 text-xs select-none">
+            <span class="font-semibold text-white/90">09:41</span>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l.74-.74C8.04 20.24 9.93 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M2 17h20v2H2zm1.15-4.05L4 11.97V7c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v4.97l.85.98c.37.42.15 1.05-.39 1.05H3.54c-.54 0-.76-.63-.39-1.05z"/></svg>
+              <div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center">
+                <div class="h-full w-full bg-white rounded-2xs"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Header -->
+          <div class="bg-[#531A17] px-4 pt-1 pb-3 text-white relative">
+            <div class="flex items-center justify-between min-h-[44px]">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 flex items-center justify-center -ml-2 rounded-full hover:bg-white/10 active:bg-white/20 transition-colors" aria-label="Go back">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h1 class="text-lg font-bold text-white tracking-wide">Report a fault</h1>
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white/15 text-white/90">Resident</span>
+            </div>
+            <!-- Persistent Gold Line -->
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D8A851]"></div>
+          </div>
+
+          <!-- Scrollable Body Content -->
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 bg-white">
+            <!-- 2. Emergency Notice -->
+            <div class="bg-[#FFF9E6] border border-[#D8A851] rounded-xl p-3.5 flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-[#D8A851] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-[#1C1C1C]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                </svg>
+              </div>
+              <p class="text-xs font-medium text-[#1C1C1C] leading-snug">
+                If someone's life is in danger, call <strong class="font-bold underline text-[#87451A]">10177</strong> or <strong class="font-bold underline text-[#87451A]">112</strong> from a cellphone.
+              </p>
+            </div>
+
+            <!-- 3. Photos Section -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-sm font-semibold text-[#1C1C1C]">
+                  Photos <span class="text-[#B42318]">*</span>
+                </label>
+                <span class="text-xs text-[#5C5650]">1 to 3 photos (max 10MB)</span>
+              </div>
+
+              <!-- 3 Photo Tiles -->
+              <div class="grid grid-cols-3 gap-2.5">
+                <button class="h-24 border-2 border-dashed border-[#005D28] rounded-xl bg-[#F8F6F1] flex flex-col items-center justify-center gap-1.5 text-[#005D28] hover:bg-[#E8F3EB] active:scale-[0.98] transition-all touch-target">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span class="text-xs font-semibold">Add photo</span>
+                </button>
+
+                <div class="h-24 border-2 border-dashed border-[#D5D0C7] rounded-xl bg-[#FAF9F6] flex flex-col items-center justify-center text-[#5C5650]/60">
+                  <span class="text-xs font-medium">Slot 2</span>
+                </div>
+
+                <div class="h-24 border-2 border-dashed border-[#D5D0C7] rounded-xl bg-[#FAF9F6] flex flex-col items-center justify-center text-[#5C5650]/60">
+                  <span class="text-xs font-medium">Slot 3</span>
+                </div>
+              </div>
+
+              <!-- Checkbox: It is not safe to take a photo -->
+              <label class="flex items-center gap-2.5 pt-1 cursor-pointer select-none">
+                <input type="checkbox" class="w-5 h-5 rounded border-[#C8C2B7] text-[#005D28] focus:ring-[#005D28] focus:ring-offset-0">
+                <span class="text-xs text-[#5C5650]">It is not safe to take a photo</span>
+              </label>
+            </div>
+
+            <!-- 5. Form Fields -->
+            <div class="space-y-3 pt-1">
+              <!-- Category -->
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                  Category <span class="text-[#B42318]">*</span>
+                </label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3 bg-white border border-[#D5D0C7] rounded-lg text-sm text-[#5C5650] appearance-none focus:outline-none focus:border-[#005D28] focus:ring-1 focus:ring-[#005D28]">
+                    <option value="" selected disabled>Choose a category</option>
+                    <option value="water">Clean water</option>
+                    <option value="sanitation">Sewer &amp; Sanitation</option>
+                    <option value="roads">Roads &amp; Stormwater</option>
+                    <option value="electricity">Electricity</option>
+                    <option value="waste">Waste &amp; Illegal dumping</option>
+                    <option value="parks">Parks &amp; Facilities</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-[#5C5650]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fault Type -->
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                  Fault type <span class="text-[#B42318]">*</span>
+                </label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#5C5650] appearance-none focus:outline-none cursor-not-allowed" disabled>
+                    <option value="" selected>Choose the fault</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-[#5C5650]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- This is dangerous checkbox -->
+              <div class="p-2.5 bg-[#F8F6F1] rounded-lg border border-[#EAE6DF]">
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" class="w-5 h-5 rounded border-[#C8C2B7] text-[#EF4718] focus:ring-[#EF4718] focus:ring-offset-0">
+                  <div>
+                    <span class="text-xs font-semibold text-[#1C1C1C]">This is dangerous</span>
+                    <p class="text-[11px] text-[#5C5650]">E.g. exposed live cables, deep open trench</p>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Ward -->
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                  Ward <span class="text-[#B42318]">*</span>
+                </label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3 bg-white border border-[#005D28] rounded-lg text-sm text-[#1C1C1C] font-medium appearance-none focus:outline-none focus:border-[#005D28]">
+                    <option value="ward_a" selected>Ward A: Orlando West (Your home ward)</option>
+                    <option value="ward_b">Ward B: Diepkloof</option>
+                    <option value="ward_c">Ward C: Braamfontein</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-[#5C5650]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location Toggle & Address -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span class="text-xs font-semibold text-[#1C1C1C]">Use my location</span>
+                  </div>
+                  <!-- Switch -->
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked class="sr-only peer">
+                    <div class="w-9 h-5 bg-[#C8C2B7] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#005D28]"></div>
+                  </label>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                    Street address <span class="text-[#B42318]">*</span>
+                  </label>
+                  <input type="text" placeholder="e.g. 23 Vilakazi Street, Orlando West" class="w-full h-11 px-3 bg-white border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] placeholder-[#5C5650]/60 focus:outline-none focus:border-[#005D28]">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                    Landmark <span class="text-[#5C5650] text-[11px] font-normal">(Optional)</span>
+                  </label>
+                  <input type="text" placeholder="e.g. Opposite the Shell garage" class="w-full h-11 px-3 bg-white border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] placeholder-[#5C5650]/60 focus:outline-none focus:border-[#005D28]">
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="text-xs font-semibold text-[#1C1C1C]">
+                    Description <span class="text-[#B42318]">*</span>
+                  </label>
+                  <span class="text-[11px] text-[#5C5650]">0 / 500</span>
+                </div>
+                <textarea rows="3" placeholder="What is happening, and since when?" class="w-full p-3 bg-white border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] placeholder-[#5C5650]/60 focus:outline-none focus:border-[#005D28] resize-none"></textarea>
+                <span class="text-[11px] text-[#5C5650] block mt-0.5">Min 10 characters (30 if no photo).</span>
+              </div>
+            </div>
+
+            <!-- Primary Action Button -->
+            <div class="pt-2 pb-4">
+              <button class="w-full h-12 bg-[#005D28] hover:bg-[#00471F] text-white font-semibold text-base rounded-lg shadow-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all touch-target">
+                <span>Next</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
+              <p class="text-[11px] text-center text-[#5C5650] mt-2">Checks for similar reports in your area (BR4)</p>
+            </div>
+          </div>
+
+          <!-- Bottom Tab Bar (Resident Role 7.2) -->
+          <div class="h-16 bg-white border-t border-[#EAE6DF] px-2 flex items-center justify-around flex-shrink-0 z-10">
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] hover:text-[#005D28] touch-target">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span class="text-[10px] font-medium mt-1">Faults</span>
+            </a>
+            <!-- Active Tab: Report -->
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#005D28] font-bold touch-target">
+              <div class="w-8 h-8 rounded-full bg-[#E8F3EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-[10px] font-bold mt-0.5">Report</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] hover:text-[#005D28] touch-target">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="text-[10px] font-medium mt-1">My reports</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] hover:text-[#005D28] touch-target">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] text-white text-[10px] font-bold flex items-center justify-center">
+                TM
+              </div>
+              <span class="text-[10px] font-medium mt-1">Profile</span>
+            </a>
+          </div>
+
+          <!-- Bottom Home Indicator -->
+          <div class="h-2 bg-white flex justify-center pb-1">
+            <div class="w-32 h-1 bg-[#1C1C1C]/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========================================================= -->
+      <!-- STATE 1B: POPULATED SAMPLE CONTENT (AI CHIP + DANGER LOCK) -->
+      <!-- ========================================================= -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF9E6] border border-[#D8A851] text-[#87451A] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#D8A851]"></span> State 1B: Sample Data (F7 AI &amp; M6 ready)
+          </div>
+          <p class="text-xs text-[#5C5650] mt-1">Water flowing, dangerous locked, "Submit report"</p>
+        </div>
+
+        <!-- Phone Frame 390 x 844 -->
+        <div class="w-[390px] h-[844px] bg-[#FFFFFF] rounded-[44px] shadow-2xl border-[8px] border-[#222222] flex flex-col relative overflow-hidden ring-1 ring-black/5">
+          <!-- Status bar -->
+          <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-6 pt-1 text-xs select-none">
+            <span class="font-semibold text-white/90">09:41</span>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l.74-.74C8.04 20.24 9.93 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M2 17h20v2H2zm1.15-4.05L4 11.97V7c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v4.97l.85.98c.37.42.15 1.05-.39 1.05H3.54c-.54 0-.76-.63-.39-1.05z"/></svg>
+              <div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center">
+                <div class="h-full w-full bg-white rounded-2xs"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Header -->
+          <div class="bg-[#531A17] px-4 pt-1 pb-3 text-white relative">
+            <div class="flex items-center justify-between min-h-[44px]">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 flex items-center justify-center -ml-2 rounded-full hover:bg-white/10" aria-label="Go back">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h1 class="text-lg font-bold text-white tracking-wide">Report a fault</h1>
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white/15 text-white/90">Resident</span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D8A851]"></div>
+          </div>
+
+          <!-- Scrollable Body Content -->
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 bg-white">
+            <!-- 2. Emergency Notice -->
+            <div class="bg-[#FFF9E6] border border-[#D8A851] rounded-xl p-3 flex items-start gap-2.5">
+              <div class="w-5 h-5 rounded-full bg-[#D8A851] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-[#1C1C1C]" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              </div>
+              <p class="text-xs font-medium text-[#1C1C1C] leading-tight">
+                If someone's life is in danger, call <strong class="font-bold underline text-[#87451A]">10177</strong> or <strong class="font-bold underline text-[#87451A]">112</strong>.
+              </p>
+            </div>
+
+            <!-- 3. Photos Section with uploaded photo tile -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-sm font-semibold text-[#1C1C1C]">
+                  Photos <span class="text-[#B42318]">*</span>
+                </label>
+                <span class="text-xs font-semibold text-[#005D28]">1 of 3 uploaded</span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2.5">
+                <!-- Uploaded photo tile: Water flowing across road -->
+                <div class="h-24 rounded-xl relative overflow-hidden border border-[#005D28] shadow-sm bg-sky-900 group">
+                  <!-- Synthetic water flow visual representation -->
+                  <div class="w-full h-full bg-gradient-to-br from-slate-700 via-sky-800 to-cyan-900 flex flex-col justify-end p-1.5 relative">
+                    <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:8px_8px]"></div>
+                    <div class="relative z-10 flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-white bg-black/50 px-1.5 py-0.5 rounded backdrop-blur-xs">Water pipe</span>
+                      <button class="w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center shadow" title="Remove photo">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Add second photo tile -->
+                <button class="h-24 border-2 border-dashed border-[#005D28] rounded-xl bg-[#F8F6F1] flex flex-col items-center justify-center gap-1 text-[#005D28]">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span class="text-[11px] font-semibold">Add more</span>
+                </button>
+
+                <div class="h-24 border-2 border-dashed border-[#D5D0C7] rounded-xl bg-[#FAF9F6] flex flex-col items-center justify-center text-[#5C5650]/60">
+                  <span class="text-xs font-medium">Slot 3</span>
+                </div>
+              </div>
+
+              <!-- 4. AI Suggestion Chip (BR20 / F7) -->
+              <div class="pt-1">
+                <div class="bg-[#F0FDF4] border border-[#86EFAC] rounded-lg p-2.5 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-[#005D28] text-white flex items-center justify-center text-[10px] font-bold">AI</span>
+                    <div>
+                      <p class="text-[11px] text-[#5C5650]">Detected from photo:</p>
+                      <p class="text-xs font-bold text-[#005D28]">Burst clean water pipe</p>
+                    </div>
+                  </div>
+                  <button class="px-2.5 py-1 text-xs font-semibold bg-[#005D28] text-white rounded-md hover:bg-[#00471F]">
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form with sample data populated -->
+            <div class="space-y-3 pt-1">
+              <!-- Category: Clean water -->
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                  Category <span class="text-[#B42318]">*</span>
+                </label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#005D28] rounded-lg text-sm text-[#1C1C1C] font-semibold appearance-none">
+                    <option selected>Clean water</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-[#005D28]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fault Type: Burst clean water pipe -->
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                  Fault type <span class="text-[#B42318]">*</span>
+                </label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#005D28] rounded-lg text-sm text-[#1C1C1C] font-semibold appearance-none">
+                    <option selected>Burst clean water pipe</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-[#005D28]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- This is dangerous: Ticked & Locked (BR19 auto urgent) -->
+              <div class="p-3 bg-[#FFF5F5] rounded-lg border-2 border-[#EF4718]">
+                <label class="flex items-start gap-2.5 select-none">
+                  <input type="checkbox" checked disabled class="w-5 h-5 rounded border-[#EF4718] text-[#EF4718] accent-[#EF4718] mt-0.5 cursor-not-allowed">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-xs font-bold text-[#1C1C1C]">This is dangerous</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EF4718] text-[#1C1C1C]">URGENT (LOCKED)</span>
+                    </div>
+                    <p class="text-[11px] text-[#5C5650] mt-0.5">High pressure burst water pipes are automatically flagged as urgent (BR19).</p>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Ward -->
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                  Ward <span class="text-[#B42318]">*</span>
+                </label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3 bg-white border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] font-medium appearance-none">
+                    <option selected>Ward A: Orlando West</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Location & Address Filled -->
+              <div class="space-y-2">
+                <div>
+                  <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                    Street address <span class="text-[#B42318]">*</span>
+                  </label>
+                  <input type="text" value="23 Vilakazi Street, Orlando West" class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] font-medium">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">
+                    Landmark <span class="text-[#5C5650] text-[11px] font-normal">(Optional)</span>
+                  </label>
+                  <input type="text" value="Near the Mandela House" class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">
+                </div>
+              </div>
+
+              <!-- Description in isiZulu (Sample content) -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="text-xs font-semibold text-[#1C1C1C]">
+                    Description <span class="text-[#B42318]">*</span>
+                  </label>
+                  <span class="text-[11px] font-semibold text-[#005D28]">52 / 500</span>
+                </div>
+                <textarea rows="3" class="w-full p-3 bg-[#F8F6F1] border border-[#005D28] rounded-lg text-sm text-[#1C1C1C] font-medium resize-none">Amanzi aphuma epayipini kusukela izolo ekuseni</textarea>
+                <span class="text-[11px] text-[#5C5650] block mt-0.5">isiZulu: water coming out of the pipe since yesterday morning</span>
+              </div>
+            </div>
+
+            <!-- Primary Action Button: "Submit report" (after no similar reports) -->
+            <div class="pt-2 pb-4">
+              <button class="w-full h-12 bg-[#005D28] hover:bg-[#00471F] text-white font-semibold text-base rounded-lg shadow-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all touch-target">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Submit report</span>
+              </button>
+              <p class="text-[11px] text-center text-[#5C5650] mt-1.5">No similar faults found nearby. Ready to post.</p>
+            </div>
+          </div>
+
+          <!-- Bottom Tab Bar -->
+          <div class="h-16 bg-white border-t border-[#EAE6DF] px-2 flex items-center justify-around flex-shrink-0 z-10">
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] touch-target">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span class="text-[10px] font-medium mt-1">Faults</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#005D28] font-bold touch-target">
+              <div class="w-8 h-8 rounded-full bg-[#E8F3EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-[10px] font-bold mt-0.5">Report</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] touch-target">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="text-[10px] font-medium mt-1">My reports</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] touch-target">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] text-white text-[10px] font-bold flex items-center justify-center">TM</div>
+              <span class="text-[10px] font-medium mt-1">Profile</span>
+            </a>
+          </div>
+
+          <!-- Bottom Home Indicator -->
+          <div class="h-2 bg-white flex justify-center pb-1">
+            <div class="w-32 h-1 bg-[#1C1C1C]/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========================================================= -->
+      <!-- STATE 2: LOADING (PROGRESS BAR & UPLOADING PHOTOS) -->
+      <!-- ========================================================= -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0F2FE] border border-[#38BDF8] text-[#0369A1] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#0284C7] animate-pulse"></span> State 2: Loading State
+          </div>
+          <p class="text-xs text-[#5C5650] mt-1">"Uploading photos…" with progress bar, disabled button</p>
+        </div>
+
+        <!-- Phone Frame 390 x 844 -->
+        <div class="w-[390px] h-[844px] bg-[#FFFFFF] rounded-[44px] shadow-2xl border-[8px] border-[#222222] flex flex-col relative overflow-hidden ring-1 ring-black/5">
+          <!-- Status bar -->
+          <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-6 pt-1 text-xs select-none">
+            <span class="font-semibold text-white/90">09:41</span>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l.74-.74C8.04 20.24 9.93 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+              <div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center">
+                <div class="h-full w-full bg-white rounded-2xs"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Header -->
+          <div class="bg-[#531A17] px-4 pt-1 pb-3 text-white relative">
+            <div class="flex items-center justify-between min-h-[44px]">
+              <div class="flex items-center gap-2 opacity-50 cursor-not-allowed">
+                <div class="w-10 h-10 flex items-center justify-center -ml-2 rounded-full">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </div>
+                <h1 class="text-lg font-bold text-white tracking-wide">Report a fault</h1>
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white/15 text-white/90">Resident</span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D8A851]"></div>
+          </div>
+
+          <!-- Body with dimmed form and upload progress overlay -->
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 bg-white relative">
+            
+            <!-- Upload Modal / Banner Dialog -->
+            <div class="bg-white border-2 border-[#005D28] rounded-2xl p-5 shadow-xl space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#E8F3EB] flex items-center justify-center text-[#005D28] flex-shrink-0 animate-spin">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[#1C1C1C]">Uploading photos…</h3>
+                  <p class="text-xs text-[#5C5650]">Optimising and sending evidence (68%)</p>
+                </div>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="space-y-1.5">
+                <div class="w-full bg-[#EAE6DF] h-3 rounded-full overflow-hidden">
+                  <div class="bg-[#005D28] h-full rounded-full transition-all duration-300 w-[68%]"></div>
+                </div>
+                <div class="flex justify-between text-[11px] text-[#5C5650] font-medium">
+                  <span>Photo 1 of 1 • 2.4 MB of 3.5 MB</span>
+                  <span class="font-bold text-[#005D28]">68%</span>
+                </div>
+              </div>
+
+              <div class="bg-[#F8F6F1] rounded-lg p-3 text-xs text-[#5C5650] flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#87451A]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <span>Please do not close FixMyKasi while uploading.</span>
+              </div>
+            </div>
+
+            <!-- Frozen Form Snapshot Below -->
+            <div class="opacity-40 pointer-events-none space-y-3">
+              <div class="bg-[#FFF9E6] border border-[#D8A851] rounded-xl p-3 flex items-start gap-2.5">
+                <div class="w-5 h-5 rounded-full bg-[#D8A851] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3.5 h-3.5 text-[#1C1C1C]" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                </div>
+                <p class="text-xs font-medium text-[#1C1C1C]">If someone's life is in danger, call 10177 or 112.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Photos *</label>
+                <div class="h-20 border border-dashed border-[#005D28] rounded-xl bg-[#F8F6F1] flex items-center justify-center">
+                  <span class="text-xs text-[#5C5650]">1 photo ready</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Street address *</label>
+                <input type="text" value="23 Vilakazi Street, Orlando West" disabled class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Description *</label>
+                <textarea rows="2" disabled class="w-full p-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">Amanzi aphuma epayipini kusukela izolo ekuseni</textarea>
+              </div>
+            </div>
+
+            <!-- Disabled Submit Button in Loading State -->
+            <div class="pt-2 pb-4">
+              <button disabled class="w-full h-12 bg-[#005D28]/60 text-white font-semibold text-base rounded-lg flex items-center justify-center gap-2 cursor-wait touch-target">
+                <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Uploading photos…</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Tab Bar -->
+          <div class="h-16 bg-white border-t border-[#EAE6DF] px-2 flex items-center justify-around flex-shrink-0 z-10 opacity-70">
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span class="text-[10px] font-medium mt-1">Faults</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#005D28] font-bold">
+              <div class="w-8 h-8 rounded-full bg-[#E8F3EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-[10px] font-bold mt-0.5">Report</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="text-[10px] font-medium mt-1">My reports</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] text-white text-[10px] font-bold flex items-center justify-center">TM</div>
+              <span class="text-[10px] font-medium mt-1">Profile</span>
+            </div>
+          </div>
+
+          <div class="h-2 bg-white flex justify-center pb-1">
+            <div class="w-32 h-1 bg-[#1C1C1C]/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========================================================= -->
+      <!-- STATE 3: ERROR STATE VARIANTS (UPLOAD FAILED & LIMIT REACHED) -->
+      <!-- ========================================================= -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEE4E2] border border-[#F04438] text-[#B42318] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#B42318]"></span> State 3: Error State Variants
+          </div>
+          <p class="text-xs text-[#5C5650] mt-1">Upload failed with "Try again" &amp; 5 reports/day limit</p>
+        </div>
+
+        <!-- Phone Frame 390 x 844 -->
+        <div class="w-[390px] h-[844px] bg-[#FFFFFF] rounded-[44px] shadow-2xl border-[8px] border-[#222222] flex flex-col relative overflow-hidden ring-1 ring-black/5">
+          <!-- Status bar -->
+          <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-6 pt-1 text-xs select-none">
+            <span class="font-semibold text-white/90">09:41</span>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l.74-.74C8.04 20.24 9.93 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+              <div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center">
+                <div class="h-full w-full bg-white rounded-2xs"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Header -->
+          <div class="bg-[#531A17] px-4 pt-1 pb-3 text-white relative">
+            <div class="flex items-center justify-between min-h-[44px]">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 flex items-center justify-center -ml-2 rounded-full hover:bg-white/10" aria-label="Go back">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h1 class="text-lg font-bold text-white tracking-wide">Report a fault</h1>
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white/15 text-white/90">Resident</span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D8A851]"></div>
+          </div>
+
+          <!-- Scrollable Body Content -->
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3.5 bg-white">
+            
+            <!-- Error Banner 1: Upload Failed (Verbatim PRD spec) -->
+            <div class="bg-[#FEE4E2] border-2 border-[#B42318] rounded-xl p-3.5 flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-[#B42318] flex items-center justify-center flex-shrink-0 mt-0.5 text-white">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xs font-bold text-[#B42318]">Upload failed. Check your connection.</h3>
+                <p class="text-[11px] text-[#5C5650] mt-0.5">Your input was saved. Please tap Try again.</p>
+                <button class="mt-2 px-3 py-1.5 bg-[#B42318] text-white text-xs font-semibold rounded-md hover:bg-red-800 flex items-center gap-1.5 touch-target">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                  <span>Try again</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Error Banner 2: Limit Reached Variant (Verbatim PRD spec) -->
+            <div class="bg-[#FFF5F5] border border-[#FDA29B] rounded-xl p-3 flex items-start gap-2.5">
+              <svg class="w-5 h-5 text-[#B42318] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <p class="text-xs font-semibold text-[#B42318]">Daily limit reached</p>
+                <p class="text-xs text-[#1C1C1C] mt-0.5 leading-tight">
+                  "You can report up to 5 faults a day. Please try again tomorrow."
+                </p>
+              </div>
+            </div>
+
+            <!-- Form Keeps Everything Entered (Preservation Rule) -->
+            <div class="space-y-3 pt-1">
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Photos *</label>
+                <div class="p-2 border border-[#B42318] bg-[#FFF5F5] rounded-lg text-xs text-[#B42318] flex items-center justify-between">
+                  <span>1 photo attached (pending upload)</span>
+                  <span class="font-bold underline cursor-pointer">Retry</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Category *</label>
+                <input type="text" value="Clean water" readonly class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] font-medium">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Fault type *</label>
+                <input type="text" value="Burst clean water pipe" readonly class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C] font-medium">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Street address *</label>
+                <input type="text" value="23 Vilakazi Street, Orlando West" readonly class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="text-xs font-semibold text-[#1C1C1C]">Description *</label>
+                  <span class="text-[11px] text-[#5C5650]">52 / 500</span>
+                </div>
+                <textarea rows="2" readonly class="w-full p-2.5 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-xs text-[#1C1C1C]">Amanzi aphuma epayipini kusukela izolo ekuseni</textarea>
+              </div>
+            </div>
+
+            <!-- Submit action disabled or retry -->
+            <div class="pt-2 pb-4">
+              <button class="w-full h-12 bg-[#005D28] text-white font-semibold text-base rounded-lg shadow-sm flex items-center justify-center gap-2 touch-target">
+                <span>Submit report</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Tab Bar -->
+          <div class="h-16 bg-white border-t border-[#EAE6DF] px-2 flex items-center justify-around flex-shrink-0 z-10">
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span class="text-[10px] font-medium mt-1">Faults</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#005D28] font-bold">
+              <div class="w-8 h-8 rounded-full bg-[#E8F3EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-[10px] font-bold mt-0.5">Report</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="text-[10px] font-medium mt-1">My reports</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] text-white text-[10px] font-bold flex items-center justify-center">TM</div>
+              <span class="text-[10px] font-medium mt-1">Profile</span>
+            </div>
+          </div>
+
+          <div class="h-2 bg-white flex justify-center pb-1">
+            <div class="w-32 h-1 bg-[#1C1C1C]/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========================================================= -->
+      <!-- STATE 4: OFFLINE STATE (TOP BANNER & DISABLED SUBMIT) -->
+      <!-- ========================================================= -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3F4F6] border border-[#9CA3AF] text-[#4B5563] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#6B7280]"></span> State 4: Offline State
+          </div>
+          <p class="text-xs text-[#5C5650] mt-1">Shared top banner &amp; disabled submit button</p>
+        </div>
+
+        <!-- Phone Frame 390 x 844 -->
+        <div class="w-[390px] h-[844px] bg-[#FFFFFF] rounded-[44px] shadow-2xl border-[8px] border-[#222222] flex flex-col relative overflow-hidden ring-1 ring-black/5">
+          <!-- Status bar with Offline icon -->
+          <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-6 pt-1 text-xs select-none">
+            <span class="font-semibold text-white/90">09:41</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-amber-300">Offline</span>
+              <svg class="w-3.5 h-3.5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m-3.536-3.536a5 5 0 010-7.072M2 2l20 20"/></svg>
+            </div>
+          </div>
+
+          <!-- Section 8.3 & PRD 8.2 Top Offline Alert Banner -->
+          <div class="bg-[#4A4643] text-white px-4 py-2 text-xs flex items-center justify-center gap-2 font-medium shadow-inner">
+            <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span class="text-center leading-tight">You're offline. Your report will be saved when you're back online.</span>
+          </div>
+
+          <!-- App Header -->
+          <div class="bg-[#531A17] px-4 pt-1 pb-3 text-white relative">
+            <div class="flex items-center justify-between min-h-[44px]">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 flex items-center justify-center -ml-2 rounded-full hover:bg-white/10" aria-label="Go back">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h1 class="text-lg font-bold text-white tracking-wide">Report a fault</h1>
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white/15 text-white/90">Resident</span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D8A851]"></div>
+          </div>
+
+          <!-- Scrollable Body Content -->
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 bg-white">
+            <div class="bg-[#FFF9E6] border border-[#D8A851] rounded-xl p-3 flex items-start gap-2.5">
+              <div class="w-5 h-5 rounded-full bg-[#D8A851] flex items-center justify-center flex-shrink-0">
+                <svg class="w-3.5 h-3.5 text-[#1C1C1C]" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              </div>
+              <p class="text-xs font-medium text-[#1C1C1C] leading-tight">
+                If someone's life is in danger, call <strong class="font-bold underline text-[#87451A]">10177</strong> or <strong class="font-bold underline text-[#87451A]">112</strong>.
+              </p>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Photos *</label>
+                <div class="p-3 bg-[#F8F6F1] rounded-lg border border-[#D5D0C7] flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span class="text-xs font-medium text-[#1C1C1C]">1 photo saved to device cache</span>
+                  </div>
+                  <span class="text-[11px] text-[#5C5650]">Waiting for network</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Category *</label>
+                <input type="text" value="Clean water" readonly class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Street address *</label>
+                <input type="text" value="23 Vilakazi Street, Orlando West" readonly class="w-full h-11 px-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-[#1C1C1C] mb-1">Description *</label>
+                <textarea rows="3" readonly class="w-full p-3 bg-[#F8F6F1] border border-[#D5D0C7] rounded-lg text-sm text-[#1C1C1C]">Amanzi aphuma epayipini kusukela izolo ekuseni</textarea>
+              </div>
+            </div>
+
+            <!-- Disabled Submit Button in Offline State -->
+            <div class="pt-4 pb-4">
+              <button disabled class="w-full h-12 bg-[#D0D5DD] text-[#667085] font-semibold text-base rounded-lg shadow-none flex items-center justify-center gap-2 cursor-not-allowed touch-target">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span>Submit report (Offline)</span>
+              </button>
+              <p class="text-[11px] text-center text-[#5C5650] mt-2">Connect to Wi-Fi or mobile data to submit.</p>
+            </div>
+          </div>
+
+          <!-- Bottom Tab Bar -->
+          <div class="h-16 bg-white border-t border-[#EAE6DF] px-2 flex items-center justify-around flex-shrink-0 z-10">
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span class="text-[10px] font-medium mt-1">Faults</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#005D28] font-bold">
+              <div class="w-8 h-8 rounded-full bg-[#E8F3EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-[10px] font-bold mt-0.5">Report</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="text-[10px] font-medium mt-1">My reports</span>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650]">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] text-white text-[10px] font-bold flex items-center justify-center">TM</div>
+              <span class="text-[10px] font-medium mt-1">Profile</span>
+            </div>
+          </div>
+
+          <div class="h-2 bg-white flex justify-center pb-1">
+            <div class="w-32 h-1 bg-[#1C1C1C]/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========================================================= -->
+      <!-- STATE 5: SUCCESS (S5 REDIRECT WITH VERBATIM TOAST) -->
+      <!-- ========================================================= -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F3EB] border border-[#005D28]/30 text-[#005D28] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#005D28]"></span> State 5: Success (S5 Redirect)
+          </div>
+          <p class="text-xs text-[#5C5650] mt-1">Toast "Fault reported. Your reference number is FMK-2026-00125."</p>
+        </div>
+
+        <!-- Phone Frame 390 x 844 -->
+        <div class="w-[390px] h-[844px] bg-[#FFFFFF] rounded-[44px] shadow-2xl border-[8px] border-[#222222] flex flex-col relative overflow-hidden ring-1 ring-black/5">
+          <!-- Status bar -->
+          <div class="h-11 bg-[#531A17] text-white flex items-center justify-between px-6 pt-1 text-xs select-none">
+            <span class="font-semibold text-white/90">09:41</span>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l.74-.74C8.04 20.24 9.93 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+              <div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center">
+                <div class="h-full w-full bg-white rounded-2xs"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Header showing newly generated Reference Number -->
+          <div class="bg-[#531A17] px-4 pt-1 pb-3 text-white relative">
+            <div class="flex items-center justify-between min-h-[44px]">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 flex items-center justify-center -ml-2 rounded-full hover:bg-white/10" aria-label="Go back">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h1 class="text-base font-bold text-white tracking-wide">FMK-2026-00125</h1>
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white/15 text-white/90">Resident</span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D8A851]"></div>
+          </div>
+
+          <!-- Body with Verbatim Toast and Destination S5 Screen View -->
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 bg-white relative">
+            
+            <!-- VERBATIM SUCCESS TOAST (PRD Section 8.2 & 8.3) -->
+            <div class="bg-[#1C1C1C] text-white p-3.5 rounded-xl shadow-lg flex items-start gap-3 border-l-4 border-[#005D28]">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-xs font-bold text-white leading-tight">
+                  Fault reported. Your reference number is <span class="text-[#D8A851] font-mono">FMK-2026-00125</span>.
+                </p>
+                <p class="text-[11px] text-[#A8A29E] mt-0.5">You will receive SMS/push notifications when status updates.</p>
+              </div>
+              <button class="text-white/60 hover:text-white" aria-label="Dismiss toast">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            <!-- Newly created fault details preview on S5 -->
+            <div class="rounded-xl overflow-hidden border border-[#EAE6DF] shadow-card bg-white">
+              <div class="h-36 bg-gradient-to-r from-slate-700 via-sky-800 to-cyan-900 relative p-3 flex flex-col justify-between">
+                <div class="flex justify-between items-center">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EF4718] text-[#1C1C1C]">URGENT</span>
+                  <span class="text-xs bg-black/60 text-white px-2 py-0.5 rounded-full font-mono">1 / 1</span>
+                </div>
+                <div class="text-white">
+                  <span class="text-xs font-medium opacity-80">Photo uploaded</span>
+                </div>
+              </div>
+
+              <div class="p-4 space-y-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#5C5650]"></span>
+                  <span class="text-xs font-bold text-[#5C5650]">Received</span>
+                  <span class="text-xs text-[#5C5650] ml-auto">Just now</span>
+                </div>
+
+                <h2 class="text-base font-bold text-[#1C1C1C]">Burst clean water pipe</h2>
+                
+                <div class="text-xs text-[#5C5650] space-y-0.5">
+                  <p class="font-medium text-[#1C1C1C]">23 Vilakazi Street, Orlando West</p>
+                  <p>Near the Mandela House • Ward A</p>
+                </div>
+
+                <div class="p-2.5 bg-[#F8F6F1] rounded-lg border border-[#EAE6DF] text-xs text-[#1C1C1C]">
+                  "Amanzi aphuma epayipini kusukela izolo ekuseni"
+                </div>
+
+                <div class="pt-2 border-t border-[#EAE6DF] flex items-center justify-between text-xs text-[#5C5650]">
+                  <span>Reported by Thandeka Mokoena</span>
+                  <span class="font-semibold text-[#005D28]">1 upvote (You)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Helpful Navigation back to Faults -->
+            <div class="pt-2">
+              <a href="#" class="w-full h-11 bg-white border border-[#005D28] text-[#005D28] font-semibold text-sm rounded-lg flex items-center justify-center gap-2 hover:bg-[#E8F3EB] touch-target">
+                <span>View all faults in Ward A</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom Tab Bar: Faults becomes active or Report retains selection -->
+          <div class="h-16 bg-white border-t border-[#EAE6DF] px-2 flex items-center justify-around flex-shrink-0 z-10">
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#005D28] font-bold touch-target">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span class="text-[10px] font-bold mt-1">Faults</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] touch-target">
+              <div class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-[#5C5650]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-[10px] font-medium mt-0.5">Report</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] touch-target">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="text-[10px] font-medium mt-1">My reports</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center flex-1 h-full text-[#5C5650] touch-target">
+              <div class="w-6 h-6 rounded-full bg-[#005D28] text-white text-[10px] font-bold flex items-center justify-center">TM</div>
+              <span class="text-[10px] font-medium mt-1">Profile</span>
+            </a>
+          </div>
+
+          <div class="h-2 bg-white flex justify-center pb-1">
+            <div class="w-32 h-1 bg-[#1C1C1C]/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- COMPREHENSIVE IMPLEMENTATION & SPECIFICATION NOTES -->
+    <!-- ========================================================= -->
+    <footer class="mt-12 bg-white border border-[#E4DFD5] rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-5 h-5 text-[#005D28]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <h2 class="text-base font-bold text-[#1C1C1C]">S6 Report a Fault Implementation &amp; Specification Compliance Notes</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-[#5C5650] leading-relaxed">
+        <div>
+          <h3 class="font-bold text-[#1C1C1C] mb-2 uppercase tracking-wider text-[11px]">Layout, Ordered Components &amp; Business Rules</h3>
+          <ul class="space-y-1.5 list-disc pl-4">
+            <li><strong>Header:</strong> Heritage Brown (<code class="text-[#531A17] font-semibold">#531A17</code>) bar with white back arrow (≥44px touch target) and 3 px Gold (<code class="text-[#D8A851] font-semibold">#D8A851</code>) underline.</li>
+            <li><strong>Emergency Notice (Yellow Box):</strong> Verbatim text <em>"If someone's life is in danger, call 10177 or 112 from a cellphone."</em> with warning triangle icon.</li>
+            <li><strong>Photo Tiles (BR2):</strong> 3 photo slots with <em>"Add photo"</em> trigger (camera/gallery support) and verbatim checkbox <em>"It is not safe to take a photo"</em>.</li>
+            <li><strong>AI Suggestion Chip (BR20 / F7):</strong> Appears directly beneath photos when an image is selected, suggesting detected category/fault (e.g. <em>"Burst clean water pipe"</em>) with one-tap apply button.</li>
+            <li><strong>Form Fields &amp; Validation:</strong>
+              <ul class="list-circle pl-4 mt-1 space-y-1">
+                <li><strong>Category &amp; Fault Type:</strong> 6 categories (Clean water, Sewer, Roads, Electricity, Waste, Parks) from PRD 10.4.</li>
+                <li><strong>"This is dangerous" (BR19):</strong> Checkbox that auto-ticks and locks for auto-urgent faults (like high pressure burst clean water pipes).</li>
+                <li><strong>Ward:</strong> Defaults automatically to resident's home ward (Ward A: Orlando West).</li>
+                <li><strong>Use my location (BR3):</strong> GPS toggle defaulting to On with Street address and optional Landmark fields.</li>
+                <li><strong>Description (BR2, BR17):</strong> Character counter <code class="font-mono">0 / 500</code>. Enforces 10 character minimum (30 chars when no photo is attached).</li>
+              </ul>
+            </li>
+            <li><strong>Similar Reports Workflow (BR4 / M6):</strong> Primary button starts as <em>"Next"</em> to check for duplicate reports nearby, transitioning to <em>"Submit report"</em> once cleared.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-[#1C1C1C] mb-2 uppercase tracking-wider text-[11px]">State Coverage &amp; Role Enforcement (PRD 8.2 &amp; 7.2)</h3>
+          <ul class="space-y-1.5 list-disc pl-4">
+            <li><strong>Normal State:</strong> Initial clean visit for verified Resident; home ward defaulted to Ward A, location toggled on.</li>
+            <li><strong>State 1B (Sample Content):</strong> Populated with verbatim seed data: Photo of water flowing across the road, Clean water → Burst clean water pipe, dangerous locked, Ward A, <em>23 Vilakazi Street</em>, landmark <em>Near the Mandela House</em>, isiZulu description <em>"Amanzi aphuma epayipini kusukela izolo ekuseni"</em>.</li>
+            <li><strong>Empty State:</strong> Marked as <em>not needed</em> per PRD Section 8.2 (<em>"because the form is the content"</em>).</li>
+            <li><strong>Loading State:</strong> Submit button disabled displaying animated spinner with <em>"Uploading photos…"</em> and real-time percentage progress bar.</li>
+            <li><strong>Error State Variants:</strong>
+              <ul class="list-circle pl-4 mt-1 space-y-1">
+                <li>Verbatim banner: <em>"Upload failed. Check your connection."</em> with actionable <em>"Try again"</em> button.</li>
+                <li>Verbatim daily limit: <em>"You can report up to 5 faults a day. Please try again tomorrow."</em></li>
+                <li>Preserves all resident inputs across errors.</li>
+              </ul>
+            </li>
+            <li><strong>Offline State:</strong> Top shared grey offline banner (<em>"You're offline. Your report will be saved when you're back online."</em>) and disabled submit button (<code class="font-semibold text-[#667085]">#D0D5DD / #667085</code>).</li>
+            <li><strong>Success State:</strong> Redirects to S5 Fault Details showing verbatim toast: <em>"Fault reported. Your reference number is FMK-2026-00125."</em></li>
+            <li><strong>Role-based Tab Bar:</strong> Persistent Resident tab bar (<em>Faults, Report [Active], My reports, Profile</em> with initials badge <strong>TM</strong> for Thandeka Mokoena).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-[#EAE6DF]">
+        <h4 class="font-bold text-[#1C1C1C] text-xs mb-1 uppercase tracking-wider">Missing Items &amp; TODOs:</h4>
+        <div class="p-3 bg-[#F8F6F1] rounded-lg border border-[#EAE6DF] text-xs text-[#5C5650]">
+          All required elements, fields, labels, placeholders, errors, and seed data states were fully and unambiguously specified in PRD Section 8.2, 8.3, 8.4, and 9.1. No missing elements or placeholder TODO boxes were required.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

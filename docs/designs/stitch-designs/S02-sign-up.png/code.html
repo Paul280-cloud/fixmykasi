@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S2 Sign Up - FixMyKasi (Phone 390x844)</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              green: '#005D28',
+              brown: '#531A17',
+              gold: '#D8A851',
+              orange: '#EF4718',
+              bgLight: '#F8F6F1',
+              text: '#1C1C1C',
+              secondaryText: '#5C5650',
+              error: '#B42318',
+              success: '#1E7B34',
+              warning: '#87451A',
+              disabledBg: '#D0D5DD',
+              disabledText: '#667085',
+              borderGrey: '#D0D5DD'
+            }
+          },
+          boxShadow: {
+            soft: '0 1px 3px rgba(16, 24, 40, 0.1)',
+            device: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8F6F1;
+      color: #1C1C1C;
+      margin: 0;
+      padding: 0;
+    }
+    .phone-container {
+      width: 390px;
+      height: 844px;
+      position: relative;
+      background-color: #FFFFFF;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 40px;
+      border: 8px solid #282828;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    /* Hide standard scrollbars while permitting scroll */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="p-6 md:p-10 min-h-screen flex flex-col items-center">
+
+  <!-- Overview Header -->
+  <header class="max-w-7xl w-full mb-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green font-semibold text-xs mb-3">
+      <span>FixMyKasi Design System</span>
+      <span>•</span>
+      <span>Screen S2 Sign Up (Phone 390 × 844 px)</span>
+    </div>
+    <h1 class="text-3xl font-bold text-brand-brown tracking-tight">S2 Sign Up Specification &amp; State Variants</h1>
+    <p class="text-brand-secondaryText text-sm mt-1 max-w-4xl">
+      Official mobile specification for citizen onboarding. Implements strict input formats, validation messages, WCAG AA compliance (44px touch targets, contrast ratios), and all standard states (Normal, Loading, Error, Offline, and Success redirect).
+    </p>
+  </header>
+
+  <!-- Interactive State Gallery / Grid -->
+  <main class="w-full max-w-7xl flex flex-wrap gap-8 justify-center items-start pb-12">
+
+    <!-- ==========================================
+         FRAME 1: STATE 1 - NORMAL (DEFAULT EMPTY)
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="text-xs font-semibold px-3 py-1 bg-brand-green text-white rounded-full mb-3 flex items-center gap-1.5 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-white"></span>
+        State 1: Normal (Empty Form)
+      </div>
+      <div class="text-xs text-brand-secondaryText mb-2 text-center">First visit from S1 "Create account"</div>
+
+      <div class="phone-container">
+        <!-- Top Status Bar & Header -->
+        <header class="bg-brand-brown text-white relative z-20 flex-shrink-0">
+          <div class="h-6 bg-black/20 flex items-center justify-between px-6 text-[11px] font-medium text-white/80">
+            <span>09:41</span>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+              <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+              <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <!-- Header Bar (Shared Component 8.3) -->
+          <div class="h-14 px-4 flex items-center justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white hover:text-brand-gold transition-colors" aria-label="Go back to Welcome">
+              <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-lg font-semibold tracking-wide text-white text-center flex-1 pr-6">Create account</h2>
+          </div>
+          <!-- 3px Gold underline -->
+          <div class="h-[3px] bg-brand-gold w-full"></div>
+        </header>
+
+        <!-- Scrollable Form Body -->
+        <div class="flex-1 overflow-y-auto no-scrollbar px-4 py-5 flex flex-col justify-between">
+          <form class="space-y-4" onsubmit="event.preventDefault();">
+            <!-- Full Name -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5" for="name-normal">
+                Full name <span class="text-brand-error">*</span>
+              </label>
+              <input type="text" id="name-normal" placeholder="e.g. Thandeka Mokoena"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base placeholder:text-brand-secondaryText/60 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20" />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5" for="email-normal">
+                Email <span class="text-brand-error">*</span>
+              </label>
+              <input type="email" id="email-normal" placeholder="you@example.com"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base placeholder:text-brand-secondaryText/60 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20" />
+            </div>
+
+            <!-- Phone number -->
+            <div>
+              <div class="flex justify-between items-baseline mb-1.5">
+                <label class="block text-sm font-semibold text-brand-text" for="phone-normal">
+                  Phone number
+                </label>
+                <span class="text-xs text-brand-secondaryText">(Optional)</span>
+              </div>
+              <input type="tel" id="phone-normal" placeholder="+27 82 123 4567"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base placeholder:text-brand-secondaryText/60 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20" />
+            </div>
+
+            <!-- Home ward -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5" for="ward-normal">
+                Home ward <span class="text-brand-error">*</span>
+              </label>
+              <div class="relative">
+                <select id="ward-normal"
+                  class="w-full h-12 px-3.5 pr-10 rounded-lg border border-brand-borderGrey bg-white text-brand-secondaryText text-base appearance-none focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20">
+                  <option value="" disabled selected>Choose your ward</option>
+                  <option value="ward_a">Ward A: Orlando West (Soweto)</option>
+                  <option value="ward_b">Ward B: Meadowlands</option>
+                  <option value="ward_c">Ward C: Diepkloof</option>
+                  <option value="ward_d">Ward D: Alexandra</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-brand-secondaryText">
+                  <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5" for="pwd-normal">
+                Password <span class="text-brand-error">*</span>
+              </label>
+              <div class="relative">
+                <input type="password" id="pwd-normal" placeholder="At least 8 characters"
+                  class="w-full h-12 pl-3.5 pr-12 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base placeholder:text-brand-secondaryText/60 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20" />
+                <button type="button" aria-label="Toggle password visibility"
+                  class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-brand-secondaryText hover:text-brand-text">
+                  <i data-lucide="eye" class="w-5 h-5"></i>
+                </button>
+              </div>
+              <p class="text-xs text-brand-secondaryText mt-1.5">8+ characters, at least 1 letter and 1 number.</p>
+            </div>
+
+            <!-- Consent Checkboxes -->
+            <div class="space-y-3 pt-1">
+              <!-- Age checkbox -->
+              <label class="flex items-start gap-3 cursor-pointer group min-h-[44px]">
+                <input type="checkbox"
+                  class="mt-1 w-5 h-5 rounded border-brand-borderGrey text-brand-green focus:ring-brand-green/30 cursor-pointer" />
+                <span class="text-sm text-brand-text leading-tight group-hover:text-black">
+                  I am 18 or older <span class="text-brand-error">*</span>
+                </span>
+              </label>
+
+              <!-- Privacy policy checkbox -->
+              <label class="flex items-start gap-3 cursor-pointer group min-h-[44px]">
+                <input type="checkbox"
+                  class="mt-1 w-5 h-5 rounded border-brand-borderGrey text-brand-green focus:ring-brand-green/30 cursor-pointer" />
+                <span class="text-sm text-brand-text leading-tight">
+                  I agree to the <a href="#privacy" class="text-brand-green font-semibold underline underline-offset-2 hover:text-brand-green/80">Privacy Notice</a> <span class="text-brand-error">*</span>
+                </span>
+              </label>
+            </div>
+
+            <!-- Action Area -->
+            <div class="pt-2 pb-4 space-y-3">
+              <button type="button"
+                class="w-full h-12 bg-brand-green text-white font-semibold text-base rounded-lg hover:bg-[#004d21] active:scale-[0.99] transition-all flex items-center justify-center shadow-soft">
+                Create account
+              </button>
+              
+              <div class="text-center text-sm text-brand-secondaryText min-h-[44px] flex items-center justify-center">
+                <span>Already have an account?&nbsp;</span>
+                <a href="#login" class="text-brand-green font-semibold hover:underline">Log in</a>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Visitor Bottom Tab Bar (Role 7.2 / Visitor: Faults, Log in) -->
+        <nav class="h-16 bg-white border-t border-gray-200 flex items-center justify-around flex-shrink-0 z-20">
+          <a href="#faults" class="flex flex-col items-center justify-center flex-1 h-full text-brand-secondaryText hover:text-brand-green transition-colors">
+            <i data-lucide="archive" class="w-5 h-5"></i>
+            <span class="text-[11px] font-medium mt-1">Faults</span>
+          </a>
+          <a href="#login" class="flex flex-col items-center justify-center flex-1 h-full text-brand-green font-semibold">
+            <i data-lucide="log-in" class="w-5 h-5"></i>
+            <span class="text-[11px] mt-1">Log in</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 2: STATE 2 - FILLED & LOADING
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="text-xs font-semibold px-3 py-1 bg-amber-600 text-white rounded-full mb-3 flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i>
+        State 2: Loading State
+      </div>
+      <div class="text-xs text-brand-secondaryText mb-2 text-center">Form submitted with sample citizen data</div>
+
+      <div class="phone-container">
+        <!-- Top Status Bar & Header -->
+        <header class="bg-brand-brown text-white relative z-20 flex-shrink-0">
+          <div class="h-6 bg-black/20 flex items-center justify-between px-6 text-[11px] font-medium text-white/80">
+            <span>09:41</span>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+              <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+              <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="h-14 px-4 flex items-center justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white/70 cursor-not-allowed">
+              <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-lg font-semibold tracking-wide text-white text-center flex-1 pr-6">Create account</h2>
+          </div>
+          <div class="h-[3px] bg-brand-gold w-full"></div>
+        </header>
+
+        <!-- Scrollable Form Body with Sample Data -->
+        <div class="flex-1 overflow-y-auto no-scrollbar px-4 py-5 flex flex-col justify-between opacity-95">
+          <form class="space-y-4">
+            <!-- Full Name (Thandeka Mokoena) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Full name *</label>
+              <input type="text" readonly value="Thandeka Mokoena"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-gray-50 text-brand-text text-base font-medium" />
+            </div>
+
+            <!-- Email (thandeka.m@example.com) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Email *</label>
+              <input type="email" readonly value="thandeka.m@example.com"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-gray-50 text-brand-text text-base font-medium" />
+            </div>
+
+            <!-- Phone number (+27 82 555 0134) -->
+            <div>
+              <div class="flex justify-between items-baseline mb-1.5">
+                <label class="block text-sm font-semibold text-brand-text">Phone number</label>
+                <span class="text-xs text-brand-secondaryText">(Optional)</span>
+              </div>
+              <input type="tel" readonly value="+27 82 555 0134"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-gray-50 text-brand-text text-base font-medium" />
+            </div>
+
+            <!-- Home ward (Ward A: Orlando West) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Home ward *</label>
+              <div class="relative">
+                <input type="text" readonly value="Ward A: Orlando West"
+                  class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-gray-50 text-brand-text text-base font-medium" />
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-brand-secondaryText">
+                  <i data-lucide="check" class="w-5 h-5 text-brand-success"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password (masked) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Password *</label>
+              <div class="relative">
+                <input type="password" readonly value="ProtectedPass123"
+                  class="w-full h-12 pl-3.5 pr-12 rounded-lg border border-brand-borderGrey bg-gray-50 text-brand-text text-base" />
+                <button type="button" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-brand-secondaryText">
+                  <i data-lucide="eye-off" class="w-5 h-5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Consent Checkboxes (both ticked) -->
+            <div class="space-y-3 pt-1">
+              <label class="flex items-start gap-3 min-h-[44px]">
+                <input type="checkbox" checked disabled
+                  class="mt-1 w-5 h-5 rounded border-brand-borderGrey text-brand-green" />
+                <span class="text-sm text-brand-text leading-tight">
+                  I am 18 or older *
+                </span>
+              </label>
+
+              <label class="flex items-start gap-3 min-h-[44px]">
+                <input type="checkbox" checked disabled
+                  class="mt-1 w-5 h-5 rounded border-brand-borderGrey text-brand-green" />
+                <span class="text-sm text-brand-text leading-tight">
+                  I agree to the <span class="text-brand-green font-semibold underline underline-offset-2">Privacy Notice</span> *
+                </span>
+              </label>
+            </div>
+
+            <!-- Loading Action Button (Spinner, Disabled) -->
+            <div class="pt-2 pb-4 space-y-3">
+              <button type="button" disabled
+                class="w-full h-12 bg-brand-green/70 text-white font-semibold text-base rounded-lg flex items-center justify-center gap-2 cursor-wait shadow-soft">
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Creating account...</span>
+              </button>
+              
+              <div class="text-center text-sm text-brand-secondaryText min-h-[44px] flex items-center justify-center opacity-60">
+                <span>Already have an account?&nbsp;</span>
+                <span class="text-brand-green font-semibold">Log in</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Visitor Bottom Tab Bar -->
+        <nav class="h-16 bg-white border-t border-gray-200 flex items-center justify-around flex-shrink-0 z-20">
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-secondaryText">
+            <i data-lucide="archive" class="w-5 h-5"></i>
+            <span class="text-[11px] font-medium mt-1">Faults</span>
+          </div>
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-green font-semibold">
+            <i data-lucide="log-in" class="w-5 h-5"></i>
+            <span class="text-[11px] mt-1">Log in</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 3: STATE 3 - ERROR STATE
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="text-xs font-semibold px-3 py-1 bg-brand-error text-white rounded-full mb-3 flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+        State 3: Error State
+      </div>
+      <div class="text-xs text-brand-secondaryText mb-2 text-center">Top banner + exact field-level validation</div>
+
+      <div class="phone-container">
+        <!-- Top Status Bar & Header -->
+        <header class="bg-brand-brown text-white relative z-20 flex-shrink-0">
+          <div class="h-6 bg-black/20 flex items-center justify-between px-6 text-[11px] font-medium text-white/80">
+            <span>09:41</span>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+              <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+              <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="h-14 px-4 flex items-center justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white">
+              <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-lg font-semibold tracking-wide text-white text-center flex-1 pr-6">Create account</h2>
+          </div>
+          <div class="h-[3px] bg-brand-gold w-full"></div>
+        </header>
+
+        <!-- Scrollable Form Body with Retained Inputs & Errors -->
+        <div class="flex-1 overflow-y-auto no-scrollbar px-4 py-5 flex flex-col justify-between">
+          <form class="space-y-3.5">
+            <!-- Full Name (Valid) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1">Full name *</label>
+              <input type="text" value="Thandeka Mokoena"
+                class="w-full h-11 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+            </div>
+
+            <!-- Email (Error: Duplicate / Already registered) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1">Email *</label>
+              <div class="relative">
+                <input type="email" value="thandeka.m@example.com"
+                  class="w-full h-11 pl-3.5 pr-10 rounded-lg border-2 border-brand-error bg-[#FFF5F5] text-brand-text text-base focus:outline-none" />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-brand-error pointer-events-none">
+                  <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <!-- Verbatim Spec Error -->
+              <p class="text-[13px] text-brand-error font-medium mt-1 flex items-start gap-1">
+                <span>This email already has an account. <a href="#login" class="underline font-bold">Log in instead.</a></span>
+              </p>
+            </div>
+
+            <!-- Phone number (Invalid Format Error) -->
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <label class="block text-sm font-semibold text-brand-text">Phone number</label>
+                <span class="text-xs text-brand-secondaryText">(Optional)</span>
+              </div>
+              <div class="relative">
+                <input type="tel" value="082555"
+                  class="w-full h-11 pl-3.5 pr-10 rounded-lg border-2 border-brand-error bg-[#FFF5F5] text-brand-text text-base focus:outline-none" />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-brand-error pointer-events-none">
+                  <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <!-- Verbatim Spec Error -->
+              <p class="text-[13px] text-brand-error font-medium mt-1">
+                Enter a South African number, like +27 82 123 4567.
+              </p>
+            </div>
+
+            <!-- Home ward (Unselected Error) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1">Home ward *</label>
+              <div class="relative">
+                <select class="w-full h-11 px-3.5 pr-10 rounded-lg border-2 border-brand-error bg-[#FFF5F5] text-brand-secondaryText text-base appearance-none focus:outline-none">
+                  <option value="" selected>Choose your ward</option>
+                  <option value="ward_a">Ward A: Orlando West</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-brand-error">
+                  <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                </div>
+              </div>
+              <p class="text-[13px] text-brand-error font-medium mt-1">Choose your ward.</p>
+            </div>
+
+            <!-- Password (Rule Failure Error) -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1">Password *</label>
+              <div class="relative">
+                <input type="text" value="secret"
+                  class="w-full h-11 pl-3.5 pr-12 rounded-lg border-2 border-brand-error bg-[#FFF5F5] text-brand-text text-base focus:outline-none" />
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-brand-secondaryText">
+                  <i data-lucide="eye" class="w-5 h-5"></i>
+                </button>
+              </div>
+              <p class="text-[13px] text-brand-error font-medium mt-1">
+                Use at least 8 characters with a letter and a number.
+              </p>
+            </div>
+
+            <!-- Checkboxes with Required Error -->
+            <div class="space-y-2 pt-1">
+              <div>
+                <label class="flex items-start gap-2.5 min-h-[44px]">
+                  <input type="checkbox"
+                    class="mt-1 w-5 h-5 rounded border-2 border-brand-error text-brand-error" />
+                  <span class="text-sm text-brand-text leading-tight">
+                    I am 18 or older *
+                  </span>
+                </label>
+                <p class="text-[13px] text-brand-error font-medium ml-7 -mt-2 mb-2">
+                  You must be 18 or older to use FixMyKasi.
+                </p>
+              </div>
+
+              <div>
+                <label class="flex items-start gap-2.5 min-h-[44px]">
+                  <input type="checkbox"
+                    class="mt-1 w-5 h-5 rounded border-2 border-brand-error text-brand-error" />
+                  <span class="text-sm text-brand-text leading-tight">
+                    I agree to the <a href="#privacy" class="text-brand-green font-semibold underline">Privacy Notice</a> *
+                  </span>
+                </label>
+                <p class="text-[13px] text-brand-error font-medium ml-7 -mt-2">
+                  Please agree to the Privacy Notice to continue.
+                </p>
+              </div>
+            </div>
+
+            <!-- Error Banner & Action Button -->
+            <div class="pt-2 pb-4 space-y-2.5">
+              <!-- Verbatim General Error Banner (Above the button) -->
+              <div class="p-3 bg-[#FEE4E2] border border-brand-error/30 rounded-lg flex items-center gap-2.5 text-brand-error">
+                <i data-lucide="alert-triangle" class="w-5 h-5 flex-shrink-0 text-brand-error"></i>
+                <span class="text-sm font-semibold">Something went wrong. Try again.</span>
+              </div>
+
+              <button type="button"
+                class="w-full h-12 bg-brand-green text-white font-semibold text-base rounded-lg hover:bg-[#004d21] transition-all flex items-center justify-center shadow-soft">
+                Create account
+              </button>
+              
+              <div class="text-center text-sm text-brand-secondaryText min-h-[44px] flex items-center justify-center">
+                <span>Already have an account?&nbsp;</span>
+                <a href="#login" class="text-brand-green font-semibold hover:underline">Log in</a>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Visitor Bottom Tab Bar -->
+        <nav class="h-16 bg-white border-t border-gray-200 flex items-center justify-around flex-shrink-0 z-20">
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-secondaryText">
+            <i data-lucide="archive" class="w-5 h-5"></i>
+            <span class="text-[11px] font-medium mt-1">Faults</span>
+          </div>
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-green font-semibold">
+            <i data-lucide="log-in" class="w-5 h-5"></i>
+            <span class="text-[11px] mt-1">Log in</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 4: STATE 4 - OFFLINE
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="text-xs font-semibold px-3 py-1 bg-brand-secondaryText text-white rounded-full mb-3 flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="wifi-off" class="w-3.5 h-3.5"></i>
+        State 4: Offline State
+      </div>
+      <div class="text-xs text-brand-secondaryText mb-2 text-center">Grey offline banner, button disabled</div>
+
+      <div class="phone-container">
+        <!-- Shared Offline Banner (8.3) -->
+        <div class="bg-[#5C5650] text-white text-xs font-medium py-2 px-4 flex items-center justify-center gap-2 z-30 flex-shrink-0">
+          <i data-lucide="wifi-off" class="w-4 h-4 text-brand-gold"></i>
+          <span>You're offline. Changes will not be saved.</span>
+        </div>
+
+        <!-- Top Status Bar & Header -->
+        <header class="bg-brand-brown text-white relative z-20 flex-shrink-0">
+          <div class="h-6 bg-black/20 flex items-center justify-between px-6 text-[11px] font-medium text-white/80">
+            <span>09:41</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] text-white/60">Offline</span>
+              <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="h-14 px-4 flex items-center justify-between">
+            <button class="w-11 h-11 flex items-center justify-center -ml-2 text-white">
+              <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-lg font-semibold tracking-wide text-white text-center flex-1 pr-6">Create account</h2>
+          </div>
+          <div class="h-[3px] bg-brand-gold w-full"></div>
+        </header>
+
+        <!-- Form Body (Disabled Submission) -->
+        <div class="flex-1 overflow-y-auto no-scrollbar px-4 py-5 flex flex-col justify-between">
+          <form class="space-y-4">
+            <!-- Full Name -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Full name *</label>
+              <input type="text" value="Thandeka Mokoena"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Email *</label>
+              <input type="email" value="thandeka.m@example.com"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+            </div>
+
+            <!-- Phone number -->
+            <div>
+              <div class="flex justify-between items-baseline mb-1.5">
+                <label class="block text-sm font-semibold text-brand-text">Phone number</label>
+                <span class="text-xs text-brand-secondaryText">(Optional)</span>
+              </div>
+              <input type="tel" value="+27 82 555 0134"
+                class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+            </div>
+
+            <!-- Home ward -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Home ward *</label>
+              <div class="relative">
+                <select class="w-full h-12 px-3.5 pr-10 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base appearance-none">
+                  <option selected>Ward A: Orlando West</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-brand-secondaryText">
+                  <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div>
+              <label class="block text-sm font-semibold text-brand-text mb-1.5">Password *</label>
+              <div class="relative">
+                <input type="password" value="ProtectedPass123"
+                  class="w-full h-12 pl-3.5 pr-12 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+                <button type="button" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-brand-secondaryText">
+                  <i data-lucide="eye" class="w-5 h-5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Consent Checkboxes -->
+            <div class="space-y-3 pt-1">
+              <label class="flex items-start gap-3 min-h-[44px]">
+                <input type="checkbox" checked
+                  class="mt-1 w-5 h-5 rounded border-brand-borderGrey text-brand-green" />
+                <span class="text-sm text-brand-text leading-tight">
+                  I am 18 or older *
+                </span>
+              </label>
+
+              <label class="flex items-start gap-3 min-h-[44px]">
+                <input type="checkbox" checked
+                  class="mt-1 w-5 h-5 rounded border-brand-borderGrey text-brand-green" />
+                <span class="text-sm text-brand-text leading-tight">
+                  I agree to the <span class="text-brand-green font-semibold underline">Privacy Notice</span> *
+                </span>
+              </label>
+            </div>
+
+            <!-- Action Area: Disabled Button (PRD 8.3 & Spec) -->
+            <div class="pt-2 pb-4 space-y-3">
+              <button type="button" disabled
+                class="w-full h-12 bg-brand-disabledBg text-brand-disabledText font-semibold text-base rounded-lg cursor-not-allowed flex items-center justify-center">
+                Create account
+              </button>
+              
+              <div class="text-center text-sm text-brand-secondaryText min-h-[44px] flex items-center justify-center">
+                <span>Already have an account?&nbsp;</span>
+                <span class="text-brand-green font-semibold">Log in</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Visitor Bottom Tab Bar -->
+        <nav class="h-16 bg-white border-t border-gray-200 flex items-center justify-around flex-shrink-0 z-20">
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-secondaryText">
+            <i data-lucide="archive" class="w-5 h-5"></i>
+            <span class="text-[11px] font-medium mt-1">Faults</span>
+          </div>
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-green font-semibold">
+            <i data-lucide="log-in" class="w-5 h-5"></i>
+            <span class="text-[11px] mt-1">Log in</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+    <!-- ==========================================
+         FRAME 5: STATE 5 - SUCCESS TRANSITION
+         (Goes to S3 with the confirmation banner)
+         ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="text-xs font-semibold px-3 py-1 bg-brand-success text-white rounded-full mb-3 flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+        State 5: Success (S3 Redirect Destination)
+      </div>
+      <div class="text-xs text-brand-secondaryText mb-2 text-center">Banner: "Check your email to confirm your account."</div>
+
+      <div class="phone-container">
+        <!-- Top Status Bar & Header -->
+        <header class="bg-brand-brown text-white relative z-20 flex-shrink-0">
+          <div class="h-6 bg-black/20 flex items-center justify-between px-6 text-[11px] font-medium text-white/80">
+            <span>09:42</span>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+              <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+              <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="h-14 px-4 flex items-center justify-between">
+            <div class="w-11"></div> <!-- Centering balance -->
+            <h2 class="text-lg font-semibold tracking-wide text-white text-center flex-1">Log in</h2>
+            <div class="w-11"></div>
+          </div>
+          <div class="h-[3px] bg-brand-gold w-full"></div>
+        </header>
+
+        <!-- Success Banner as per Section 8.2 Spec -->
+        <div class="bg-[#E6F4EA] border-b border-brand-success/30 px-4 py-3 flex items-start gap-3 z-10">
+          <div class="w-6 h-6 rounded-full bg-brand-success text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="mail-check" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-brand-text">Account created!</p>
+            <p class="text-xs font-medium text-brand-secondaryText mt-0.5">Check your email to confirm your account.</p>
+          </div>
+        </div>
+
+        <!-- S3 Log In Screen Body (Destination Preview) -->
+        <div class="flex-1 overflow-y-auto no-scrollbar px-4 py-6 flex flex-col justify-between">
+          <div class="space-y-6">
+            <div class="text-center pt-2">
+              <div class="inline-flex items-center justify-center gap-2 mb-2">
+                <div class="w-8 h-8 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-gold">
+                  <i data-lucide="map-pin" class="w-5 h-5 fill-brand-gold text-brand-brown"></i>
+                </div>
+                <span class="text-2xl font-bold text-brand-green tracking-tight">FixMyKasi</span>
+              </div>
+              <h3 class="text-lg font-bold text-brand-brown">Welcome back</h3>
+              <p class="text-xs text-brand-secondaryText mt-1">Please confirm your email or log in with your credentials.</p>
+            </div>
+
+            <!-- S3 Form Preview -->
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-semibold text-brand-text mb-1.5">Email address</label>
+                <input type="email" value="thandeka.m@example.com"
+                  class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+              </div>
+              <div>
+                <div class="flex justify-between items-baseline mb-1.5">
+                  <label class="block text-sm font-semibold text-brand-text">Password</label>
+                  <a href="#forgot" class="text-xs font-semibold text-brand-green">Forgot password?</a>
+                </div>
+                <input type="password" placeholder="Enter your password"
+                  class="w-full h-12 px-3.5 rounded-lg border border-brand-borderGrey bg-white text-brand-text text-base" />
+              </div>
+            </div>
+          </div>
+
+          <!-- S3 Actions -->
+          <div class="pt-4 pb-4 space-y-3">
+            <button type="button"
+              class="w-full h-12 bg-brand-green text-white font-semibold text-base rounded-lg hover:bg-[#004d21] transition-all flex items-center justify-center shadow-soft">
+              Log in
+            </button>
+            <div class="text-center text-sm text-brand-secondaryText min-h-[44px] flex items-center justify-center">
+              <span>Don't have an account?&nbsp;</span>
+              <a href="#signup" class="text-brand-green font-semibold hover:underline">Create account</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visitor Bottom Tab Bar -->
+        <nav class="h-16 bg-white border-t border-gray-200 flex items-center justify-around flex-shrink-0 z-20">
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-secondaryText">
+            <i data-lucide="archive" class="w-5 h-5"></i>
+            <span class="text-[11px] font-medium mt-1">Faults</span>
+          </div>
+          <div class="flex flex-col items-center justify-center flex-1 h-full text-brand-green font-semibold">
+            <i data-lucide="log-in" class="w-5 h-5"></i>
+            <span class="text-[11px] mt-1">Log in</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Technical Implementation & Specification Notes -->
+  <section class="max-w-7xl w-full bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm mb-12">
+    <div class="flex items-center gap-2 text-brand-green font-bold text-lg mb-4">
+      <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+      <h3>S2 Sign Up Implementation &amp; Specification Compliance Notes</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+      <!-- Column 1: Field Rules & Behaviors -->
+      <div>
+        <h4 class="font-bold text-brand-brown mb-3 text-base">Form Fields &amp; Validation Rules (PRD 8.2)</h4>
+        <ul class="space-y-2.5 text-brand-secondaryText">
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Full name:</strong> Required, 2 to 60 characters. Verbatim error: <em class="text-brand-error">"Enter your full name."</em></div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Email:</strong> Required, lowercase format. Verbatim errors: <em class="text-brand-error">"Enter a valid email address."</em> and <em class="text-brand-error">"This email already has an account. Log in instead."</em></div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Phone number:</strong> Optional, +27 format. Verbatim error: <em class="text-brand-error">"Enter a South African number, like +27 82 123 4567."</em></div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Home ward:</strong> Required dropdown. Verbatim error: <em class="text-brand-error">"Choose your ward."</em> Filled with Joburg townships (e.g. Ward A: Orlando West).</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Password:</strong> Required, 8+ chars with letter &amp; number + eye toggle. Verbatim error: <em class="text-brand-error">"Use at least 8 characters with a letter and a number."</em></div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Age Checkbox (18+):</strong> Verbatim error: <em class="text-brand-error">"You must be 18 or older to use FixMyKasi."</em></div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Privacy Notice:</strong> Links to M7. Verbatim error: <em class="text-brand-error">"Please agree to the Privacy Notice to continue."</em></div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Layout & State Coverage -->
+      <div>
+        <h4 class="font-bold text-brand-brown mb-3 text-base">Layout &amp; State Compliance (PRD 8.2 &amp; 9.1)</h4>
+        <ul class="space-y-2.5 text-brand-secondaryText">
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Header (8.3):</strong> Heritage Brown (<code class="text-xs bg-gray-100 px-1 py-0.5 rounded">#531A17</code>) with white back arrow (returns to S1) and 3px Gold (<code class="text-xs bg-gray-100 px-1 py-0.5 rounded">#D8A851</code>) underline.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Visitor Tab Bar:</strong> Exactly 2 tabs: <em>Faults</em> and <em>Log in</em> (active). Preserved across all frames.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Empty State:</strong> Omitted as specified in PRD Section 8.2 (<em>"Empty: not needed, because the form is the content"</em>).</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Loading State:</strong> "Create account" button shows animated spinner and becomes disabled.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Error State:</strong> Top general error banner verbatim: <em>"Something went wrong. Try again."</em> placed above the button. Preserves all user input values.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Offline State:</strong> Top grey offline banner (<em>"You're offline. Changes will not be saved."</em>) with "Create account" disabled (<code class="text-xs bg-gray-100 px-1 py-0.5 rounded">#D0D5DD</code> / <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">#667085</code>).</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green mt-2 flex-shrink-0"></span>
+            <div><strong class="text-brand-text">Success Redirect:</strong> Routes to S3 with the verbatim banner: <em>"Check your email to confirm your account."</em></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Missing Items & TODOs -->
+    <div class="mt-8 pt-6 border-t border-gray-200">
+      <h4 class="font-bold text-brand-text text-sm mb-2">Missing Items &amp; TODOs:</h4>
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 text-xs text-brand-secondaryText">
+        All required elements, fields, labels, placeholders, errors, and interaction flows were fully and unambiguously specified in PRD Sections 8.2, 8.3, and 9.1. No additional fields were invented; no grey placeholder TODO boxes required.
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S8 Ward Queue (Desktop 1440px) - FixMyKasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; color: #1C1C1C; background-color: #F8F6F1; }
+    .bg-heritage-brown { background-color: #531A17; }
+    .text-heritage-brown { color: #531A17; }
+    .bg-coat-green { background-color: #005D28; }
+    .text-coat-green { color: #005D28; }
+    .border-coat-green { border-color: #005D28; }
+    .bg-kasi-gold { background-color: #D8A851; }
+    .border-kasi-gold { border-color: #D8A851; }
+    .text-kasi-gold { color: #D8A851; }
+    .bg-kasi-orange { background-color: #EF4718; }
+    .text-kasi-orange { color: #EF4718; }
+    .soft-shadow { box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.06), 0 1px 4px -1px rgba(0, 0, 0, 0.04); }
+    .desktop-frame { width: 1440px; min-width: 1440px; max-width: 1440px; }
+  </style>
+</head>
+<body class="p-8 flex flex-col items-center gap-10">
+
+  <!-- Header / Metadata -->
+  <div class="desktop-frame bg-white p-6 rounded-2xl soft-shadow border border-stone-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-coat-green border border-emerald-300">FIXMYKASI DESIGN SYSTEM</span>
+          <span class="text-xs text-stone-500">• PRD 8.2 & BR7 Desktop Specification (1440 px)</span>
+        </div>
+        <h1 class="text-3xl font-bold text-heritage-brown">S8 Ward Queue — Desktop View (1440 px)</h1>
+        <p class="text-stone-600 text-sm mt-1">Full municipal desktop operations console with persistent left side navigation menu, high-density table view with sortable columns, state variant toggles, and assignment workflows.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-emerald-50 text-coat-green text-xs font-bold border border-emerald-200">
+          <i data-lucide="check-circle" class="w-4 h-4"></i> WCAG AA Compliant
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-50 text-amber-900 text-xs font-bold border border-amber-200">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Ward Admin: Zanele Khumalo (Ward A)
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. PRIMARY DESKTOP CANVAS (1440px): NORMAL STATE -->
+  <div class="desktop-frame bg-white rounded-2xl soft-shadow border border-stone-300 overflow-hidden flex flex-col">
+    
+    <!-- Top System Header (Heritage Brown with 3px Gold underline) -->
+    <header class="h-16 bg-heritage-brown text-white px-8 flex items-center justify-between relative shrink-0">
+      <div class="flex items-center gap-6">
+        <!-- Logo (FixMyKasi wordmark with gold pin/wrench) -->
+        <div class="flex items-center gap-2 select-none">
+          <div class="w-8 h-8 rounded-full bg-coat-green border border-kasi-gold flex items-center justify-center text-kasi-gold">
+            <i data-lucide="map-pin" class="w-4 h-4 stroke-[2.5]"></i>
+          </div>
+          <span class="text-xl font-bold tracking-tight text-white">FixMyKasi <span class="text-xs font-normal text-amber-200 ml-1">Portal</span></span>
+        </div>
+        <div class="h-6 w-px bg-white/20"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-lg font-bold text-white">Ward A: Orlando West</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-white/10 text-stone-200 border border-white/10">City of Johannesburg</span>
+        </div>
+      </div>
+
+      <!-- Right Header: Ward Admin Identity & Actions -->
+      <div class="flex items-center gap-5">
+        <div class="flex items-center gap-2 text-xs text-stone-200">
+          <i data-lucide="calendar" class="w-4 h-4 text-kasi-gold"></i>
+          <span>Today is <strong>12 Nov 2026</strong></span>
+        </div>
+        <div class="h-6 w-px bg-white/20"></div>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-coat-green text-white flex items-center justify-center text-sm font-bold border-2 border-kasi-gold">ZK</div>
+          <div class="text-left text-xs">
+            <p class="font-bold text-white leading-tight">Zanele Khumalo</p>
+            <p class="text-amber-200/90 text-[11px]">Ward Admin (Ward A)</p>
+          </div>
+        </div>
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition" title="Log out">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- 3px Gold Line Underneath -->
+      <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-kasi-gold"></div>
+    </header>
+
+    <!-- App Body: Left Side Menu (Desktop >1024px) + Main Operations Console -->
+    <div class="flex flex-1 min-h-[780px]">
+      
+      <!-- Left Side Menu (PRD 7.2: Queue, Dashboard, Faults, Profile) -->
+      <aside class="w-64 bg-stone-50 border-r border-stone-200 p-4 flex flex-col justify-between shrink-0">
+        <div class="space-y-6">
+          <div>
+            <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider px-3 mb-2">Ward Operations</p>
+            <nav class="space-y-1">
+              <!-- Queue Active -->
+              <a href="#" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-coat-green text-white font-semibold text-sm shadow-sm">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="inbox" class="w-4 h-4 stroke-[2.5]"></i>
+                  <span>Queue</span>
+                </div>
+                <span class="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full">4</span>
+              </a>
+              <!-- Dashboard -->
+              <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-stone-700 hover:bg-stone-200 font-medium text-sm transition">
+                <i data-lucide="layout-dashboard" class="w-4 h-4 text-stone-500"></i>
+                <span>Dashboard</span>
+              </a>
+              <!-- Faults -->
+              <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-stone-700 hover:bg-stone-200 font-medium text-sm transition">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-stone-500"></i>
+                <span>Faults (All)</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider px-3 mb-2">Administration</p>
+            <nav class="space-y-1">
+              <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-stone-700 hover:bg-stone-200 font-medium text-sm transition">
+                <i data-lucide="user" class="w-4 h-4 text-stone-500"></i>
+                <span>Profile & Settings</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-stone-700 hover:bg-stone-200 font-medium text-sm transition">
+                <i data-lucide="users" class="w-4 h-4 text-stone-500"></i>
+                <span>Field Teams Directory</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-stone-700 hover:bg-stone-200 font-medium text-sm transition">
+                <i data-lucide="help-circle" class="w-4 h-4 text-stone-500"></i>
+                <span>Help & PRD Docs</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Municipal Ward Info Card in Sidebar -->
+        <div class="p-3.5 bg-white rounded-xl border border-stone-200 soft-shadow text-xs text-stone-600 space-y-1.5">
+          <div class="flex items-center justify-between font-bold text-stone-800">
+            <span>Ward A Office</span>
+            <span class="w-2 h-2 rounded-full bg-coat-green"></span>
+          </div>
+          <p class="text-[11px]">Orlando West Community Centre</p>
+          <p class="text-[11px] text-stone-500">Tel: +27 11 982 1000</p>
+        </div>
+      </aside>
+
+      <!-- Main Operational Area -->
+      <main class="flex-1 bg-[#F8F6F1] p-8 flex flex-col gap-6 overflow-x-hidden">
+        
+        <!-- Top Toolbar: Page Title, Refresh & Search -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold text-heritage-brown">Ward Fault Queue</h2>
+            <p class="text-sm text-stone-600">Review incoming citizen reports, prioritize urgent hazards, and assign to field teams.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="h-10 px-4 rounded-lg bg-white border border-stone-300 text-stone-700 text-xs font-semibold flex items-center gap-2 hover:bg-stone-50 shadow-sm">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-stone-500"></i>
+              <span>Refresh Queue</span>
+            </button>
+            <button class="h-10 px-4 rounded-lg bg-coat-green text-white text-xs font-semibold flex items-center gap-2 hover:bg-emerald-800 shadow-sm">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabs: "New (2)", "In progress (2)", "Fixed (0)" (PRD 8.2 & BR7) -->
+        <div class="bg-white p-2 rounded-xl soft-shadow border border-stone-200 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <!-- New Tab Active -->
+            <button class="py-2.5 px-5 rounded-lg text-sm font-bold bg-coat-green text-white shadow-sm flex items-center gap-2">
+              <span>New</span>
+              <span class="px-2 py-0.5 rounded-full bg-white/20 text-white text-xs font-bold">2</span>
+            </button>
+            <!-- In Progress Tab -->
+            <button class="py-2.5 px-5 rounded-lg text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100 flex items-center gap-2 transition">
+              <span>In progress</span>
+              <span class="px-2 py-0.5 rounded-full bg-stone-200 text-stone-700 text-xs font-bold">2</span>
+            </button>
+            <!-- Fixed Tab -->
+            <button class="py-2.5 px-5 rounded-lg text-sm font-semibold text-stone-500 hover:text-stone-900 hover:bg-stone-100 flex items-center gap-2 transition">
+              <span>Fixed</span>
+              <span class="px-2 py-0.5 rounded-full bg-stone-200 text-stone-600 text-xs font-bold">0</span>
+            </button>
+          </div>
+
+          <!-- Filter Chips (Category, Urgent only, Overdue only) -->
+          <div class="flex items-center gap-3">
+            <button class="h-9 px-3.5 rounded-full text-xs font-semibold bg-stone-50 border border-stone-300 text-stone-800 flex items-center gap-2 hover:border-stone-400">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-stone-500"></i>
+              <span>All Categories</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-stone-400"></i>
+            </button>
+            <button class="h-9 px-3.5 rounded-full text-xs font-semibold bg-white border border-stone-300 text-stone-700 flex items-center gap-1.5 hover:border-stone-400">
+              <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-kasi-orange"></i>
+              <span>Urgent only</span>
+            </button>
+            <button class="h-9 px-3.5 rounded-full text-xs font-semibold bg-white border border-stone-300 text-stone-700 flex items-center gap-1.5 hover:border-stone-400">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-[#B42318]"></i>
+              <span>Overdue only</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. Desktop Table: Columns Reference, Fault type, Street address, Upvotes, Status, Due date, Field team -->
+        <div class="bg-white rounded-xl soft-shadow border border-stone-200 overflow-hidden flex flex-col">
+          <div class="p-4 bg-stone-50/80 border-b border-stone-200 flex items-center justify-between text-xs text-stone-600">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-stone-800">Queue Items:</span>
+              <span>Showing 2 unassigned new reports awaiting municipal review</span>
+            </div>
+            <div class="flex items-center gap-2 text-stone-500">
+              <i data-lucide="info" class="w-4 h-4 text-kasi-gold"></i>
+              <span>Click any row to open Fault Details (S5) & assign</span>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-stone-100/90 text-stone-700 font-semibold text-xs border-b border-stone-200">
+                <tr>
+                  <th class="py-3.5 px-4 font-bold">Reference</th>
+                  <th class="py-3.5 px-4 font-bold">Fault Type</th>
+                  <th class="py-3.5 px-4 font-bold">Street Address</th>
+                  <th class="py-3.5 px-4 font-bold text-center">Upvotes</th>
+                  <th class="py-3.5 px-4 font-bold">Status</th>
+                  <th class="py-3.5 px-4 font-bold">Due Date</th>
+                  <th class="py-3.5 px-4 font-bold">Field Team</th>
+                  <th class="py-3.5 px-4 font-bold text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200 text-xs">
+                
+                <!-- Row 1: FMK-2026-00121 (Faulty streetlight - Received) -->
+                <tr class="hover:bg-amber-50/50 cursor-pointer transition group">
+                  <td class="py-4 px-4 font-mono font-bold text-coat-green group-hover:underline">
+                    FMK-2026-00121
+                  </td>
+                  <td class="py-4 px-4 font-bold text-[#1C1C1C]">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                        <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                      </div>
+                      <span>Faulty streetlight</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-stone-700">
+                    Corner of Moema & Vilakazi Street, Ward A
+                  </td>
+                  <td class="py-4 px-4 text-center">
+                    <span class="inline-flex items-center gap-1 font-bold text-stone-800 bg-stone-100 px-2.5 py-1 rounded-full">
+                      <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-coat-green"></i> 6
+                    </span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-stone-100 text-[#5C5650] border border-stone-200">
+                      <span class="w-2 h-2 rounded-full bg-[#5C5650]"></span> Received
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-stone-500 italic">
+                    None (Pending Assignment)
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-stone-500 font-medium">Not assigned</span>
+                  </td>
+                  <td class="py-4 px-4 text-right">
+                    <button class="h-8 px-3.5 rounded-lg bg-coat-green text-white font-bold text-xs hover:bg-emerald-800 transition shadow-sm">
+                      Assign Team
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Row 2: FMK-2026-00128 (Streetlight flickering - Viewed) -->
+                <tr class="hover:bg-amber-50/50 cursor-pointer transition group">
+                  <td class="py-4 px-4 font-mono font-bold text-coat-green group-hover:underline">
+                    FMK-2026-00128
+                  </td>
+                  <td class="py-4 px-4 font-bold text-[#1C1C1C]">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded bg-stone-100 text-stone-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="zap" class="w-4 h-4"></i>
+                      </div>
+                      <span>Streetlight flickering</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-stone-700">
+                    112 Mokoena Street, Orlando West, Ward A
+                  </td>
+                  <td class="py-4 px-4 text-center">
+                    <span class="inline-flex items-center gap-1 font-bold text-stone-800 bg-stone-100 px-2.5 py-1 rounded-full">
+                      <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-coat-green"></i> 2
+                    </span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-[#825B32] border border-amber-200">
+                      <span class="w-2 h-2 rounded-full bg-[#825B32]"></span> Viewed
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-stone-500 italic">
+                    None (Pending Assignment)
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="text-stone-500 font-medium">Not assigned</span>
+                  </td>
+                  <td class="py-4 px-4 text-right">
+                    <button class="h-8 px-3.5 rounded-lg bg-coat-green text-white font-bold text-xs hover:bg-emerald-800 transition shadow-sm">
+                      Assign Team
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer / Pagination -->
+          <div class="p-4 bg-stone-50 border-t border-stone-200 flex items-center justify-between text-xs text-stone-500">
+            <span>Showing 1 to 2 of 2 entries</span>
+            <div class="flex items-center gap-1">
+              <button class="px-3 py-1.5 rounded border border-stone-300 bg-white text-stone-400 cursor-not-allowed">Previous</button>
+              <button class="px-3 py-1.5 rounded border border-coat-green bg-coat-green text-white font-bold">1</button>
+              <button class="px-3 py-1.5 rounded border border-stone-300 bg-white text-stone-400 cursor-not-allowed">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- In-Progress Preview Panel (Showing the 2 Active Assignments in Ward A) -->
+        <div class="bg-white rounded-xl soft-shadow border border-stone-200 p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-base text-stone-900">Active Field Team Operations (In Progress Preview)</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-coat-green font-bold">2 Active</span>
+            </div>
+            <span class="text-xs text-stone-500">Switch tabs above to view full In Progress queue</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Mini In Progress Card 1 -->
+            <div class="p-4 rounded-xl border border-amber-300 bg-amber-50/30 flex justify-between items-start">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="font-mono text-xs font-bold text-coat-green">FMK-2026-00123</span>
+                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#EF4718] text-[#1C1C1C]">Urgent</span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-[#87451A]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#87451A]"></span> Scheduled
+                  </span>
+                </div>
+                <h4 class="font-bold text-stone-900 text-sm">Burst clean water pipe</h4>
+                <p class="text-xs text-stone-600 mt-0.5">23 Vilakazi Street, Orlando West</p>
+                <p class="text-xs text-stone-700 mt-2 font-medium">Team: Sample Plumbing Services (Pty) Ltd</p>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-bold text-stone-800">Due: 18 Nov (2 days)</span>
+                <p class="text-xs text-coat-green font-bold mt-1">14 upvotes</p>
+              </div>
+            </div>
+
+            <!-- Mini In Progress Card 2 -->
+            <div class="p-4 rounded-xl border border-red-300 bg-red-50/30 flex justify-between items-start">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="font-mono text-xs font-bold text-coat-green">FMK-2026-00115</span>
+                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-[#B42318] border border-red-200">Overdue (3 days)</span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-stone-100 text-[#531A17]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#531A17]"></span> Assigned
+                  </span>
+                </div>
+                <h4 class="font-bold text-stone-900 text-sm">Faulty high-mast light</h4>
+                <p class="text-xs text-stone-600 mt-0.5">Near Orlando West Clinic, Ward A</p>
+                <p class="text-xs text-stone-700 mt-2 font-medium">Team: Sample Electrical Works (Pty) Ltd</p>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-bold text-[#B42318]">Due was 10 Nov</span>
+                <p class="text-xs text-coat-green font-bold mt-1">22 upvotes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- 2. DESKTOP STATE VARIANTS OVERVIEW (1440px) -->
+  <div class="desktop-frame bg-white p-8 rounded-2xl soft-shadow border border-stone-200">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl font-bold text-heritage-brown">Desktop State Coverage Specifications (PRD 8.2)</h2>
+        <p class="text-xs text-stone-600 mt-1">Side-by-side presentation of Empty, Loading (5 placeholder rows), Error, Offline, and Success states on Desktop.</p>
+      </div>
+      <span class="px-3 py-1 rounded bg-stone-100 text-stone-700 text-xs font-bold">1440 × 800 Responsive Viewports</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Variant A: Empty State on Desktop -->
+      <div class="border border-stone-300 rounded-xl overflow-hidden soft-shadow bg-[#F8F6F1]">
+        <div class="bg-stone-800 text-white px-4 py-2 text-xs font-bold flex justify-between">
+          <span>DESKTOP STATE 2: EMPTY QUEUE ("New" Tab)</span>
+          <span class="text-emerald-400">PRD 8.2 Verbatim</span>
+        </div>
+        <div class="p-8 text-center bg-white min-h-[300px] flex flex-col items-center justify-center">
+          <div class="w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center text-coat-green mb-4">
+            <i data-lucide="check-check" class="w-8 h-8 stroke-[2.2]"></i>
+          </div>
+          <h3 class="text-lg font-bold text-stone-900 mb-1">No new faults in your ward.</h3>
+          <p class="text-xs text-stone-600 max-w-sm mb-4">All community reports in Ward A have been reviewed. Good job keeping the neighbourhood up to date!</p>
+          <div class="px-4 py-2 bg-stone-100 rounded-lg text-xs text-stone-500 font-medium">
+            Other tabs specification: "Nothing here right now."
+          </div>
+        </div>
+      </div>
+
+      <!-- Variant B: Loading State on Desktop (5 grey placeholder rows) -->
+      <div class="border border-stone-300 rounded-xl overflow-hidden soft-shadow bg-white">
+        <div class="bg-stone-800 text-white px-4 py-2 text-xs font-bold flex justify-between">
+          <span>DESKTOP STATE 3: LOADING (5 Grey Placeholder Rows)</span>
+          <span class="text-amber-300">Pulsing Skeleton</span>
+        </div>
+        <div class="p-4 space-y-3 animate-pulse min-h-[300px]">
+          <div class="h-8 bg-stone-200 rounded w-1/3 mb-4"></div>
+          <!-- 5 rows -->
+          <div class="h-10 bg-stone-200 rounded w-full"></div>
+          <div class="h-10 bg-stone-200 rounded w-full"></div>
+          <div class="h-10 bg-stone-200 rounded w-full"></div>
+          <div class="h-10 bg-stone-200 rounded w-full"></div>
+          <div class="h-10 bg-stone-200 rounded w-full"></div>
+        </div>
+      </div>
+
+      <!-- Variant C: Error & Offline Banner State on Desktop -->
+      <div class="border border-stone-300 rounded-xl overflow-hidden soft-shadow bg-white">
+        <div class="bg-stone-800 text-white px-4 py-2 text-xs font-bold flex justify-between">
+          <span>DESKTOP STATE 4 & 5: ERROR & OFFLINE BANNER</span>
+          <span class="text-red-400">Verbatim Error</span>
+        </div>
+        <!-- Offline banner -->
+        <div class="bg-[#5C5650] text-white text-xs px-4 py-2 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="wifi-off" class="w-4 h-4 text-amber-300"></i>
+            <span class="font-medium">You're offline. Changes will not be saved.</span>
+          </div>
+          <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded">Cached Mode</span>
+        </div>
+        <div class="p-8 text-center bg-white min-h-[260px] flex flex-col items-center justify-center">
+          <div class="w-14 h-14 rounded-full bg-red-50 border-2 border-red-200 flex items-center justify-center text-[#B42318] mb-3">
+            <i data-lucide="alert-octagon" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-base font-bold text-stone-900 mb-1">Something went wrong. Try again.</h3>
+          <p class="text-xs text-stone-600 max-w-sm mb-4">Could not load the ward queue. Check network connection or municipal server status.</p>
+          <button class="h-10 px-6 rounded-lg bg-coat-green text-white font-semibold text-xs flex items-center gap-2 hover:bg-emerald-800">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Try again</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Variant D: Success Toast State on Desktop -->
+      <div class="border border-stone-300 rounded-xl overflow-hidden soft-shadow bg-white">
+        <div class="bg-stone-800 text-white px-4 py-2 text-xs font-bold flex justify-between">
+          <span>DESKTOP STATE 6: SUCCESS (Toast "Fault assigned")</span>
+          <span class="text-emerald-400">Assignment Complete</span>
+        </div>
+        <div class="p-6 bg-[#F8F6F1] min-h-[300px] flex flex-col justify-start">
+          <!-- Verbatim Toast on Desktop -->
+          <div class="p-4 rounded-xl bg-[#1C1C1C] text-white soft-shadow flex items-center justify-between border border-stone-700 mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-[#1E7B34] flex items-center justify-center text-white shrink-0">
+                <i data-lucide="check" class="w-5 h-5 stroke-[3]"></i>
+              </div>
+              <div>
+                <p class="font-bold text-sm text-white">Fault assigned</p>
+                <p class="text-xs text-stone-300">FMK-2026-00121 has been assigned to Sample Electrical Works (Pty) Ltd and moved to "In progress".</p>
+              </div>
+            </div>
+            <button class="text-stone-400 hover:text-white p-1">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-stone-200 text-xs text-stone-700">
+            <p class="font-bold text-stone-900 mb-1">State Transition Rule (PRD 8.2):</p>
+            <p class="text-stone-600">"after assigning, the fault moves to 'In progress' with the toast 'Fault assigned'."</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

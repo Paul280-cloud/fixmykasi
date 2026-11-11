@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S1 Welcome - FixMyKasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fmkGreen: '#005D28',
+            fmkBrown: '#531A17',
+            fmkGold: '#D8A851',
+            fmkOrange: '#EF4718',
+            fmkWarmGrey: '#F8F6F1',
+            fmkNearBlack: '#1C1C1C',
+            fmkSecondaryText: '#5C5650',
+            fmkError: '#B42318',
+            fmkSuccess: '#1E7B34',
+            fmkWarning: '#87451A',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8F6F1;
+      color: #1C1C1C;
+    }
+    .phone-frame {
+      width: 390px;
+      min-height: 844px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-color: #FFFFFF;
+      position: relative;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header info banner -->
+    <div class="mb-8 text-center md:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-[#D8A851] rounded-full text-xs font-semibold text-[#531A17] mb-2">
+        <span>FixMyKasi Design System</span>
+        <span>•</span>
+        <span>Screen S1 Welcome (Phone 390 × 844 px)</span>
+      </div>
+      <h1 class="text-2xl font-bold text-[#531A17]">S1 Welcome Screen Specification & State Variants</h1>
+      <p class="text-sm text-[#5C5650] mt-1">Presented in high-fidelity 390px phone frames covering the Normal state, Offline state, Success (Account deleted) state, and Language preview (isiZulu).</p>
+    </div>
+
+    <!-- Frames Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-start justify-items-center">
+
+      <!-- FRAME 1: NORMAL STATE (Default English) -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <span class="inline-block px-3 py-0.5 rounded-full text-xs font-semibold bg-[#005D28] text-white">State 1: Normal (Default)</span>
+          <p class="text-xs text-[#5C5650] mt-1">Logged out visitor / First app open</p>
+        </div>
+
+        <div class="phone-frame border border-gray-200">
+          <!-- Top App Header -->
+          <header class="bg-[#531A17] text-white relative z-10">
+            <div class="h-12 px-4 flex items-center justify-between">
+              <div class="w-8 flex items-center">
+                <!-- No back arrow for initial root screen S1, or disabled neutral indicator per spec -->
+              </div>
+              <span class="text-base font-semibold tracking-wide">FixMyKasi</span>
+              <div class="w-8"></div>
+            </div>
+            <!-- 3px Gold Line -->
+            <div class="h-[3px] bg-[#D8A851] w-full"></div>
+          </header>
+
+          <!-- Main Content Area -->
+          <main class="flex-1 px-4 py-4 flex flex-col justify-between">
+            <!-- 1. Language Picker top right -->
+            <div class="flex justify-end items-center">
+              <div class="relative">
+                <label for="lang-select-1" class="sr-only">Choose Language</label>
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#F8F6F1] border border-gray-200 rounded-lg text-xs font-medium text-[#1C1C1C]">
+                  <svg class="w-4 h-4 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    <line x1="2" y1="12" x2="22" y2="12" stroke-width="2"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke-width="2"/>
+                  </svg>
+                  <select id="lang-select-1" class="bg-transparent text-xs font-medium text-[#1C1C1C] focus:outline-none cursor-pointer pr-1">
+                    <option value="en" selected>English</option>
+                    <option value="af">Afrikaans</option>
+                    <option value="zu">isiZulu</option>
+                    <option value="nso">Sepedi</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Middle Section: Logo, Illustration, Title, Description -->
+            <div class="flex-1 flex flex-col items-center justify-center my-2 text-center">
+              <!-- 2. Logo (centred) -->
+              <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-9 h-9 rounded-full bg-[#D8A851]/20 flex items-center justify-center">
+                  <!-- Gold map pin with wrench -->
+                  <svg class="w-6 h-6 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                    <path d="m14.7 10.7-3.4 3.4a2 2 0 0 1-2.8-2.8l3.4-3.4"/>
+                  </svg>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-[#005D28]">FixMyKasi</span>
+              </div>
+
+              <!-- 3. Illustration: Resident pointing phone at pothole with field team member in hard hat -->
+              <div class="w-full max-w-[280px] h-[170px] mb-4 bg-[#F8F6F1] rounded-xl flex items-center justify-center p-3 relative overflow-hidden border border-[#D8A851]/30">
+                <svg class="w-full h-full" viewBox="0 0 260 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Ground line -->
+                  <line x1="10" y1="125" x2="250" y2="125" stroke="#5C5650" stroke-width="2" stroke-dasharray="4 4"/>
+                  
+                  <!-- Pothole on the road -->
+                  <ellipse cx="130" cy="126" rx="32" ry="9" fill="#1C1C1C" opacity="0.15"/>
+                  <path d="M102 125 C 108 120, 120 132, 130 132 C 142 132, 150 121, 158 125 C 152 134, 114 135, 102 125 Z" fill="#531A17" opacity="0.65"/>
+                  <path d="M110 127 C 118 123, 128 129, 148 126" stroke="#D8A851" stroke-width="2" stroke-linecap="round"/>
+
+                  <!-- Left: Resident with phone pointing at pothole -->
+                  <g transform="translate(35, 35)">
+                    <!-- Resident Head -->
+                    <circle cx="28" cy="18" r="9" fill="#531A17"/>
+                    <!-- Resident Body -->
+                    <path d="M18 36 C18 29, 38 29, 38 36 L36 68 L20 68 Z" fill="#005D28"/>
+                    <!-- Legs -->
+                    <line x1="24" y1="68" x2="24" y2="90" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="32" y1="68" x2="35" y2="90" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Arm holding phone pointing towards pothole -->
+                    <path d="M34 35 L48 44 L58 40" stroke="#531A17" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Phone device emitting signal ray -->
+                    <rect x="57" y="34" width="7" height="12" rx="1.5" fill="#1C1C1C" transform="rotate(20 57 34)"/>
+                    <line x1="65" y1="41" x2="88" y2="78" stroke="#D8A851" stroke-width="1.5" stroke-dasharray="3 3"/>
+                  </g>
+
+                  <!-- Right: Field team member with hard hat and clipboard/tools -->
+                  <g transform="translate(170, 32)">
+                    <!-- Hard Hat (Gold) -->
+                    <path d="M18 14 C18 8, 36 8, 36 14 L39 16 L15 16 Z" fill="#D8A851"/>
+                    <circle cx="27" cy="17" r="7" fill="#531A17"/>
+                    <!-- Vest / Jacket -->
+                    <path d="M16 35 C16 27, 38 27, 38 35 L36 71 L18 71 Z" fill="#531A17"/>
+                    <!-- High-visibility stripes -->
+                    <line x1="17" y1="45" x2="37" y2="45" stroke="#D8A851" stroke-width="2.5"/>
+                    <line x1="18" y1="55" x2="36" y2="55" stroke="#D8A851" stroke-width="2.5"/>
+                    <!-- Legs -->
+                    <line x1="22" y1="71" x2="20" y2="93" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="32" y1="71" x2="34" y2="93" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Arm with clipboard/wrench -->
+                    <path d="M17 38 L8 50 L14 54" stroke="#531A17" stroke-width="3" stroke-linecap="round"/>
+                    <rect x="12" y="48" width="9" height="12" rx="1" fill="#005D28"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- 4. Title (24px bold) -->
+              <h2 class="text-[24px] leading-tight font-bold text-[#531A17] mb-2 px-2">
+                Report it. Track it. Get it fixed.
+              </h2>
+
+              <!-- 5. Text (16px regular) -->
+              <p class="text-[16px] leading-relaxed text-[#5C5650] px-3 mb-4">
+                Report potholes, burst pipes, broken streetlights and more, and see who is fixing them.
+              </p>
+            </div>
+
+            <!-- Bottom Actions Group -->
+            <div class="space-y-3 pt-2">
+              <!-- 6. Primary Button "Create account" (48px height, 8px radius, #005D28) -->
+              <button type="button" class="w-full h-12 bg-[#005D28] hover:bg-[#00471F] active:scale-[0.99] text-white font-semibold text-[16px] rounded-lg transition-colors flex items-center justify-center shadow-sm">
+                Create account
+              </button>
+
+              <!-- 7. Secondary Button "Log in" (48px height, 8px radius, white bg, green border & text) -->
+              <button type="button" class="w-full h-12 bg-white hover:bg-gray-50 active:scale-[0.99] border-2 border-[#005D28] text-[#005D28] font-semibold text-[16px] rounded-lg transition-colors flex items-center justify-center">
+                Log in
+              </button>
+
+              <!-- 8. Text link "Browse faults without an account" (minimum 44px tap target) -->
+              <div class="text-center pt-1">
+                <a href="#browse" class="inline-flex items-center justify-center min-h-[44px] px-3 text-[14px] font-semibold text-[#005D28] hover:underline focus:outline-none focus:ring-2 focus:ring-[#005D28] focus:ring-offset-2 rounded">
+                  Browse faults without an account
+                </a>
+              </div>
+            </div>
+          </main>
+
+          <!-- Shared Tab Bar (Visitor role: Faults, Log in) -->
+          <nav aria-label="Bottom Navigation" class="border-t border-gray-200 bg-white">
+            <div class="h-16 flex items-center justify-around px-4">
+              <!-- Tab 1: Faults -->
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650] hover:text-[#005D28]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                <span class="text-xs font-medium">Faults</span>
+              </button>
+              <!-- Tab 2: Log in -->
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                </svg>
+                <span class="text-xs font-bold">Log in</span>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+
+      <!-- FRAME 2: OFFLINE STATE -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <span class="inline-block px-3 py-0.5 rounded-full text-xs font-semibold bg-[#5C5650] text-white">State 2: Offline</span>
+          <p class="text-xs text-[#5C5650] mt-1">With 8.3 Shared Offline Banner</p>
+        </div>
+
+        <div class="phone-frame border border-gray-200">
+          <!-- Offline Banner (Section 8.3) -->
+          <div class="bg-[#5C5650] text-white text-xs font-medium px-4 py-2 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-[#D8A851] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <line x1="1" y1="1" x2="23" y2="23" stroke-width="2" stroke-linecap="round"/>
+              <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.71 5.05A16 16 0 0 1 22.58 9" stroke-width="2" stroke-linecap="round"/>
+              <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88" stroke-width="2" stroke-linecap="round"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="20" x2="12.01" y2="20" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>You're offline. Changes will not be saved.</span>
+          </div>
+
+          <!-- Top App Header -->
+          <header class="bg-[#531A17] text-white relative z-10">
+            <div class="h-12 px-4 flex items-center justify-between">
+              <div class="w-8"></div>
+              <span class="text-base font-semibold tracking-wide">FixMyKasi</span>
+              <div class="w-8"></div>
+            </div>
+            <!-- 3px Gold Line -->
+            <div class="h-[3px] bg-[#D8A851] w-full"></div>
+          </header>
+
+          <!-- Main Content Area -->
+          <main class="flex-1 px-4 py-4 flex flex-col justify-between">
+            <div class="flex justify-end items-center">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#F8F6F1] border border-gray-200 rounded-lg text-xs font-medium text-[#1C1C1C]">
+                <svg class="w-4 h-4 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                  <line x1="2" y1="12" x2="22" y2="12" stroke-width="2"/>
+                </svg>
+                <span>English</span>
+              </div>
+            </div>
+
+            <div class="flex-1 flex flex-col items-center justify-center my-2 text-center">
+              <!-- Logo -->
+              <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-9 h-9 rounded-full bg-[#D8A851]/20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                    <path d="m14.7 10.7-3.4 3.4a2 2 0 0 1-2.8-2.8l3.4-3.4"/>
+                  </svg>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-[#005D28]">FixMyKasi</span>
+              </div>
+
+              <!-- Illustration -->
+              <div class="w-full max-w-[280px] h-[170px] mb-4 bg-[#F8F6F1] rounded-xl flex items-center justify-center p-3 border border-[#D8A851]/30">
+                <svg class="w-full h-full" viewBox="0 0 260 150" fill="none">
+                  <line x1="10" y1="125" x2="250" y2="125" stroke="#5C5650" stroke-width="2" stroke-dasharray="4 4"/>
+                  <ellipse cx="130" cy="126" rx="32" ry="9" fill="#1C1C1C" opacity="0.15"/>
+                  <path d="M102 125 C 108 120, 120 132, 130 132 C 142 132, 150 121, 158 125 Z" fill="#531A17" opacity="0.65"/>
+                  <circle cx="63" cy="53" r="9" fill="#531A17"/>
+                  <path d="M53 71 C53 64, 73 64, 73 71 L71 103 L55 103 Z" fill="#005D28"/>
+                  <path d="M188 46 C188 40, 206 40, 206 46 L209 48 L185 48 Z" fill="#D8A851"/>
+                  <circle cx="197" cy="49" r="7" fill="#531A17"/>
+                  <path d="M186 67 C186 59, 208 59, 208 67 L206 103 L188 103 Z" fill="#531A17"/>
+                </svg>
+              </div>
+
+              <h2 class="text-[24px] leading-tight font-bold text-[#531A17] mb-2 px-2">
+                Report it. Track it. Get it fixed.
+              </h2>
+              <p class="text-[16px] leading-relaxed text-[#5C5650] px-3 mb-4">
+                Report potholes, burst pipes, broken streetlights and more, and see who is fixing them.
+              </p>
+            </div>
+
+            <!-- Per spec: Buttons still work in Offline mode -->
+            <div class="space-y-3 pt-2">
+              <button type="button" class="w-full h-12 bg-[#005D28] text-white font-semibold text-[16px] rounded-lg flex items-center justify-center">
+                Create account
+              </button>
+              <button type="button" class="w-full h-12 bg-white border-2 border-[#005D28] text-[#005D28] font-semibold text-[16px] rounded-lg flex items-center justify-center">
+                Log in
+              </button>
+              <div class="text-center pt-1">
+                <a href="#browse" class="inline-flex items-center justify-center min-h-[44px] px-3 text-[14px] font-semibold text-[#005D28]">
+                  Browse faults without an account
+                </a>
+              </div>
+            </div>
+          </main>
+
+          <!-- Tab Bar -->
+          <nav aria-label="Bottom Navigation" class="border-t border-gray-200 bg-white">
+            <div class="h-16 flex items-center justify-around px-4">
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span class="text-xs font-medium">Faults</span>
+              </button>
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                <span class="text-xs font-bold">Log in</span>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+
+      <!-- FRAME 3: SUCCESS STATE (Account Deleted Toast) -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <span class="inline-block px-3 py-0.5 rounded-full text-xs font-semibold bg-[#1E7B34] text-white">State 3: Success</span>
+          <p class="text-xs text-[#5C5650] mt-1">With 8.3 Shared Toast Notification</p>
+        </div>
+
+        <div class="phone-frame border border-gray-200">
+          <!-- Top App Header -->
+          <header class="bg-[#531A17] text-white relative z-10">
+            <div class="h-12 px-4 flex items-center justify-between">
+              <div class="w-8"></div>
+              <span class="text-base font-semibold tracking-wide">FixMyKasi</span>
+              <div class="w-8"></div>
+            </div>
+            <!-- 3px Gold Line -->
+            <div class="h-[3px] bg-[#D8A851] w-full"></div>
+          </header>
+
+          <!-- Toast Notification Container (Absolute/Fixed top per spec 8.3) -->
+          <div class="px-4 pt-3">
+            <div class="bg-[#1C1C1C] text-white px-3.5 py-3 rounded-lg shadow-lg flex items-center gap-2.5 text-[14px] leading-snug">
+              <!-- Success green checkmark dot/icon -->
+              <div class="w-5 h-5 rounded-full bg-[#1E7B34] flex items-center justify-center flex-shrink-0">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <!-- Verbatim Toast Text from PRD -->
+              <span class="flex-1 font-medium">Your account has been deleted.</span>
+            </div>
+          </div>
+
+          <!-- Main Content Area -->
+          <main class="flex-1 px-4 py-2 flex flex-col justify-between">
+            <div class="flex justify-end items-center">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#F8F6F1] border border-gray-200 rounded-lg text-xs font-medium text-[#1C1C1C]">
+                <svg class="w-4 h-4 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                  <line x1="2" y1="12" x2="22" y2="12" stroke-width="2"/>
+                </svg>
+                <span>English</span>
+              </div>
+            </div>
+
+            <div class="flex-1 flex flex-col items-center justify-center my-2 text-center">
+              <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-9 h-9 rounded-full bg-[#D8A851]/20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                    <path d="m14.7 10.7-3.4 3.4a2 2 0 0 1-2.8-2.8l3.4-3.4"/>
+                  </svg>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-[#005D28]">FixMyKasi</span>
+              </div>
+
+              <!-- Illustration -->
+              <div class="w-full max-w-[280px] h-[170px] mb-4 bg-[#F8F6F1] rounded-xl flex items-center justify-center p-3 border border-[#D8A851]/30">
+                <svg class="w-full h-full" viewBox="0 0 260 150" fill="none">
+                  <line x1="10" y1="125" x2="250" y2="125" stroke="#5C5650" stroke-width="2" stroke-dasharray="4 4"/>
+                  <ellipse cx="130" cy="126" rx="32" ry="9" fill="#1C1C1C" opacity="0.15"/>
+                  <path d="M102 125 C 108 120, 120 132, 130 132 C 142 132, 150 121, 158 125 Z" fill="#531A17" opacity="0.65"/>
+                  <circle cx="63" cy="53" r="9" fill="#531A17"/>
+                  <path d="M53 71 C53 64, 73 64, 73 71 L71 103 L55 103 Z" fill="#005D28"/>
+                  <path d="M188 46 C188 40, 206 40, 206 46 L209 48 L185 48 Z" fill="#D8A851"/>
+                  <circle cx="197" cy="49" r="7" fill="#531A17"/>
+                  <path d="M186 67 C186 59, 208 59, 208 67 L206 103 L188 103 Z" fill="#531A17"/>
+                </svg>
+              </div>
+
+              <h2 class="text-[24px] leading-tight font-bold text-[#531A17] mb-2 px-2">
+                Report it. Track it. Get it fixed.
+              </h2>
+              <p class="text-[16px] leading-relaxed text-[#5C5650] px-3 mb-4">
+                Report potholes, burst pipes, broken streetlights and more, and see who is fixing them.
+              </p>
+            </div>
+
+            <div class="space-y-3 pt-2">
+              <button type="button" class="w-full h-12 bg-[#005D28] text-white font-semibold text-[16px] rounded-lg flex items-center justify-center">
+                Create account
+              </button>
+              <button type="button" class="w-full h-12 bg-white border-2 border-[#005D28] text-[#005D28] font-semibold text-[16px] rounded-lg flex items-center justify-center">
+                Log in
+              </button>
+              <div class="text-center pt-1">
+                <a href="#browse" class="inline-flex items-center justify-center min-h-[44px] px-3 text-[14px] font-semibold text-[#005D28]">
+                  Browse faults without an account
+                </a>
+              </div>
+            </div>
+          </main>
+
+          <!-- Tab Bar -->
+          <nav aria-label="Bottom Navigation" class="border-t border-gray-200 bg-white">
+            <div class="h-16 flex items-center justify-around px-4">
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span class="text-xs font-medium">Faults</span>
+              </button>
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                <span class="text-xs font-bold">Log in</span>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+
+      <!-- FRAME 4: SAMPLE CONTENT / LOCALIZATION (isiZulu per PRD Sample Content) -->
+      <div class="flex flex-col items-center">
+        <div class="mb-3 text-center">
+          <span class="inline-block px-3 py-0.5 rounded-full text-xs font-semibold bg-[#87451A] text-white">Sample Content: isiZulu</span>
+          <p class="text-xs text-[#5C5650] mt-1">Verbatim "Bika. Landela. Kulungiswe."</p>
+        </div>
+
+        <div class="phone-frame border border-gray-200">
+          <!-- Top App Header -->
+          <header class="bg-[#531A17] text-white relative z-10">
+            <div class="h-12 px-4 flex items-center justify-between">
+              <div class="w-8"></div>
+              <span class="text-base font-semibold tracking-wide">FixMyKasi</span>
+              <div class="w-8"></div>
+            </div>
+            <!-- 3px Gold Line -->
+            <div class="h-[3px] bg-[#D8A851] w-full"></div>
+          </header>
+
+          <!-- Main Content Area -->
+          <main class="flex-1 px-4 py-4 flex flex-col justify-between">
+            <!-- 1. Language Picker top right (Set to isiZulu) -->
+            <div class="flex justify-end items-center">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#F8F6F1] border border-gray-200 rounded-lg text-xs font-medium text-[#1C1C1C]">
+                <svg class="w-4 h-4 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                  <line x1="2" y1="12" x2="22" y2="12" stroke-width="2"/>
+                </svg>
+                <span class="font-semibold text-[#005D28]">isiZulu</span>
+              </div>
+            </div>
+
+            <!-- Middle Section: Logo, Illustration, Title, Description -->
+            <div class="flex-1 flex flex-col items-center justify-center my-2 text-center">
+              <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-9 h-9 rounded-full bg-[#D8A851]/20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[#D8A851]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                    <path d="m14.7 10.7-3.4 3.4a2 2 0 0 1-2.8-2.8l3.4-3.4"/>
+                  </svg>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-[#005D28]">FixMyKasi</span>
+              </div>
+
+              <!-- Illustration -->
+              <div class="w-full max-w-[280px] h-[170px] mb-4 bg-[#F8F6F1] rounded-xl flex items-center justify-center p-3 border border-[#D8A851]/30">
+                <svg class="w-full h-full" viewBox="0 0 260 150" fill="none">
+                  <line x1="10" y1="125" x2="250" y2="125" stroke="#5C5650" stroke-width="2" stroke-dasharray="4 4"/>
+                  <ellipse cx="130" cy="126" rx="32" ry="9" fill="#1C1C1C" opacity="0.15"/>
+                  <path d="M102 125 C 108 120, 120 132, 130 132 C 142 132, 150 121, 158 125 Z" fill="#531A17" opacity="0.65"/>
+                  <circle cx="63" cy="53" r="9" fill="#531A17"/>
+                  <path d="M53 71 C53 64, 73 64, 73 71 L71 103 L55 103 Z" fill="#005D28"/>
+                  <path d="M188 46 C188 40, 206 40, 206 46 L209 48 L185 48 Z" fill="#D8A851"/>
+                  <circle cx="197" cy="49" r="7" fill="#531A17"/>
+                  <path d="M186 67 C186 59, 208 59, 208 67 L206 103 L188 103 Z" fill="#531A17"/>
+                </svg>
+              </div>
+
+              <!-- 4. Sample Content Title in isiZulu -->
+              <h2 class="text-[24px] leading-tight font-bold text-[#531A17] mb-2 px-2">
+                Bika. Landela. Kulungiswe.
+              </h2>
+              <p class="text-[16px] leading-relaxed text-[#5C5650] px-3 mb-4">
+                Bika imigodi yomgwaqo, amapayipi aqhumile, izibani zomgwaqo ezaphukile nokunye, futhi ubone ukuthi ubani ozilungisayo.
+              </p>
+            </div>
+
+            <!-- Bottom Actions Group -->
+            <div class="space-y-3 pt-2">
+              <button type="button" class="w-full h-12 bg-[#005D28] text-white font-semibold text-[16px] rounded-lg flex items-center justify-center">
+                Dala i-akhawunti
+              </button>
+              <button type="button" class="w-full h-12 bg-white border-2 border-[#005D28] text-[#005D28] font-semibold text-[16px] rounded-lg flex items-center justify-center">
+                Ngena
+              </button>
+              <div class="text-center pt-1">
+                <a href="#browse" class="inline-flex items-center justify-center min-h-[44px] px-3 text-[14px] font-semibold text-[#005D28]">
+                  Bheka amaphutha ngaphandle kwe-akhawunti
+                </a>
+              </div>
+            </div>
+          </main>
+
+          <!-- Tab Bar -->
+          <nav aria-label="Bottom Navigation" class="border-t border-gray-200 bg-white">
+            <div class="h-16 flex items-center justify-around px-4">
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#5C5650]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span class="text-xs font-medium">Amaphutha</span>
+              </button>
+              <button type="button" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#005D28]">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                <span class="text-xs font-bold">Ngena</span>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Specifications, State Handling & TODOs Summary -->
+    <div class="mt-12 bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+      <h3 class="text-lg font-bold text-[#531A17] mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#005D28]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        S1 Welcome Implementation & Specification Notes
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[#1C1C1C]">
+        <div>
+          <h4 class="font-semibold text-[#531A17] mb-2">Layout & Component Compliance:</h4>
+          <ul class="space-y-1.5 text-[#5C5650] list-disc list-inside">
+            <li><strong>Canvas Size:</strong> Exact 390 × 844 px phone frame with 16 px side margins.</li>
+            <li><strong>Header:</strong> Heritage Brown (#531A17) bar with 3 px gold (#D8A851) underline.</li>
+            <li><strong>Tab Bar (Visitor role):</strong> Exactly 2 tabs: <em>Faults</em> and <em>Log in</em> (active).</li>
+            <li><strong>Buttons:</strong> Primary "Create account" (48px height, #005D28) and Secondary "Log in" (#005D28 outline on white).</li>
+            <li><strong>Text Link:</strong> "Browse faults without an account" with &gt;44px touch target.</li>
+            <li><strong>Illustration:</strong> Custom flat line illustration matching the spec (resident pointing phone at pothole + field worker in hard hat).</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-[#531A17] mb-2">State Coverage (per PRD 8.2):</h4>
+          <ul class="space-y-1.5 text-[#5C5650] list-disc list-inside">
+            <li><strong>Normal:</strong> Complete default state in English with language picker.</li>
+            <li><strong>Empty / Loading / Error:</strong> Omitted as specified in the PRD ("not needed, because this screen loads no data").</li>
+            <li><strong>Offline:</strong> Offline grey banner displayed at the top; buttons remain actionable.</li>
+            <li><strong>Success:</strong> Toast notification: <em>"Your account has been deleted."</em> (triggered after account deletion from S11/M5).</li>
+            <li><strong>Sample Content:</strong> isiZulu version with title <em>"Bika. Landela. Kulungiswe."</em>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Missing items / TODO section as strictly mandated -->
+      <div class="mt-6 pt-4 border-t border-gray-100">
+        <h4 class="font-semibold text-[#531A17] mb-2">Missing Items & TODOs:</h4>
+        <div class="p-3 bg-[#F8F6F1] rounded-lg border border-gray-200 text-xs text-[#5C5650]">
+          <p class="font-semibold text-[#1C1C1C]">All required elements were fully specified in PRD Section 8.2 & 9.1.</p>
+          <p class="mt-1">No missing fields or placeholder TODO boxes required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

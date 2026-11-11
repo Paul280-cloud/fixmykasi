@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixMyKasi - Style Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      /* Primary Brand & GCIS Coat of Arms Colors */
+      --color-primary: #005D28; /* Coat of Arms Green */
+      --color-secondary: #531A17; /* Heritage Brown */
+      --color-accent: #D8A851; /* Gold */
+      --color-urgent: #EF4718; /* Orange */
+      
+      /* Base & Neutral Colors */
+      --color-bg-page: #FFFFFF;
+      --color-bg-warm: #F8F6F1;
+      --color-text-main: #1C1C1C;
+      --color-text-secondary: #5C5650;
+      
+      /* Functional Alerts */
+      --color-error: #B42318;
+      --color-success: #1E7B34;
+      --color-warning: #87451A; /* Ochre Brown */
+      
+      /* Status Dots */
+      --status-received: #5C5650;
+      --status-viewed: #825B32;
+      --status-assigned: #531A17;
+      --status-scheduled: #87451A;
+      --status-in-progress: #B46E12;
+      --status-fixed: #005D28;
+      --status-closed: #1C1C1C;
+      --status-reopened: #B42318;
+
+      /* Disabled states */
+      --color-disabled-bg: #D0D5DD;
+      --color-disabled-text: #667085;
+      
+      /* Spacing Scale (8px base) */
+      --space-4: 4px;
+      --space-8: 8px;
+      --space-16: 16px;
+      --space-24: 24px;
+      --space-32: 32px;
+      
+      /* Typography */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-title: 24px;
+      --text-heading: 18px;
+      --text-body: 16px;
+      --text-label: 16px;
+      --text-small: 13px;
+      
+      /* Radii */
+      --radius-card: 12px;
+      --radius-input: 8px;
+      --radius-button: 8px;
+      --radius-pill: 9999px;
+      
+      /* Shadows */
+      --shadow-soft: 0 1px 3px rgba(16, 24, 40, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--color-bg-warm);
+      color: var(--color-text-main);
+      line-height: 1.5;
+      font-size: var(--text-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 390px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+      min-height: 100vh;
+      border-left: 1px solid #E5E7EB;
+      border-right: 1px solid #E5E7EB;
+      padding-bottom: 60px;
+    }
+
+    /* Fixed top banner preview */
+    .offline-banner-demo {
+      background-color: #E5E7EB;
+      color: var(--color-text-main);
+      padding: 10px 16px;
+      font-size: var(--text-small);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #D1D5DB;
+    }
+
+    /* App Header Spec */
+    .app-header {
+      background-color: var(--color-secondary);
+      color: #FFFFFF;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-btn {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+    }
+
+    .header-title {
+      font-size: var(--text-heading);
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .header-gold-line {
+      height: 3px;
+      background-color: var(--color-accent);
+      width: 100%;
+    }
+
+    /* Style Guide Body Sections */
+    .guide-intro {
+      padding: 24px 16px 16px 16px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #F0ECE1;
+    }
+
+    .brand-logo-preview {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .brand-wordmark {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .guide-section {
+      padding: 24px 16px;
+      border-bottom: 1px solid #EFECE6;
+    }
+
+    .guide-section:nth-child(even) {
+      background-color: var(--color-bg-warm);
+    }
+
+    .section-title {
+      font-size: var(--text-heading);
+      font-weight: 600;
+      color: var(--color-secondary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-desc {
+      font-size: var(--text-small);
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+    }
+
+    /* Swatches Grid */
+    .swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .swatch-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: var(--radius-input);
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .swatch-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .swatch-info {
+      overflow: hidden;
+    }
+
+    .swatch-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-main);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .swatch-hex {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-family: monospace;
+    }
+
+    /* Status Dots Grid */
+    .status-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background-color: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      font-size: var(--text-small);
+      color: var(--color-text-main);
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Labels */
+    .urgent-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: var(--color-urgent);
+      color: var(--color-text-main);
+      font-size: var(--text-small);
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .overdue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #FEE4E2;
+      color: var(--color-error);
+      font-size: var(--text-small);
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .delayed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #FEF0C7;
+      color: var(--color-warning);
+      font-size: var(--text-small);
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Typography Scale Table */
+    .type-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid #F0ECE1;
+    }
+    .type-row:last-child {
+      border-bottom: none;
+    }
+
+    /* Spacing Units */
+    .spacing-demo {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .space-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .space-bar {
+      background-color: var(--color-accent);
+      border-radius: 2px;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      height: 48px;
+      width: 100%;
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: var(--text-label);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      outline: none;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      border: 1px solid var(--color-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: #004d21;
+    }
+
+    .btn-secondary {
+      background-color: #FFFFFF;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: #F8F6F1;
+    }
+
+    .btn-danger {
+      background-color: var(--color-error);
+      color: #FFFFFF;
+      border: 1px solid var(--color-error);
+    }
+
+    .btn-danger:hover {
+      background-color: #991e14;
+    }
+
+    .btn-disabled {
+      background-color: var(--color-disabled-bg);
+      color: var(--color-disabled-text);
+      border: 1px solid var(--color-disabled-bg);
+      cursor: not-allowed;
+    }
+
+    /* Inputs */
+    .input-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .input-label {
+      font-size: var(--text-label);
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    .input-box {
+      height: 48px;
+      padding: 0 12px;
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--text-body);
+      color: var(--color-text-main);
+      background-color: #FFFFFF;
+      border: 1px solid #D1D5DB;
+      width: 100%;
+      outline: none;
+    }
+
+    .input-focused {
+      border: 2px solid var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(0, 93, 40, 0.1);
+    }
+
+    .input-error {
+      border: 1px solid var(--color-error);
+    }
+
+    .input-helper {
+      font-size: var(--text-small);
+      color: var(--color-text-secondary);
+    }
+
+    .input-error-msg {
+      font-size: var(--text-small);
+      color: var(--color-error);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Cards */
+    .card-fault {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #E5E7EB;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-fault-header {
+      display: flex;
+      gap: 12px;
+    }
+
+    .card-thumbnail {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      background-color: #EFECE6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+    }
+
+    .stat-card-demo {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #E5E7EB;
+      padding: 16px;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    /* Toast */
+    .toast-demo {
+      background-color: var(--color-text-main);
+      color: #FFFFFF;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: var(--text-body);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Empty-state block */
+    .empty-state {
+      background: #FFFFFF;
+      border: 1px dashed #D1D5DB;
+      border-radius: var(--radius-card);
+      padding: 24px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .empty-illustration {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Tab bar */
+    .tab-bar-demo {
+      background-color: #FFFFFF;
+      border-top: 1px solid #E5E7EB;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      font-weight: 400;
+      min-width: 64px;
+      cursor: pointer;
+    }
+
+    .tab-item.active {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    .tab-badge-user {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 1. Offline Banner (from Shared Components 8.3) -->
+    <div class="offline-banner-demo" role="alert">
+      <i data-lucide="wifi-off" style="width: 18px; height: 18px;"></i>
+      <span>You're offline. Changes will not be saved.</span>
+    </div>
+
+    <!-- 2. Header (Shared Components 8.3 & Section 9.1) -->
+    <header class="app-header">
+      <div class="header-bar">
+        <div class="header-left">
+          <button class="header-btn" aria-label="Go back">
+            <i data-lucide="arrow-left" style="width: 24px; height: 24px;"></i>
+          </button>
+          <h1 class="header-title">Style Guide</h1>
+        </div>
+        <button class="header-btn" aria-label="Help & Information">
+          <i data-lucide="info" style="width: 24px; height: 24px;"></i>
+        </button>
+      </div>
+      <!-- 3px Gold accent line under header -->
+      <div class="header-gold-line"></div>
+    </header>
+
+    <!-- Intro & Wordmark Logo -->
+    <div class="guide-intro">
+      <div class="brand-logo-preview">
+        <!-- SVG Map Pin with Wrench in Gold #D8A851 -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D8A851" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+          <path d="m14.7 9-2.2 2.2a1 1 0 0 1-1.4 0l-1.6-1.6a1 1 0 0 1 0-1.4l2.2-2.2"></path>
+        </svg>
+        <span class="brand-wordmark">FixMyKasi</span>
+      </div>
+      <p style="font-size: var(--text-small); color: var(--color-text-secondary);">
+        Official, trustworthy & clear UI specification system based on national Coat of Arms colors.
+      </p>
+    </div>
+
+    <!-- 3. Colour Swatches with Hex Codes -->
+    <section class="guide-section">
+      <h2 class="section-title">Color Palette</h2>
+      <p class="section-desc">Primary, Secondary, Accent, Urgency, and Base neutrals.</p>
+      
+      <div class="swatches-grid">
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #005D28;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Coat of Arms Green</div>
+            <div class="swatch-hex">#005D28</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #531A17;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Heritage Brown</div>
+            <div class="swatch-hex">#531A17</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #D8A851;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Gold (Accent)</div>
+            <div class="swatch-hex">#D8A851</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #EF4718;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Orange (Urgent)</div>
+            <div class="swatch-hex">#EF4718</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #FFFFFF;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">White Background</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #F8F6F1;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Warm Grey Section</div>
+            <div class="swatch-hex">#F8F6F1</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #1C1C1C;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Near-black Text</div>
+            <div class="swatch-hex">#1C1C1C</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #5C5650;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Secondary Text</div>
+            <div class="swatch-hex">#5C5650</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #B42318;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Error</div>
+            <div class="swatch-hex">#B42318</div>
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-box" style="background-color: #1E7B34;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Success</div>
+            <div class="swatch-hex">#1E7B34</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" style="grid-column: span 2;">
+          <div class="swatch-box" style="background-color: #87451A;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Ochre Brown (Warning)</div>
+            <div class="swatch-hex">#87451A</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--color-secondary);">
+          Status Colours (with required names):
+        </div>
+        <div class="status-chips-wrap">
+          <span class="status-chip"><span class="status-dot" style="background-color: #5C5650;"></span>Received #5C5650</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #825B32;"></span>Viewed #825B32</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #531A17;"></span>Assigned #531A17</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #87451A;"></span>Scheduled #87451A</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #B46E12;"></span>In progress #B46E12</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #005D28;"></span>Fixed #005D28</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #1C1C1C;"></span>Closed #1C1C1C</span>
+          <span class="status-chip"><span class="status-dot" style="background-color: #B42318;"></span>Reopened #B42318</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Typography -->
+    <section class="guide-section">
+      <h2 class="section-title">Typography (Inter)</h2>
+      
+      <div class="type-row">
+        <div>
+          <div style="font-size: 24px; font-weight: 700; line-height: 1.2;">Title (24px Bold)</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary);">Page titles, key milestones</div>
+        </div>
+        <span style="font-size: 12px; font-family: monospace; color: var(--color-text-secondary);">24px / 700</span>
+      </div>
+
+      <div class="type-row">
+        <div>
+          <div style="font-size: 18px; font-weight: 600;">Heading (18px Semibold)</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary);">Section headers, card titles</div>
+        </div>
+        <span style="font-size: 12px; font-family: monospace; color: var(--color-text-secondary);">18px / 600</span>
+      </div>
+
+      <div class="type-row">
+        <div>
+          <div style="font-size: 16px; font-weight: 400;">Body (16px Regular)</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary);">Descriptions, general form text</div>
+        </div>
+        <span style="font-size: 12px; font-family: monospace; color: var(--color-text-secondary);">16px / 400</span>
+      </div>
+
+      <div class="type-row">
+        <div>
+          <div style="font-size: 16px; font-weight: 600;">Labels & Buttons (16px Semibold)</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary);">Field labels, action buttons</div>
+        </div>
+        <span style="font-size: 12px; font-family: monospace; color: var(--color-text-secondary);">16px / 600</span>
+      </div>
+
+      <div class="type-row">
+        <div>
+          <div style="font-size: 13px; font-weight: 400;">Small (13px Regular)</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary);">Timestamps, helper hints (min 12px)</div>
+        </div>
+        <span style="font-size: 12px; font-family: monospace; color: var(--color-text-secondary);">13px / 400</span>
+      </div>
+    </section>
+
+    <!-- 5. Spacing Scale -->
+    <section class="guide-section">
+      <h2 class="section-title">Spacing Scale (8px Unit)</h2>
+      <p class="section-desc">Gaps: 4, 8, 16, 24, 32 px. Margins: 16px (phone), 24px (tablet), 32px (desktop).</p>
+      
+      <div class="spacing-demo">
+        <div class="space-bar-wrap">
+          <div class="space-bar" style="width: 4px; height: 16px;"></div>
+          <span style="font-size: 11px; font-family: monospace;">4px</span>
+        </div>
+        <div class="space-bar-wrap">
+          <div class="space-bar" style="width: 8px; height: 24px;"></div>
+          <span style="font-size: 11px; font-family: monospace;">8px</span>
+        </div>
+        <div class="space-bar-wrap">
+          <div class="space-bar" style="width: 16px; height: 32px;"></div>
+          <span style="font-size: 11px; font-family: monospace;">16px</span>
+        </div>
+        <div class="space-bar-wrap">
+          <div class="space-bar" style="width: 24px; height: 40px;"></div>
+          <span style="font-size: 11px; font-family: monospace;">24px</span>
+        </div>
+        <div class="space-bar-wrap">
+          <div class="space-bar" style="width: 32px; height: 48px;"></div>
+          <span style="font-size: 11px; font-family: monospace;">32px</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Buttons -->
+    <section class="guide-section">
+      <h2 class="section-title">Buttons (Height: 48px, Radius: 8px)</h2>
+      <div class="btn-group">
+        <div>
+          <button class="btn btn-primary">Primary Button</button>
+          <span style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; display: block;">Coat of Arms Green #005D28, 16px semibold white</span>
+        </div>
+
+        <div>
+          <button class="btn btn-secondary">Secondary Button</button>
+          <span style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; display: block;">White bg, #005D28 border and text</span>
+        </div>
+
+        <div>
+          <button class="btn btn-danger">Danger Button</button>
+          <span style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; display: block;">Error #B42318 solid, used only for deleting</span>
+        </div>
+
+        <div>
+          <button class="btn btn-disabled" disabled>Disabled Button</button>
+          <span style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; display: block;">#D0D5DD background, #667085 text</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Text Fields -->
+    <section class="guide-section">
+      <h2 class="section-title">Text Fields (Radius: 8px)</h2>
+
+      <!-- Normal -->
+      <div class="input-field-group">
+        <label class="input-label">Normal state</label>
+        <input type="text" class="input-box" placeholder="e.g. 12 Khumalo Street" value="">
+        <span class="input-helper">Provide the street name and house number</span>
+      </div>
+
+      <!-- Focused -->
+      <div class="input-field-group">
+        <label class="input-label">Focused state</label>
+        <input type="text" class="input-box input-focused" value="Pothole on main road">
+        <span class="input-helper">2px primary green border focus ring</span>
+      </div>
+
+      <!-- Error -->
+      <div class="input-field-group">
+        <label class="input-label">Error state</label>
+        <input type="text" class="input-box input-error" value="Invalid reference">
+        <div class="input-error-msg">
+          <i data-lucide="alert-circle" style="width: 14px; height: 14px;"></i>
+          <span>Please enter a valid format like FMK-2026-00125</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Labels & Badges -->
+    <section class="guide-section">
+      <h2 class="section-title">Labels & Badges</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <span class="urgent-badge">
+          <i data-lucide="alert-triangle" style="width: 14px; height: 14px;"></i>
+          Urgent
+        </span>
+        <span class="overdue-badge">
+          <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+          Overdue
+        </span>
+        <span class="delayed-badge">
+          <i data-lucide="hourglass" style="width: 14px; height: 14px;"></i>
+          Delayed
+        </span>
+      </div>
+    </section>
+
+    <!-- 9. Cards (Fault Card & Stat Card) -->
+    <section class="guide-section">
+      <h2 class="section-title">Cards (Radius: 12px, Soft Shadow)</h2>
+      
+      <!-- Fault Card -->
+      <div class="card-fault" tabindex="0" role="button" aria-label="Fault card: Water leak">
+        <div class="card-fault-header">
+          <div class="card-thumbnail">
+            <i data-lucide="image" style="width: 24px; height: 24px;"></i>
+          </div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+              <span style="font-size: var(--text-heading); font-weight: 600; color: var(--color-text-main);">Burst Water Pipe</span>
+              <span class="urgent-badge">
+                <i data-lucide="alert-triangle" style="width: 12px; height: 12px;"></i>
+                Urgent
+              </span>
+            </div>
+            <div style="margin-top: 4px;">
+              <span class="status-chip" style="font-size: 12px; padding: 2px 8px;">
+                <span class="status-dot" style="background-color: #B46E12;"></span>
+                In progress
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size: var(--text-small); color: var(--color-text-secondary); display: flex; flex-direction: column; gap: 4px;">
+          <div><i data-lucide="map-pin" style="width: 14px; height: 14px; vertical-align: middle; display: inline-block;"></i> Cnr 4th Ave & Mokoena St, Ward 12</div>
+          <div>Ref: <strong>FMK-2026-00125</strong> · 12 Oct 2026</div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #F0ECE1; pt: 8px; padding-top: 8px; font-size: var(--text-small);">
+          <span style="display: flex; align-items: center; gap: 4px; color: var(--color-primary); font-weight: 600;">
+            <i data-lucide="thumbs-up" style="width: 14px; height: 14px;"></i> 14 upvotes
+          </span>
+          <span style="color: var(--color-text-secondary);">Tappable card</span>
+        </div>
+      </div>
+
+      <!-- Stat Card -->
+      <div style="margin-top: 16px;">
+        <div class="stat-card-demo">
+          <div class="stat-number">48</div>
+          <div style="font-size: var(--text-label); font-weight: 600; color: var(--color-text-main);">Resolved this month</div>
+          <div style="font-size: var(--text-small); color: var(--color-text-secondary);">Ward 14 infrastructure repairs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Toast Notification -->
+    <section class="guide-section">
+      <h2 class="section-title">Toast Notification</h2>
+      <p class="section-desc">One line of white text on near-black #1C1C1C, disappears after 3 seconds.</p>
+      
+      <div class="toast-demo" role="status">
+        <i data-lucide="check-circle-2" style="width: 20px; height: 20px; color: #1E7B34;"></i>
+        <span>Fault reported. Your reference number is FMK-2026-00125.</span>
+      </div>
+    </section>
+
+    <!-- 11. Empty-State Block -->
+    <section class="guide-section">
+      <h2 class="section-title">Empty-State Block</h2>
+      
+      <div class="empty-state">
+        <div class="empty-illustration">
+          <!-- Flat line illustration in green, brown and gold -->
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="4" width="18" height="16" rx="3" stroke="#531A17" stroke-width="2"/>
+            <path d="M7 8h10" stroke="#005D28" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 12h6" stroke="#005D28" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="14" r="3" stroke="#D8A851" stroke-width="2"/>
+            <path d="m18 16 2 2" stroke="#D8A851" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3 style="font-size: var(--text-heading); font-weight: 600; color: var(--color-secondary);">No faults found</h3>
+          <p style="font-size: var(--text-body); color: var(--color-text-secondary); margin-top: 4px;">
+            There are no reported faults in your area right now.
+          </p>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 8px;">Report a Fault</button>
+      </div>
+    </section>
+
+    <!-- 12. Bottom Tab Bar (Role-based tabs from Shared Components 8.3) -->
+    <div style="margin-top: 16px; border-top: 1px solid #E5E7EB;">
+      <div style="padding: 12px 16px 4px 16px;">
+        <span style="font-size: 13px; font-weight: 600; color: var(--color-secondary);">Tab Bar (Bottom navigation on phone & tablet):</span>
+      </div>
+      <nav class="tab-bar-demo" aria-label="Bottom tab navigation">
+        <div class="tab-item active">
+          <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+          <span>Home</span>
+        </div>
+        <div class="tab-item">
+          <i data-lucide="map" style="width: 24px; height: 24px;"></i>
+          <span>Map</span>
+        </div>
+        <div class="tab-item">
+          <i data-lucide="plus-circle" style="width: 24px; height: 24px;"></i>
+          <span>Report</span>
+        </div>
+        <div class="tab-item">
+          <i data-lucide="list" style="width: 24px; height: 24px;"></i>
+          <span>My Faults</span>
+        </div>
+        <div class="tab-item">
+          <div class="tab-badge-user">TM</div>
+          <span>Profile</span>
+        </div>
+      </nav>
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
