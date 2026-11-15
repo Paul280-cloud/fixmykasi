@@ -79,8 +79,7 @@ export default function ReportFaultScreen() {
   const { userId, role, ready } = useAuth();
   if (!ready) return null;
   if (!userId) return <Navigate to="/log-in" replace state={{ from: '/report' }} />;
-  if (role && role !== 'resident') return <Navigate to={homeByRole[role]} replace />;
-  if (!role) return null;
+  if (role !== 'resident') return <Navigate to={role ? homeByRole[role] : '/'} replace />;
   return <ReportFaultForm userId={userId} />;
 }
 

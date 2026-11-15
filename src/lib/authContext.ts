@@ -5,8 +5,10 @@ export type AuthState = {
   userId: string | null;
   // null for visitors, and while the role is still loading.
   role: Role | null;
-  // False until Supabase has said who is logged in (or that nobody is), so
-  // screens for logged-in users do not send them to S3 on a page refresh.
+  // True once we know who this is and their role: straight away for a
+  // visitor, and only after the role has loaded for a logged-in user. Screens
+  // wait for it so a page refresh does not send people to S3 or flash the
+  // wrong tabs.
   ready: boolean;
 };
 
