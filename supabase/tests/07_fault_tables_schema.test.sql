@@ -3,7 +3,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(34);
+select plan(39);
 
 -- Tables and the view exist ------------------------------------------------------
 select has_table('public', 'faults', 'faults table exists');
@@ -33,7 +33,8 @@ select table_privs_are('public', 'faults', 'anon', array[]::text[], 'anon has no
 select table_privs_are('public', 'faults', 'authenticated', array[]::text[], 'authenticated has no table-wide grant on faults (column grants only)');
 select table_privs_are('public', 'fault_reference_counters', 'anon', array[]::text[], 'anon has no access to the reference counters');
 select table_privs_are('public', 'fault_reference_counters', 'authenticated', array[]::text[], 'authenticated has no access to the reference counters');
-select table_privs_are('public', 'status_changes', 'authenticated', array['SELECT'], 'authenticated can only read status_changes (the trigger writes them)');
+select table_privs_are('public', 'status_changes', 'authenticated', array[]::text[], 'authenticated has no table-wide grant on status_changes (column grants only, the trigger writes them)');
+select table_privs_are('public', 'fault_photos', 'anon', array[]::text[], 'anon has no table-wide grant on fault_photos (column grants only)');
 select table_privs_are('public', 'upvotes', 'anon', array[]::text[], 'anon has no access to upvotes');
 select table_privs_are('public', 'upvotes', 'authenticated', array['SELECT', 'DELETE'], 'authenticated: SELECT and DELETE on upvotes, INSERT only on fault_id');
 select table_privs_are('public', 'faults_public', 'anon', array['SELECT'], 'anon can only SELECT faults_public');
@@ -43,6 +44,12 @@ select ok(not has_column_privilege('anon', 'public.faults', 'reporter_id', 'SELE
 select ok(not has_column_privilege('authenticated', 'public.faults', 'reporter_id', 'SELECT'), 'authenticated may not SELECT faults.reporter_id directly');
 select ok(not has_column_privilege('authenticated', 'public.faults', 'municipal_reference', 'SELECT'), 'authenticated may not SELECT faults.municipal_reference directly');
 select ok(has_column_privilege('anon', 'public.faults', 'reference_number', 'SELECT'), 'anon may SELECT faults.reference_number');
+
+-- BR16: the reporter's id must not leak through the photo or history tables either.
+select ok(not has_column_privilege('anon', 'public.fault_photos', 'uploaded_by', 'SELECT'), 'anon may not SELECT fault_photos.uploaded_by (it is the reporter''s id)');
+select ok(not has_column_privilege('authenticated', 'public.fault_photos', 'uploaded_by', 'SELECT'), 'authenticated may not SELECT fault_photos.uploaded_by');
+select ok(not has_column_privilege('anon', 'public.status_changes', 'changed_by', 'SELECT'), 'anon may not SELECT status_changes.changed_by (the first row is the reporter''s id)');
+select ok(not has_column_privilege('authenticated', 'public.status_changes', 'changed_by', 'SELECT'), 'authenticated may not SELECT status_changes.changed_by');
 
 -- Column grants: what a resident may fill in on S6 -----------------------------------
 select ok(has_column_privilege('authenticated', 'public.faults', 'description', 'INSERT'), 'authenticated may INSERT faults.description');

@@ -3,7 +3,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(24);
+select plan(25);
 
 -- Test data (as postgres) -------------------------------------------------------------
 insert into public.wards (id, name) values ('0000000a-0000-0000-0000-000000000801', 'Rules Ward');
@@ -32,6 +32,14 @@ values ('f0000000-0000-0000-0000-000000000801', (select pothole from t_types),
         '0000000a-0000-0000-0000-000000000801', 'Big pothole in front of number 12', '12 Vilakazi Street');
 
 reset role;
+
+-- BR17 race (Bao's review): the insert took this resident's lock, so a second
+-- Submit at the same moment would have to wait. pgTAP runs in one session, so I
+-- check the lock is held; a two-connection race test is a follow-up Issue.
+select ok(
+  exists (select 1 from pg_locks
+          where locktype = 'advisory' and pid = pg_backend_pid() and granted),
+  'BR17: reporting a fault takes a lock for the resident, so two Submits cannot both pass the limit');
 
 -- BR1: reference number -----------------------------------------------------------------
 select matches(

@@ -3,7 +3,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(34);
+select plan(36);
 
 -- Test data (as postgres) -------------------------------------------------------------
 insert into public.wards (id, name) values
@@ -160,6 +160,12 @@ set local role anon;
 set local request.jwt.claims to '{"role": "anon"}';
 select is((select count(*)::int from public.fault_photos where fault_id = 'f0000000-0000-0000-0000-000000000901'),
   4, 'ALLOW: a visitor sees the fault''s photos');
+select throws_ok(
+  $$ select uploaded_by from public.fault_photos $$,
+  '42501', null, 'DENY: a visitor cannot see who uploaded a photo (BR16)');
+select throws_ok(
+  $$ select changed_by from public.status_changes $$,
+  '42501', null, 'DENY: a visitor cannot see who changed a status (BR16)');
 
 -- ==== Upvote ===========================================================================
 reset role;
