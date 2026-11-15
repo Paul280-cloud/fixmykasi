@@ -57,9 +57,9 @@ Statuses: ✅ Done (merged and on the live app) · 🚧 In progress (code in an 
 | --- | --- |
 | Frontend | React 18, Vite 5, React Router 7, TypeScript 5 |
 | Styling | Tailwind CSS 3 |
-| Database, log-in and storage | Supabase (PostgreSQL, Auth, Storage, Edge Functions) |
-| Translations | i18next (English, Afrikaans, isiZulu, Sepedi) |
-| Map | Leaflet with OpenStreetMap |
+| Database, log-in and storage | Supabase (PostgreSQL, Auth, Storage, Edge Functions (planned)) |
+| Translations | i18next (English; Afrikaans, isiZulu, Sepedi (planned)) |
+| Map | Leaflet with OpenStreetMap (planned) |
 | Testing | Vitest and React Testing Library |
 | Hosting | Vercel, redeploys on every merge to `main` |
 
