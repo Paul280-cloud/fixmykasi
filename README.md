@@ -106,7 +106,16 @@ The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http:
 
 ## Test logins
 
-The test accounts for each role (resident, ward admin, field team) and their test-only passwords are in [supabase/seed/README.md](supabase/seed/README.md). They are fictional people from PRD 10.4, never real accounts. They are loaded into the local database by the seed; Bao is confirming which of them work on the live app as part of the test plan (#7).
+**Local only (`npx supabase db reset`, then `seed.js`). These accounts do NOT exist on the live site.** They are fictional people from PRD 10.4 with test-only passwords (details in [supabase/seed/README.md](supabase/seed/README.md)).
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Resident (Ward A) | thandeka.m@example.com | TestResident1 |
+| Resident (Ward A, empty states) | nomsa.s@example.com | TestResident2 |
+| Ward admin (Ward A) | zanele.k@example.com | TestWardAdmin1 |
+| Field team (Sample Plumbing Services) | kagiso.m@example.com | TestFieldTeam1 |
+
+**On the live site:** sign up with your own email and confirm it.
 
 ## Tests
 
