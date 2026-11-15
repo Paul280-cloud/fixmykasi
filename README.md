@@ -12,20 +12,20 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 
 | Link | URL |
 | --- | --- |
-| Live app | Coming soon |
-| Stitch project | FixMyKasi designs (https://stitch.withgoogle.com/projects/16313615270709945959) |
+| Live app | [fixmykasi.vercel.app](https://fixmykasi.vercel.app) |
+| Stitch project | [FixMyKasi designs](https://stitch.withgoogle.com/projects/16313615270709945959) |
 | Project board | [FixMyKasi board](https://github.com/users/Paul280-cloud/projects/1) |
 | Team Loom | Coming soon |
 
 ## Team & Roles
 
-| Name | GitHub username | Role(s) | Main features |
+| Name | GitHub username | Role(s) | Main Issues (backend · screen) |
 | --- | --- | --- | --- |
-| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Report a fault |
-| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Login and ward dashboard |
-| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Public fault list |
-| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | Track progress |
-| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Assign the work |
+| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | #11 Fault tables and RLS · #12 Fault list |
+| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | #10 Log-in screens · #15 Deploy · #18 and #19 Assign the work |
+| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | #14 Photo storage · #13 Report a fault screen |
+| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | #7 Test plan · Fault card and Status chip (part of #12) · #16 and #17 Track progress |
+| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Database tests in CI (to be confirmed) · #21 and #22 Ward dashboard |
 
 Roles show who leads each area. Every member builds at least one screen and one backend piece, opens their own pull requests and reviews their teammates' pull requests.
 
@@ -35,25 +35,27 @@ Roles show who leads each area. Every member builds at least one screen and one 
 
 | Feature | Description | Status |
 | --- | --- | --- |
-| Report a fault | Log in and report a fault with a photo, location, category and description | 🚧 In progress |
-| Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | 🚧 In progress |
-| Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | 🚧 In progress |
-| Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | 🚧 In progress |
-| Ward dashboard | See open faults, overdue faults and the average time to fix | 🚧 In progress |
+| Report a fault | Log in and report a fault with a photo, location, category and description | 🚧 In progress for Checkpoint 3: log-in (#41), fault tables (#45) and photo storage (#43, #44) are in review; the screen (#13) is next |
+| Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | ⏳ Not started (after Checkpoint 3) |
+| Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | ⏳ Not started |
+| Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | ⏳ Not started |
+| Ward dashboard | See open faults, overdue faults and the average time to fix | ⏳ Not started |
 
 ### Should have
 
 | Feature | Description | Status |
 | --- | --- | --- |
-| Proof of work | Teams upload an after photo when the job is done | 🚧 In progress |
-| AI help | AI suggests the fault category and urgency, and translates descriptions | 🚧 In progress |
-| Map view | Faults shown as pins coloured by status | 🚧 In progress |
+| Proof of work | Teams upload an after photo when the job is done | ⏳ Not started |
+| AI help | AI suggests the fault category and urgency, and translates descriptions | ⏳ Not started |
+| Map view | Faults shown as pins coloured by status | ⏳ Not started |
+
+Statuses: ✅ Done (merged and on the live app) · 🚧 In progress (code in an open pull request) · ⏳ Not started
 
 ## Tech stack
 
 | Layer | Choice |
 | --- | --- |
-| Frontend | React 18, Vite 5, React Router 6, TypeScript 5 |
+| Frontend | React 18, Vite 5, React Router 7, TypeScript 5 |
 | Styling | Tailwind CSS 3 |
 | Database, log-in and storage | Supabase (PostgreSQL, Auth, Storage, Edge Functions) |
 | Translations | i18next (English, Afrikaans, isiZulu, Sepedi) |
@@ -103,15 +105,36 @@ The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http:
 
 ## Test logins
 
-Test accounts for each role will be added here. These are test accounts only, never real passwords.
+The test accounts for each role (resident, ward admin, field team) and their test-only passwords are in [supabase/seed/README.md](supabase/seed/README.md). They are fictional people from PRD 10.4, never real accounts. They are loaded into the local database by the seed; Bao is confirming which of them work on the live app as part of the test plan (#7).
 
 ## Tests
 
-How to run the tests and what they cover will be added here.
+| Kind | Where | How to run | What it covers |
+| --- | --- | --- | --- |
+| App tests (Vitest + React Testing Library) | `tests/` | `npm test` | Screens, components and form validation |
+| Database tests (pgTAP) | `supabase/tests/` | `npx supabase test db` (needs the local stack) | Tables, check rules, the sign-up trigger, grants, and an ALLOW and a DENY test for every Row-Level Security rule in PRD 11.4 |
+| Full check | | `npm run check` | Lint, typecheck, app tests and build. CI runs this on every pull request. |
+
+Tests are written first, then the code that makes them pass. The manual test checklist is in the [Implementation plan](IMPLEMENTATION_PLAN.md), Section 13.
 
 ## Deployment
 
-Hosting details will be added once the app is deployed.
+- **App:** Vercel. Every merge to `main` redeploys [fixmykasi.vercel.app](https://fixmykasi.vercel.app).
+- **Database, log-in and storage:** a hosted Supabase project. Migrations from `supabase/migrations` are pushed with `npx supabase db push`.
+- **Settings:** `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are set in Vercel. The live address is in the hosted project's Auth redirect URLs so confirm-email and reset-password links come back to the app.
+
+## Screenshots
+
+Screenshots of each screen will be added here as it is merged. Until then, the designs for every screen are in [docs/designs](docs/designs/).
+
+## Known issues
+
+- Log-in (#41) is still in review, so the live app shows the home screen only until it is merged.
+- The database tests run locally but not yet in CI. Adding them to CI is planned.
+- The local Supabase stack has email confirmation switched off to make testing easier. The hosted project needs it on (PRD 5).
+- Photos are JPG or PNG only for now (plan decision #3). HEIC and WebP from the PRD come later.
+- Similar reports, infinite scroll and upvotes were moved to after Checkpoint 3 so we could finish one feature end to end.
+- The app is in English only for now. Afrikaans, isiZulu and Sepedi come with #24.
 
 ## Project documents
 
