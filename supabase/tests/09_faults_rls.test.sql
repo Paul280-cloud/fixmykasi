@@ -3,7 +3,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(33);
+select plan(34);
 
 -- Test data (as postgres) -------------------------------------------------------------
 insert into public.wards (id, name) values
@@ -114,7 +114,7 @@ select lives_ok(
 select throws_ok(
   $$ insert into public.fault_photos (fault_id, kind, storage_path)
      values ('f0000000-0000-0000-0000-000000000901', 'before', 'before/44444444-4444-4444-4444-444444444444.jpg') $$,
-  '42501', null, 'DENY: a 4th before photo');
+  'P0001', 'too_many_photos', 'DENY: a 4th before photo');
 select throws_ok(
   $$ insert into public.fault_photos (fault_id, kind, storage_path)
      values ('f0000000-0000-0000-0000-000000000901', 'after', 'after/55555555-5555-5555-5555-555555555555.jpg') $$,
@@ -123,11 +123,26 @@ select throws_ok(
   $$ delete from public.fault_photos where fault_id = 'f0000000-0000-0000-0000-000000000901' $$,
   '42501', null, 'DENY: nobody deletes a photo from the app');
 
+-- Resident Two reports a fault in Ward Two (so Ward One's admin still cannot
+-- read Resident Two, see the last tests).
 set local request.jwt.claims to '{"sub": "c0000000-0000-0000-0000-000000000002", "role": "authenticated"}';
+insert into public.faults (id, fault_type_id, ward_id, description, street_address)
+values ('f0000000-0000-0000-0000-000000000902', (select id from t_pothole),
+        '0000000a-0000-0000-0000-000000000902', 'Another pothole near the shops', '5 Shop Street');
+
+-- One insert with 4 photos must not get past the limit either.
 select throws_ok(
   $$ insert into public.fault_photos (fault_id, kind, storage_path)
-     values ('f0000000-0000-0000-0000-000000000901', 'before', 'before/77777777-7777-7777-7777-777777777777.jpg') $$,
-  '42501', null, 'DENY: another resident cannot add a photo to my fault');
+     select 'f0000000-0000-0000-0000-000000000902', 'before', 'before/' || gen_random_uuid() || '.jpg'
+     from generate_series(1, 4) $$,
+  'P0001', 'too_many_photos', 'DENY: 4 before photos in one insert');
+
+-- Resident One tries to add a photo to Resident Two's fault (it has no photos yet).
+set local request.jwt.claims to '{"sub": "c0000000-0000-0000-0000-000000000001", "role": "authenticated"}';
+select throws_ok(
+  $$ insert into public.fault_photos (fault_id, kind, storage_path)
+     values ('f0000000-0000-0000-0000-000000000902', 'before', 'before/77777777-7777-7777-7777-777777777777.jpg') $$,
+  '42501', null, 'DENY: another resident cannot add a photo to someone else''s fault');
 
 reset role;
 -- The team can add after photos once the fault is theirs (#25 builds the screen).

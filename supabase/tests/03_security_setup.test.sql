@@ -4,7 +4,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(46);
+select plan(48);
 
 -- RLS enabled on every table -------------------------------------------------
 select ok((select relrowsecurity from pg_class where oid = 'public.profiles'::regclass), 'RLS is enabled on profiles');
@@ -73,6 +73,8 @@ select function_privs_are('public', 'faults_after_insert', array[]::text[], 'ano
 select function_privs_are('public', 'faults_after_insert', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call faults_after_insert');
 select function_privs_are('public', 'sync_upvote_count', array[]::text[], 'anon', array[]::text[], 'anon cannot call sync_upvote_count');
 select function_privs_are('public', 'sync_upvote_count', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call sync_upvote_count');
+select function_privs_are('public', 'fault_photos_limit', array[]::text[], 'anon', array[]::text[], 'anon cannot call fault_photos_limit');
+select function_privs_are('public', 'fault_photos_limit', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call fault_photos_limit');
 select function_privs_are('public', 'fault_role', array['uuid'], 'anon', array[]::text[], 'anon cannot call fault_role');
 select function_privs_are('public', 'fault_role', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call fault_role (it only answers about the caller)');
 select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'anon', array[]::text[], 'anon cannot call is_reporter_in_my_ward');
