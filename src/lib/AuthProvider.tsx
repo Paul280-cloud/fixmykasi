@@ -5,9 +5,17 @@ import { AuthContext } from './authContext';
 // Keeps the logged-in user and their role for the tab bar (PRD 7.2).
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState<string | null>(null);
+  const [ready, setReady] = useState(false);
   const [role, setRole] = useState<{ userId: string; role: Role | null } | null>(null);
 
-  useEffect(() => onAuthChange(setUserId), []);
+  useEffect(
+    () =>
+      onAuthChange((id) => {
+        setUserId(id);
+        setReady(true);
+      }),
+    [],
+  );
 
   useEffect(() => {
     if (!userId) return;
@@ -22,6 +30,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const currentRole = userId && role?.userId === userId ? role.role : null;
   return (
-    <AuthContext.Provider value={{ userId, role: currentRole }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ userId, role: currentRole, ready }}>{children}</AuthContext.Provider>
   );
 }
