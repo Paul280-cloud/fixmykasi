@@ -64,7 +64,7 @@ Statuses: ✅ Done (merged and on the live app) · 🚧 In progress (code in an 
 | Testing | Vitest and React Testing Library |
 | Hosting | Vercel, redeploys on every merge to `main` |
 
-**Architecture:** the React app runs in the browser and talks to Supabase directly. Row-Level Security (RLS) policies in the database decide what each role (resident, ward admin, field team) can read and change. AI help runs in a Supabase Edge Function so the AI key never reaches the browser. Full details are in the [PRD](docs/PRD.md), Section 11.
+**Architecture:** the React app runs in the browser and talks to Supabase directly. Row-Level Security (RLS) policies in the database decide what each role (resident, ward admin, field team) can read and change. AI help runs in a Supabase Edge Function so the AI key never reaches the browser (planned). Full details are in the [PRD](docs/PRD.md), Section 11.
 
 ## Run it locally
 
