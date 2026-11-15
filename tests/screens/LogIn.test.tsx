@@ -37,6 +37,25 @@ describe('S3 Log In', () => {
     expect(auth.logIn).toHaveBeenCalledWith('thandeka.m@example.com', 'TestResident1');
   });
 
+  it.each(['//evil.com', '/\\evil.com'])(
+    'ignores an off-site "from" (%s) and opens the role home screen',
+    async (from) => {
+      auth.logIn.mockResolvedValue({ role: 'ward_admin' });
+      renderApp({ pathname: '/log-in', state: { from } });
+      logInWith('sipho.d@example.com', 'TestAdmin1');
+
+      expect(await screen.findByRole('heading', { name: 'Ward queue' })).toBeInTheDocument();
+    },
+  );
+
+  it('returns to a same-site "from" after log-in', async () => {
+    auth.logIn.mockResolvedValue({ role: 'ward_admin' });
+    renderApp({ pathname: '/log-in', state: { from: '/faults' } });
+    logInWith('sipho.d@example.com', 'TestAdmin1');
+
+    expect(await screen.findByRole('heading', { name: 'Fault list' })).toBeInTheDocument();
+  });
+
   it('T-US2-2: a wrong password shows "Wrong email or password." and keeps the email', async () => {
     auth.logIn.mockResolvedValue({ error: 'invalid_credentials' });
     renderApp('/log-in');
