@@ -18,13 +18,13 @@ const Checkbox = forwardRef<HTMLInputElement, Props>(function Checkbox(
       <div className="flex min-h-11 items-start gap-3">
         <input
           ref={ref}
+          {...rest}
           id={id}
           type="checkbox"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           aria-required="true"
           className={`mt-0.5 h-6 w-6 flex-none cursor-pointer rounded accent-primary ${error ? 'outline outline-2 outline-error' : ''}`}
-          {...rest}
         />
         <label htmlFor={id} className="cursor-pointer text-base text-text">
           {label}

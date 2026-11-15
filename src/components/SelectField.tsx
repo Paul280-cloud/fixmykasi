@@ -24,13 +24,13 @@ const SelectField = forwardRef<HTMLSelectElement, Props>(function SelectField(
       <div className="relative">
         <select
           ref={ref}
+          {...rest}
           id={id}
           value={value}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           aria-required="true"
           className={`${inputClass(Boolean(error))} appearance-none pr-10 ${value ? '' : 'text-text-secondary'}`}
-          {...rest}
         >
           <option value="" disabled>
             {placeholder}

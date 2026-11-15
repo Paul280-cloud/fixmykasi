@@ -54,13 +54,13 @@ const TextField = forwardRef<HTMLInputElement, Props>(function TextField(
       <div className="relative">
         <input
           ref={ref}
+          {...rest}
           id={id}
           type={isPassword && revealed ? 'text' : type}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           aria-required={!optional}
           className={`${inputClass(Boolean(error))} ${isPassword ? 'pr-12' : ''}`}
-          {...rest}
         />
         {isPassword && (
           <button

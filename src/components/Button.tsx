@@ -30,11 +30,11 @@ export default function Button({
 }: Props) {
   return (
     <button
+      {...rest}
       type={type}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       className={`relative flex min-h-12 w-full items-center justify-center rounded-button px-4 text-base font-semibold transition-colors disabled:cursor-not-allowed ${styles[variant]} ${focusRing} ${className}`}
-      {...rest}
     >
       {loading ? (
         <>
