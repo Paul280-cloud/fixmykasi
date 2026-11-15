@@ -35,7 +35,8 @@ Roles show who leads each area. Every member builds at least one screen and one 
 
 | Feature | Description | Status |
 | --- | --- | --- |
-| Report a fault | Log in and report a fault with a photo, location, category and description | 🚧 In progress for Checkpoint 3: log-in (#41), fault tables (#45) and photo storage (#43, #44) are in review; the screen (#13) is next |
+| Log in / Sign up | Create an account, confirm the email, log in and reset a forgotten password | ✅ Done (#41) |
+| Report a fault | Log in and report a fault with a photo, location, category and description | ✅ Done for Checkpoint 3: log in, report with photo, saved to the live database (#41, #43, #44, #45, #48). Known gap: see Known issues. |
 | Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | ⏳ Not started (after Checkpoint 3) |
 | Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | ⏳ Not started |
 | Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | ⏳ Not started |
