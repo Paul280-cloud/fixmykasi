@@ -4,7 +4,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(36);
+select plan(48);
 
 -- RLS enabled on every table -------------------------------------------------
 select ok((select relrowsecurity from pg_class where oid = 'public.profiles'::regclass), 'RLS is enabled on profiles');
@@ -55,14 +55,30 @@ $$, 'every function in public sets search_path = ''''');
 select is(
   (select array_agg(p.proname::text order by p.proname) from pg_proc p
    where p.pronamespace = 'public'::regnamespace and p.prosecdef),
-  array['field_team_contacts', 'handle_new_user'],
-  'only handle_new_user and field_team_contacts are security definer');
+  array['fault_role', 'faults_after_insert', 'faults_before_insert', 'field_team_contacts',
+        'handle_new_user', 'is_reporter_in_my_ward', 'sync_upvote_count'],
+  'only these functions are security definer (each one is explained in its migration)');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'anon', array[]::text[], 'anon cannot call handle_new_user');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call handle_new_user');
 select function_privs_are('public', 'field_team_contacts', array[]::text[], 'anon', array[]::text[], 'anon cannot call field_team_contacts');
 select function_privs_are('public', 'field_team_contacts', array[]::text[], 'authenticated', array['EXECUTE'], 'authenticated can call field_team_contacts (it checks the role itself)');
 select function_privs_are('public', 'guard_profile_update', array[]::text[], 'anon', array[]::text[], 'anon cannot call guard_profile_update');
 select function_privs_are('public', 'guard_profile_update', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call guard_profile_update');
+
+-- Added with #11: the trigger functions cannot be called by anyone directly, and the
+-- two helpers used by policies can only be called by logged-in users.
+select function_privs_are('public', 'faults_before_insert', array[]::text[], 'anon', array[]::text[], 'anon cannot call faults_before_insert');
+select function_privs_are('public', 'faults_before_insert', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call faults_before_insert');
+select function_privs_are('public', 'faults_after_insert', array[]::text[], 'anon', array[]::text[], 'anon cannot call faults_after_insert');
+select function_privs_are('public', 'faults_after_insert', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call faults_after_insert');
+select function_privs_are('public', 'sync_upvote_count', array[]::text[], 'anon', array[]::text[], 'anon cannot call sync_upvote_count');
+select function_privs_are('public', 'sync_upvote_count', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call sync_upvote_count');
+select function_privs_are('public', 'fault_photos_limit', array[]::text[], 'anon', array[]::text[], 'anon cannot call fault_photos_limit');
+select function_privs_are('public', 'fault_photos_limit', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call fault_photos_limit');
+select function_privs_are('public', 'fault_role', array['uuid'], 'anon', array[]::text[], 'anon cannot call fault_role');
+select function_privs_are('public', 'fault_role', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call fault_role (it only answers about the caller)');
+select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'anon', array[]::text[], 'anon cannot call is_reporter_in_my_ward');
+select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call is_reporter_in_my_ward (it only answers about the caller)');
 
 select * from finish();
 rollback;

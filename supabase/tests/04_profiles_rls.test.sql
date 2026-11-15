@@ -1,6 +1,6 @@
 -- PRD 11.4 Profile rows: an ALLOW and a DENY test for each action, including anon.
--- Not covered here: "ward admins can read profiles of reporters in their ward".
--- That policy needs the faults table and is added with Issue #11.
+-- "Ward admins can read profiles of reporters in their ward" needs the faults
+-- table, so it was added with Issue #11 and is tested in 09_faults_rls.
 begin;
 create extension if not exists pgtap with schema extensions;
 
@@ -43,7 +43,7 @@ select is_empty($$ select id from public.profiles where id = 'a0000000-0000-0000
 
 set local request.jwt.claims to '{"sub": "a0000000-0000-0000-0000-000000000003", "role": "authenticated"}';
 select results_eq($$ select role::text from public.profiles $$, $$ values ('ward_admin') $$,
-  'ALLOW: a ward admin reads their own profile (and, until #11, only that)');
+  'ALLOW: a ward admin reads their own profile (no faults here, so only that)');
 
 set local request.jwt.claims to '{"sub": "a0000000-0000-0000-0000-000000000004", "role": "authenticated"}';
 select results_eq($$ select role::text from public.profiles $$, $$ values ('field_team') $$,
