@@ -35,6 +35,13 @@ const ERROR_TEXT: Record<AuthErrorCode, string> = {
 
 type LocationState = { banner?: LogInBanner; from?: string } | null;
 
+// Only a path on this site: "//host" and "/\host" are read by browsers as
+// another site, so they fall back to the role's home screen.
+function safeFrom(from: string | undefined): string | undefined {
+  if (!from?.startsWith('/') || from.startsWith('//') || from.startsWith('/\\')) return undefined;
+  return from;
+}
+
 // S3 Log In (PRD 5, 8.2): logs in any role and opens their home screen.
 export default function LogInScreen() {
   const { t } = useTranslation();
@@ -82,8 +89,7 @@ export default function LogInScreen() {
     setSubmitting(false);
 
     if (result.role) {
-      const from = state?.from?.startsWith('/') ? state.from : undefined;
-      navigate(from ?? homeByRole[result.role], { replace: true });
+      navigate(safeFrom(state?.from) ?? homeByRole[result.role], { replace: true });
     } else {
       setBanner(undefined);
       setError(result.error ?? 'unknown');
