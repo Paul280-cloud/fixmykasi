@@ -102,7 +102,7 @@ node --env-file=.env supabase/seed/seed.js  # set the test passwords (PRD 10.4)
 npx supabase test db                        # run the pgTAP tests in supabase/tests
 ```
 
-The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http://127.0.0.1:55323) so it can run next to another Supabase project. Stop it with `npx supabase stop`. Test logins are listed in [supabase/seed/README.md](supabase/seed/README.md).
+The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http://127.0.0.1:55323) so it can run next to another Supabase project. Stop it with `npx supabase stop`.
 
 ## Test logins
 
@@ -162,5 +162,5 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 - **Commits:** small and clear, for example `feat: add report fault form (#12)`.
 - **Pull requests:** each PR explains what changed and why, links its Issue (`Closes #12`), and shows screenshots and how it was tested.
 - **Reviews:** at least one teammate reviews and approves every PR. Nobody approves their own work.
-- **Merging:** `main` is protected. PRs are squash merged once approved and CI passes, then the branch is deleted.
+- **Merging:** `main` is protected. We use squash and merge once a PR is approved and CI passes, then the branch is deleted. Most code PRs so far (including #43, #45, #48 and #50) used merge commits.
 - **Secrets:** `.env` is never committed. We commit `.env.example` and share real keys privately.
