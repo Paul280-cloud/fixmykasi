@@ -207,6 +207,10 @@ begin
 
     -- BR17: at most 5 faults in 24 hours. The app shows its own friendly message
     -- when it sees 'too_many_reports'.
+    -- I take a lock for this resident first (Bao's review): if they press Submit
+    -- twice at the same moment, the second one waits here until the first is
+    -- saved, then counts again, so both cannot sneak in as number 5.
+    perform pg_advisory_xact_lock(hashtext('fault_reports:' || me::text));
     if (select count(*) from public.faults f
         where f.reporter_id = me and f.created_at > now() - interval '24 hours') >= 5 then
       raise exception 'too_many_reports'
@@ -340,7 +344,9 @@ create policy "Residents can report faults"
 -- nobody deletes a fault from the app (PRD 11.4).
 
 -- Fault photos ----------------------------------------------------------------------------------
-grant select on public.fault_photos to anon, authenticated;
+-- uploaded_by is NOT granted: for a before photo it is the reporter's id, and
+-- BR16 keeps that hidden (Bheki's review). Same for status_changes.changed_by.
+grant select (id, fault_id, kind, storage_path, created_at) on public.fault_photos to anon, authenticated;
 grant insert (fault_id, kind, storage_path) on public.fault_photos to authenticated;
 
 create policy "Anyone can read fault photos"
@@ -391,6 +397,9 @@ language plpgsql
 set search_path = ''
 as $$
 begin
+  -- Same idea as BR17: lock this fault + kind first, so two uploads at the same
+  -- moment take turns and the count is always right (Bao's review).
+  perform pg_advisory_xact_lock(hashtext('fault_photos:' || new.fault_id::text || ':' || new.kind::text));
   if (select count(*) from public.fault_photos p
       where p.fault_id = new.fault_id and p.kind = new.kind) >= 3 then
     raise exception 'too_many_photos'
@@ -440,7 +449,8 @@ create policy "Residents remove their own upvotes"
 
 -- Status changes ---------------------------------------------------------------------------------
 -- Everyone reads the timeline. Only the triggers write it.
-grant select on public.status_changes to anon, authenticated;
+-- changed_by is NOT granted: the first row is the reporter's id (BR16).
+grant select (id, fault_id, from_status, to_status, note, created_at) on public.status_changes to anon, authenticated;
 
 create policy "Anyone can read status history"
   on public.status_changes for select
