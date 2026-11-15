@@ -139,12 +139,15 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 
 ## Known issues
 
-- Log-in (#41) is still in review, so the live app shows the home screen only until it is merged.
-- The database tests run locally but not yet in CI. Adding them to CI is planned.
+- The database tests run locally but not yet in CI. Adding them to CI is #47.
+- Report a fault (S6) can save a report without a photo: photos are linked after the fault is saved, and if that step fails the report is still saved and shown as sent.
+- The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
+- The "My reports" and "Dashboard" tabs have no screen yet, so they open the home screen.
 - The local Supabase stack has email confirmation switched off to make testing easier. The hosted project needs it on (PRD 5).
 - Photos are JPG or PNG only for now (plan decision #3). HEIC and WebP from the PRD come later.
 - Similar reports, infinite scroll and upvotes were moved to after Checkpoint 3 so we could finish one feature end to end.
 - The app is in English only for now. Afrikaans, isiZulu and Sepedi come with #24.
+- Open follow-ups are tracked in Issue #51.
 
 ## Project documents
 
