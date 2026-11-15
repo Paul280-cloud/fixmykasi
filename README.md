@@ -19,13 +19,13 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 
 ## Team & Roles
 
-| Name | GitHub username | Role(s) | Main Issues (backend · screen) |
+| Name | GitHub username | Role(s) | Main work (merged, or in progress) |
 | --- | --- | --- | --- |
-| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | #11 Fault tables and RLS · #12 Fault list |
-| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | #10 Log-in screens · #15 Deploy · #18 and #19 Assign the work |
-| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | #14 Photo storage · #13 Report a fault screen |
-| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | #7 Test plan · Fault card and Status chip (part of #12) · #16 and #17 Track progress |
-| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Database tests in CI (to be confirmed) · #21 and #22 Ward dashboard |
+| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Merged: #11 Fault tables and RLS (PR #45) |
+| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Merged: #10 Log-in screens (PR #41) · #15 Deploy (PR #50) |
+| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Merged: #13 Report a fault screen (PR #48) · #14 Photo storage (PRs #43, #44) |
+| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | Working on: #7 Test plan · tests for #16 Track progress |
+| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Working on: #47 pgTAP database tests in CI |
 
 Roles show who leads each area. Every member builds at least one screen and one backend piece, opens their own pull requests and reviews their teammates' pull requests.
 
