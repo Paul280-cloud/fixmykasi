@@ -380,6 +380,32 @@ create policy "Reporters add before photos, field teams add after photos"
 
 -- No UPDATE or DELETE on photos from the app.
 
+-- Trigger: at most 3 photos per kind, even in one insert -------------------------------------
+-- The policy above counts the photos that were already saved, but it cannot see
+-- the other rows of the same insert. So one insert with 5 rows got through. This
+-- row trigger runs once per photo and does see the rows before it, so the 4th
+-- photo is always refused. Found while testing Bafana's S6 (#48).
+create function public.fault_photos_limit()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if (select count(*) from public.fault_photos p
+      where p.fault_id = new.fault_id and p.kind = new.kind) >= 3 then
+    raise exception 'too_many_photos'
+      using hint = 'BR2 and F6: at most 3 before photos and 3 after photos per fault.';
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function public.fault_photos_limit() from public, anon, authenticated;
+
+create trigger fault_photos_limit
+  before insert on public.fault_photos
+  for each row execute function public.fault_photos_limit();
+
 -- Upvotes ---------------------------------------------------------------------------------------
 -- Visitors see counts through faults.upvote_count, not the upvote rows.
 grant select, delete on public.upvotes to authenticated;
