@@ -141,7 +141,7 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 
 ## Known issues
 
-- The database tests run locally but not yet in CI. Adding them to CI is #47.
+- Database pgTAP tests run locally and in GitHub Actions on every pull request and push to main (Issue #47).
 - Report a fault (S6) can save a report without a photo: photos are linked after the fault is saved, and if that step fails the report is still saved and shown as sent.
 - The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
 - The "My reports" and "Dashboard" tabs have no screen yet, so they open the home screen.
