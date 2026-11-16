@@ -182,6 +182,7 @@
     "uploading": "Uploading photos…",
     "uploadFailed": "Upload failed. Check your connection.",
     "limitReached": "You can report up to 5 faults a day. Please try again tomorrow.",
-    "success": "Fault reported. Your reference number is {{reference}}."
+    "success": "Fault reported. Your reference number is {{reference}}.",
+    "photosNotAttached": "Fault reported as {{reference}}, but the photos could not be attached."
   }
 }

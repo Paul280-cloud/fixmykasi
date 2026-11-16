@@ -83,7 +83,7 @@ export async function uploadPhoto(path: string, photo: Blob): Promise<void> {
 export async function submitReport(
   fault: NewFault,
   photos: Blob[],
-): Promise<{ reference?: string; error?: ReportError }> {
+): Promise<{ reference?: string; photosNotAttached?: boolean; error?: ReportError }> {
   const paths = photos.map(() => `before/${crypto.randomUUID()}.jpg`);
   try {
     await Promise.all(photos.map((photo, index) => uploadPhoto(paths[index], photo)));
@@ -116,9 +116,10 @@ export async function submitReport(
     const { error: photoError } = await supabase
       .from('fault_photos')
       .insert(paths.map((storage_path) => ({ fault_id: id, kind: 'before', storage_path })));
-    // The fault is saved, so still give the reference number. Trying again
-    // would make a second fault and count towards the 5-a-day limit.
-    if (photoError) console.error('Fault saved but its photos were not linked', photoError);
+    // The fault is saved, so still give the reference number (trying again
+    // would make a second fault and count towards the 5-a-day limit), but
+    // say clearly that the photos are missing instead of a plain success.
+    if (photoError) return { reference: data.reference_number, photosNotAttached: true };
   }
 
   return { reference: data.reference_number };
