@@ -19,13 +19,13 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 
 ## Team & Roles
 
-| Name | GitHub username | Role(s) | Main Issues (backend · screen) |
+| Name | GitHub username | Role(s) | Main work (merged, or in progress) |
 | --- | --- | --- | --- |
-| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | #11 Fault tables and RLS · #12 Fault list |
-| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | #10 Log-in screens · #15 Deploy · #18 and #19 Assign the work |
-| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | #14 Photo storage · #13 Report a fault screen |
-| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | #7 Test plan · Fault card and Status chip (part of #12) · #16 and #17 Track progress |
-| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Database tests in CI (to be confirmed) · #21 and #22 Ward dashboard |
+| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Merged: #11 Fault tables and RLS (PR #45) |
+| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Merged: #10 Log-in screens (PR #41) · #15 Deploy (PR #50) |
+| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Merged: #13 Report a fault screen (PR #48) · #14 Photo storage (PRs #43, #44) |
+| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | Working on: #7 Test plan · tests for #16 Track progress |
+| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Working on: #47 pgTAP database tests in CI |
 
 Roles show who leads each area. Every member builds at least one screen and one backend piece, opens their own pull requests and reviews their teammates' pull requests.
 
@@ -35,7 +35,8 @@ Roles show who leads each area. Every member builds at least one screen and one 
 
 | Feature | Description | Status |
 | --- | --- | --- |
-| Report a fault | Log in and report a fault with a photo, location, category and description | 🚧 In progress for Checkpoint 3: log-in (#41), fault tables (#45) and photo storage (#43, #44) are in review; the screen (#13) is next |
+| Log in / Sign up | Create an account, confirm the email, log in and reset a forgotten password | ✅ Done (#41) |
+| Report a fault | Log in and report a fault with a photo, location, category and description | ✅ Done for Checkpoint 3: log in, report with photo, saved to the live database (#41, #43, #44, #45, #48). Known gap: see Known issues. |
 | Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | ⏳ Not started (after Checkpoint 3) |
 | Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | ⏳ Not started |
 | Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | ⏳ Not started |
@@ -57,13 +58,13 @@ Statuses: ✅ Done (merged and on the live app) · 🚧 In progress (code in an 
 | --- | --- |
 | Frontend | React 18, Vite 5, React Router 7, TypeScript 5 |
 | Styling | Tailwind CSS 3 |
-| Database, log-in and storage | Supabase (PostgreSQL, Auth, Storage, Edge Functions) |
-| Translations | i18next (English, Afrikaans, isiZulu, Sepedi) |
-| Map | Leaflet with OpenStreetMap |
+| Database, log-in and storage | Supabase (PostgreSQL, Auth, Storage, Edge Functions (planned)) |
+| Translations | i18next (English; Afrikaans, isiZulu, Sepedi (planned)) |
+| Map | Leaflet with OpenStreetMap (planned) |
 | Testing | Vitest and React Testing Library |
 | Hosting | Vercel, redeploys on every merge to `main` |
 
-**Architecture:** the React app runs in the browser and talks to Supabase directly. Row-Level Security (RLS) policies in the database decide what each role (resident, ward admin, field team) can read and change. AI help runs in a Supabase Edge Function so the AI key never reaches the browser. Full details are in the [PRD](docs/PRD.md), Section 11.
+**Architecture:** the React app runs in the browser and talks to Supabase directly. Row-Level Security (RLS) policies in the database decide what each role (resident, ward admin, field team) can read and change. AI help runs in a Supabase Edge Function so the AI key never reaches the browser (planned). Full details are in the [PRD](docs/PRD.md), Section 11.
 
 ## Run it locally
 
@@ -101,11 +102,20 @@ node --env-file=.env supabase/seed/seed.js  # set the test passwords (PRD 10.4)
 npx supabase test db                        # run the pgTAP tests in supabase/tests
 ```
 
-The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http://127.0.0.1:55323) so it can run next to another Supabase project. Stop it with `npx supabase stop`. Test logins are listed in [supabase/seed/README.md](supabase/seed/README.md).
+The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http://127.0.0.1:55323) so it can run next to another Supabase project. Stop it with `npx supabase stop`.
 
 ## Test logins
 
-The test accounts for each role (resident, ward admin, field team) and their test-only passwords are in [supabase/seed/README.md](supabase/seed/README.md). They are fictional people from PRD 10.4, never real accounts. They are loaded into the local database by the seed; Bao is confirming which of them work on the live app as part of the test plan (#7).
+**Local only (`npx supabase db reset`, then `seed.js`). These accounts do NOT exist on the live site.** They are fictional people from PRD 10.4 with test-only passwords (details in [supabase/seed/README.md](supabase/seed/README.md)).
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Resident (Ward A) | thandeka.m@example.com | TestResident1 |
+| Resident (Ward A, empty states) | nomsa.s@example.com | TestResident2 |
+| Ward admin (Ward A) | zanele.k@example.com | TestWardAdmin1 |
+| Field team (Sample Plumbing Services) | kagiso.m@example.com | TestFieldTeam1 |
+
+**On the live site:** sign up with your own email and confirm it.
 
 ## Tests
 
@@ -129,12 +139,15 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 
 ## Known issues
 
-- Log-in (#41) is still in review, so the live app shows the home screen only until it is merged.
-- The database tests run locally but not yet in CI. Adding them to CI is planned.
+- The database tests run locally but not yet in CI. Adding them to CI is #47.
+- Report a fault (S6) can save a report without a photo: photos are linked after the fault is saved, and if that step fails the report is still saved and shown as sent.
+- The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
+- The "My reports" and "Dashboard" tabs have no screen yet, so they open the home screen.
 - The local Supabase stack has email confirmation switched off to make testing easier. The hosted project needs it on (PRD 5).
 - Photos are JPG or PNG only for now (plan decision #3). HEIC and WebP from the PRD come later.
 - Similar reports, infinite scroll and upvotes were moved to after Checkpoint 3 so we could finish one feature end to end.
 - The app is in English only for now. Afrikaans, isiZulu and Sepedi come with #24.
+- Open follow-ups are tracked in Issue #51.
 
 ## Project documents
 
@@ -149,5 +162,5 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 - **Commits:** small and clear, for example `feat: add report fault form (#12)`.
 - **Pull requests:** each PR explains what changed and why, links its Issue (`Closes #12`), and shows screenshots and how it was tested.
 - **Reviews:** at least one teammate reviews and approves every PR. Nobody approves their own work.
-- **Merging:** `main` is protected. PRs are squash merged once approved and CI passes, then the branch is deleted.
+- **Merging:** `main` is protected. We use squash and merge once a PR is approved and CI passes, then the branch is deleted. Most code PRs so far (including #43, #45, #48 and #50) used merge commits.
 - **Secrets:** `.env` is never committed. We commit `.env.example` and share real keys privately.
