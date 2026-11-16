@@ -24,7 +24,7 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 | Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Merged: #11 Fault tables and RLS (PR #45) |
 | Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Merged: #10 Log-in screens (PR #41) · #15 Deploy (PR #50) |
 | Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Merged: #13 Report a fault screen (PR #48) · #14 Photo storage (PRs #43, #44) |
-| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | Working on: #7 Test plan · tests for #16 Track progress |#47 Database tests in CI |
+| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead, DevOps / Release | Merged: #7 Test plan (PR #54) · #47 Database tests in CI (PR #55) · Working on: tests for #16 Track progress |
 
 Roles show who leads each area. Every member builds at least one screen and one backend piece, opens their own pull requests and reviews their teammates' pull requests.
 
