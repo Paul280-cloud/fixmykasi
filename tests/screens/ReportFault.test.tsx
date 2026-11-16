@@ -205,6 +205,54 @@ describe('S6 Report a Fault', () => {
     expect(faults.submitReport).toHaveBeenCalledTimes(2);
   });
 
+  it('BR2: with every other field valid but no photo and "not safe" unticked, nothing is saved', async () => {
+    await openS6();
+    fireEvent.change(screen.getByLabelText(/^category/i), { target: { value: 'roads' } });
+    fireEvent.change(screen.getByLabelText(/^fault type/i), { target: { value: 'pothole' } });
+    type(/^street address/i, '23 Vilakazi Street, Orlando West');
+    type(/^description/i, 'Big pothole in the left lane since Monday.');
+    submit();
+
+    expect(await screen.findByText('Add at least 1 photo.')).toBeInTheDocument();
+    expect(screen.queryByText('Choose a category.')).not.toBeInTheDocument();
+    expect(faults.submitReport).not.toHaveBeenCalled();
+  });
+
+  it('BR2: a removed photo counts as no photo', async () => {
+    await openS6();
+    await fillValidForm();
+    fireEvent.click(screen.getByRole('button', { name: 'Remove photo 1' }));
+    submit();
+
+    expect(await screen.findByText('Add at least 1 photo.')).toBeInTheDocument();
+    expect(faults.submitReport).not.toHaveBeenCalled();
+  });
+
+  it('BR2: with "not safe" ticked and a 30+ character description, the report is saved with no photos', async () => {
+    await openS6();
+    fireEvent.click(screen.getByLabelText('It is not safe to take a photo'));
+    fireEvent.change(screen.getByLabelText(/^category/i), { target: { value: 'roads' } });
+    fireEvent.change(screen.getByLabelText(/^fault type/i), { target: { value: 'pothole' } });
+    type(/^street address/i, '23 Vilakazi Street, Orlando West');
+    type(/^description/i, 'Deep pothole in the fast lane, cars swerve into it at night.');
+    submit();
+
+    expect(await screen.findByText('Fault reported. Your reference number is FMK-2026-00125.')).toBeInTheDocument();
+    expect(faults.submitReport).toHaveBeenCalledWith(expect.objectContaining({ noPhotoSafe: true }), []);
+  });
+
+  it('says the photos are missing when the fault saves but the photos cannot be attached', async () => {
+    vi.mocked(faults.submitReport).mockResolvedValue({ reference: 'FMK-2026-00126', photosNotAttached: true });
+    await openS6();
+    await fillValidForm();
+    submit();
+
+    expect(
+      await screen.findByText('Fault reported as FMK-2026-00126, but the photos could not be attached.'),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/Your reference number is/)).not.toBeInTheDocument();
+  });
+
   it('disables "Submit report" while offline', async () => {
     await openS6();
     setOnline(false);
