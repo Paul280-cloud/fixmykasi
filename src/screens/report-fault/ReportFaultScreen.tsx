@@ -100,7 +100,9 @@ function ReportFaultForm({ userId }: { userId: string }) {
   const [locationOff, setLocationOff] = useState(false);
   const askedForLocation = useRef(false);
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{ reference?: string; error?: ReportError }>({});
+  const [result, setResult] = useState<{ reference?: string; photosNotAttached?: boolean; error?: ReportError }>(
+    {},
+  );
 
   // Fault types, wards and the home ward (BR3: the ward defaults to it).
   useEffect(() => {
@@ -254,8 +256,11 @@ function ReportFaultForm({ userId }: { userId: string }) {
   return (
     <TabScreen title={t('reportFault.title')}>
       <form noValidate onSubmit={onSubmit} className="mx-auto max-w-md space-y-5">
-        {result.reference && (
+        {result.reference && !result.photosNotAttached && (
           <Banner tone="success">{t('reportFault.success', { reference: result.reference })}</Banner>
+        )}
+        {result.reference && result.photosNotAttached && (
+          <Banner tone="error">{t('reportFault.photosNotAttached', { reference: result.reference })}</Banner>
         )}
         {result.error && (
           <Banner tone="error">
