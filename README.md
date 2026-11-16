@@ -119,10 +119,12 @@ The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http:
 
 ## Tests
 
+
+
 | Kind | Where | How to run | What it covers |
 | --- | --- | --- | --- |
 | App tests (Vitest + React Testing Library) | `tests/` | `npm test` | Screens, components and form validation |
-| Database tests (pgTAP) | `supabase/tests/` | `npx supabase test db` (needs the local stack) | Tables, check rules, the sign-up trigger, grants, and an ALLOW and a DENY test for every Row-Level Security rule in PRD 11.4 |
+| Database tests (pgTAP) | `supabase/tests/` | `npx supabase start` then `npx supabase test db` | Tables, constraints, triggers, grants, Row-Level Security and storage policies. These tests also run automatically in GitHub Actions on every pull request and push to main. |
 | Full check | | `npm run check` | Lint, typecheck, app tests and build. CI runs this on every pull request. |
 
 Tests are written first, then the code that makes them pass. The manual test checklist is in the [Implementation plan](IMPLEMENTATION_PLAN.md), Section 13.
@@ -139,7 +141,7 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 
 ## Known issues
 
-- The database tests run locally but not yet in CI. Adding them to CI is #47.
+- Database pgTAP tests run locally and in GitHub Actions on every pull request and push to main (Issue #47).
 - Report a fault (S6) can save a report without a photo: photos are linked after the fault is saved, and if that step fails the report is still saved and shown as sent.
 - The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
 - The "My reports" and "Dashboard" tabs have no screen yet, so they open the home screen.

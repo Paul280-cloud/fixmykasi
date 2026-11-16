@@ -1,14 +1,18 @@
 name: CI
+
 on:
   pull_request:
     branches: [main]
   push:
     branches: [main]
+
 permissions:
   contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   check:
     name: check
@@ -16,13 +20,36 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - name: Install dependencies
         run: npm ci
+
       - name: Lint, typecheck, test and build
         run: npm run check
+
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
+
+  # Issue #47: run pgTAP database tests on every PR.
+  db-tests:
+    name: db-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Supabase CLI
+        uses: supabase/setup-cli@v3
+        with:
+          version: ^3
+
+      - name: Start local Supabase
+        run: supabase start
+
+      - name: Run pgTAP database tests
+        run: supabase test db
