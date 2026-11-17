@@ -5,7 +5,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(103);
+select plan(111);
 
 create temporary table issue16_test_temp_namespace_anchor (id integer) on commit drop;
 
@@ -137,7 +137,11 @@ insert into auth.users (id, email, raw_user_meta_data) values
   ('c0000000-0000-0000-0000-000000000933', 'lifecycle.teama@test.local',
    jsonb_build_object('full_name', 'Lifecycle Team A Member', 'ward_id', '0000000a-0000-0000-0000-000000000930', 'is_18_or_older', true)),
   ('c0000000-0000-0000-0000-000000000934', 'lifecycle.teamb@test.local',
-   jsonb_build_object('full_name', 'Lifecycle Team B Member', 'ward_id', '0000000a-0000-0000-0000-000000000930', 'is_18_or_older', true));
+   jsonb_build_object('full_name', 'Lifecycle Team B Member', 'ward_id', '0000000a-0000-0000-0000-000000000930', 'is_18_or_older', true)),
+  ('c0000000-0000-0000-0000-000000000935', 'lifecycle.otherresident@test.local',
+   jsonb_build_object('full_name', 'Another Lifecycle Resident', 'ward_id', '0000000a-0000-0000-0000-000000000930', 'is_18_or_older', true)),
+  ('c0000000-0000-0000-0000-000000000936', 'lifecycle.noprofile@test.local',
+   jsonb_build_object('full_name', 'Lifecycle User Without Profile', 'ward_id', '0000000a-0000-0000-0000-000000000930', 'is_18_or_older', true));
 
 update public.profiles set role = 'ward_admin'
 where id = 'c0000000-0000-0000-0000-000000000931';
@@ -149,6 +153,7 @@ where id = 'c0000000-0000-0000-0000-000000000933';
 update public.profiles set role = 'field_team', ward_id = null,
   field_team_id = '0000000f-0000-0000-0000-000000000931'
 where id = 'c0000000-0000-0000-0000-000000000934';
+delete from public.profiles where id = 'c0000000-0000-0000-0000-000000000936';
 
 -- The status changes tests use explicit IDs so they can assert exact history rows.
 insert into public.faults (
@@ -171,7 +176,8 @@ cross join (values
   ('f0000000-0000-0000-0000-000000000938', 'Exactly seven days Fixed fault', '38 Seven Day Road', 'fixed', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date - 7, 5, now() - interval '7 days', false, null, null),
   ('f0000000-0000-0000-0000-000000000935', 'Fixed fault for reopen rules', '35 Reopen Road', 'fixed', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 1, 5, now() - interval '1 day', true, 'Waiting for replacement material', 'MUN-ISSUE16-935'),
   ('f0000000-0000-0000-0000-000000000936', 'Received fault for wrong ward view denial', '36 Wrong Ward Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 3, null, null, false, null, null),
-  ('f0000000-0000-0000-0000-000000000937', 'Received fault for note clearing', '37 Note Scope Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 3, null, null, false, null, null)
+  ('f0000000-0000-0000-0000-000000000937', 'Received fault for note clearing', '37 Note Scope Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 3, null, null, false, null, null),
+  ('f0000000-0000-0000-0000-000000000939', 'Assigned fault for skipped transition', '39 Skipped Step Road', 'assigned', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 5, 5, null, false, null, null)
 ) as v(id, description, street_address, status, field_team_id, due_date, estimated_days, fixed_at, is_delayed, delay_reason, municipal_reference)
 where t.name = 'Pothole';
 
@@ -210,22 +216,44 @@ set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000932","role":"authenticated"}';
 select throws_ok(
   $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000936', 'viewed'::public.fault_status) $$,
-  '42501', null, 'DENY: a ward admin from another ward cannot mark the fault Viewed'
+  '42501', 'not_your_ward', 'DENY: a ward admin from another ward cannot mark the fault Viewed'
 );
 reset role;
+
+-- An authenticated account without a profile must not change fault status.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000936","role":"authenticated"}';
+select throws_ok(
+  $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000936', 'viewed'::public.fault_status) $$,
+  '42501', 'profile_not_found', 'DENY: an authenticated user without a profile cannot change fault status'
+);
+reset role;
+select is((select status::text from public.faults where id = 'f0000000-0000-0000-0000-000000000936'),
+  'received', 'a user without a profile leaves the fault unchanged');
 
 -- Only the currently assigned field team can advance a fault.
 set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000934","role":"authenticated"}';
 select throws_ok(
   $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000931', 'in_progress'::public.fault_status, 'Wrong team') $$,
-  '42501', null, 'DENY: Team B cannot change Team A fault status'
+  '42501', 'not_assigned_field_team', 'DENY: Team B cannot change Team A fault status'
 );
 reset role;
 select is((select status::text from public.faults where id = 'f0000000-0000-0000-0000-000000000931'),
   'assigned', 'rejected wrong-team status change leaves the fault unchanged');
 select is((select count(*)::integer from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000931'),
   1, 'rejected wrong-team status change creates no history row');
+
+-- A field team cannot skip Scheduled and In progress.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000933","role":"authenticated"}';
+select throws_ok(
+  $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000939', 'fixed'::public.fault_status, 'Skipped steps') $$,
+  'P0001', 'invalid_status_transition', 'DENY: Assigned cannot move directly to Fixed'
+);
+reset role;
+select is((select status::text from public.faults where id = 'f0000000-0000-0000-0000-000000000939'),
+  'assigned', 'rejected skipped transition leaves the fault Assigned');
 
 set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000933","role":"authenticated"}';
@@ -282,7 +310,7 @@ set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000934","role":"authenticated"}';
 select throws_ok(
   $$ select public.mark_fault_delayed('f0000000-0000-0000-0000-000000000932', 'Waiting for material delivery', (now() at time zone 'Africa/Johannesburg')::date + 10) $$,
-  '42501', null, 'DENY: an unassigned field team cannot delay another team fault'
+  '42501', 'not_assigned_field_team', 'DENY: an unassigned field team cannot delay another team fault'
 );
 reset role;
 set local role authenticated;
@@ -353,6 +381,32 @@ set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000933","r
 select throws_ok(
   $$ select public.mark_fault_delayed('f0000000-0000-0000-0000-000000000934', 'Waiting for material delivery', (now() at time zone 'Africa/Johannesburg')::date + 10) $$,
   'P0001', 'status_not_eligible_for_delay', 'DENY: a Fixed fault cannot be marked delayed'
+);
+reset role;
+
+-- A status note is limited to 200 characters, and reopen reasons are reopen-only.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000930","role":"authenticated"}';
+select throws_ok(
+  $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000935', 'closed'::public.fault_status, repeat('n', 201)) $$,
+  'P0001', 'note_too_long', 'DENY: a status note longer than 200 characters is rejected'
+);
+select throws_ok(
+  $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000935', 'closed'::public.fault_status, 'Repair confirmed', 'This reason is only valid for reopening') $$,
+  'P0001', 'reopen_reason_only_for_reopen', 'DENY: a reopen reason cannot accompany a non-reopen status'
+);
+reset role;
+
+-- A different resident cannot close or reopen another resident's fault.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000935","role":"authenticated"}';
+select throws_ok(
+  $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000935', 'closed'::public.fault_status, 'Not my fault') $$,
+  '42501', 'not_fault_reporter', 'DENY: another resident cannot close the reporter''s fault'
+);
+select throws_ok(
+  $$ select public.change_fault_status('f0000000-0000-0000-0000-000000000935', 'reopened'::public.fault_status, 'Not my fault', 'Another resident cannot reopen it') $$,
+  '42501', 'not_fault_reporter', 'DENY: another resident cannot reopen the reporter''s fault'
 );
 reset role;
 
@@ -441,14 +495,14 @@ set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000932","role":"authenticated"}';
 select throws_ok(
   $$ select * from public.get_fault_reopen_reasons('f0000000-0000-0000-0000-000000000935') $$,
-  '42501', null, 'DENY: ward admin of another ward cannot read private reasons'
+  '42501', 'not_authorised_to_read_reopen_reason', 'DENY: ward admin of another ward cannot read private reasons'
 );
 reset role;
 set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000933","role":"authenticated"}';
 select throws_ok(
   $$ select * from public.get_fault_reopen_reasons('f0000000-0000-0000-0000-000000000935') $$,
-  '42501', null, 'DENY: the previous field team cannot read after it has been removed from the fault'
+  '42501', 'not_authorised_to_read_reopen_reason', 'DENY: the previous field team cannot read after it has been removed from the fault'
 );
 reset role;
 
@@ -477,7 +531,7 @@ set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000933","role":"authenticated"}';
 select throws_ok(
   $$ select * from public.get_fault_reopen_reasons('f0000000-0000-0000-0000-000000000935') $$,
-  '42501', null, 'DENY: previous field team cannot read after reassignment to the next team'
+  '42501', 'not_authorised_to_read_reopen_reason', 'DENY: previous field team cannot read after reassignment to the next team'
 );
 reset role;
 
