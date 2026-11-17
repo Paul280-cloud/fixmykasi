@@ -24,6 +24,15 @@ import { checkPhoto, resizePhoto } from '../../lib/photo';
 import { useOnline } from '../../lib/useOnline';
 
 const MAX_PHOTOS = 3;
+
+// Nothing is saved when any of these happen, so "Try again" is safe for the
+// upload and save errors.
+const REPORT_ERROR_TEXT: Record<ReportError, string> = {
+  too_many_reports: 'reportFault.limitReached',
+  photo_required: 'reportFault.photoRequired',
+  upload_failed: 'reportFault.uploadFailed',
+  save_failed: 'reportFault.uploadFailed',
+};
 const MAX_DESCRIPTION = 500;
 
 type Photo = { key: string; blob: Blob; url: string };
@@ -100,9 +109,7 @@ function ReportFaultForm({ userId }: { userId: string }) {
   const [locationOff, setLocationOff] = useState(false);
   const askedForLocation = useRef(false);
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{ reference?: string; photosNotAttached?: boolean; error?: ReportError }>(
-    {},
-  );
+  const [result, setResult] = useState<{ reference?: string; error?: ReportError }>({});
 
   // Fault types, wards and the home ward (BR3: the ward defaults to it).
   useEffect(() => {
@@ -256,16 +263,13 @@ function ReportFaultForm({ userId }: { userId: string }) {
   return (
     <TabScreen title={t('reportFault.title')}>
       <form noValidate onSubmit={onSubmit} className="mx-auto max-w-md space-y-5">
-        {result.reference && !result.photosNotAttached && (
+        {result.reference && (
           <Banner tone="success">{t('reportFault.success', { reference: result.reference })}</Banner>
-        )}
-        {result.reference && result.photosNotAttached && (
-          <Banner tone="error">{t('reportFault.photosNotAttached', { reference: result.reference })}</Banner>
         )}
         {result.error && (
           <Banner tone="error">
-            <p>{t(result.error === 'too_many_reports' ? 'reportFault.limitReached' : 'reportFault.uploadFailed')}</p>
-            {result.error !== 'too_many_reports' && (
+            <p>{t(REPORT_ERROR_TEXT[result.error])}</p>
+            {(result.error === 'upload_failed' || result.error === 'save_failed') && (
               <button
                 type="button"
                 onClick={() => void onSubmit()}
