@@ -173,7 +173,8 @@ begin
   -- Preserve the M2 note exactly when setting the first due date. For a true
   -- due-date revision, include the old and new dates in the timeline note.
   history_note := clean_note;
-  if the_fault.due_date is not null
+  if the_fault.status in ('assigned', 'scheduled')
+     and the_fault.due_date is not null
      and the_fault.due_date is distinct from p_due_date then
     history_note := concat_ws(
       E'\n',
