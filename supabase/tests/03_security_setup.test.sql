@@ -4,7 +4,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(50);
+select plan(64);
 
 -- RLS enabled on every table -------------------------------------------------
 select ok((select relrowsecurity from pg_class where oid = 'public.profiles'::regclass), 'RLS is enabled on profiles');
@@ -46,6 +46,13 @@ select ok(has_column_privilege('authenticated', 'public.field_teams', 'kind', 'S
 select ok(not has_column_privilege('anon', 'public.field_teams', 'contact_phone', 'SELECT'), 'anon may not SELECT field_teams.contact_phone');
 select ok(not has_column_privilege('authenticated', 'public.field_teams', 'contact_phone', 'SELECT'), 'authenticated may not SELECT field_teams.contact_phone directly');
 
+-- Status history: team identifier is visible for the public timeline, but the
+-- private reopen reason remains available only through the controlled function.
+select ok(has_column_privilege('anon', 'public.status_changes', 'field_team_id', 'SELECT'), 'anon may SELECT historical field_team_id');
+select ok(has_column_privilege('authenticated', 'public.status_changes', 'field_team_id', 'SELECT'), 'authenticated may SELECT historical field_team_id');
+select ok(not has_column_privilege('anon', 'public.status_changes', 'reopen_reason', 'SELECT'), 'anon may not SELECT private reopen_reason');
+select ok(not has_column_privilege('authenticated', 'public.status_changes', 'reopen_reason', 'SELECT'), 'authenticated may not SELECT private reopen_reason');
+
 -- Functions --------------------------------------------------------------------
 select is_empty($$
   select p.proname from pg_proc p
@@ -55,8 +62,12 @@ $$, 'every function in public sets search_path = ''''');
 select is(
   (select array_agg(p.proname::text order by p.proname) from pg_proc p
    where p.pronamespace = 'public'::regnamespace and p.prosecdef),
-  array['assign_fault', 'fault_role', 'faults_after_insert', 'faults_before_insert', 'field_team_contacts',
-        'handle_new_user', 'is_reporter_in_my_ward', 'sync_upvote_count'],
+  array[
+    'assign_fault', 'auto_close_fixed_faults', 'change_fault_status', 'fault_role',
+    'faults_after_insert', 'faults_after_update_status_history', 'faults_before_insert',
+    'field_team_contacts', 'get_fault_reopen_reasons', 'handle_new_user',
+    'is_reporter_in_my_ward', 'mark_fault_delayed', 'sync_upvote_count'
+  ],
   'only these functions are security definer (each one is explained in its migration)');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'anon', array[]::text[], 'anon cannot call handle_new_user');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call handle_new_user');
@@ -65,8 +76,7 @@ select function_privs_are('public', 'field_team_contacts', array[]::text[], 'aut
 select function_privs_are('public', 'guard_profile_update', array[]::text[], 'anon', array[]::text[], 'anon cannot call guard_profile_update');
 select function_privs_are('public', 'guard_profile_update', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call guard_profile_update');
 
--- Added with #11: the trigger functions cannot be called by anyone directly, and the
--- two helpers used by policies can only be called by logged-in users.
+-- Trigger functions cannot be called by anyone directly.
 select function_privs_are('public', 'faults_before_insert', array[]::text[], 'anon', array[]::text[], 'anon cannot call faults_before_insert');
 select function_privs_are('public', 'faults_before_insert', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call faults_before_insert');
 select function_privs_are('public', 'faults_after_insert', array[]::text[], 'anon', array[]::text[], 'anon cannot call faults_after_insert');
@@ -80,10 +90,22 @@ select function_privs_are('public', 'fault_role', array['uuid'], 'authenticated'
 select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'anon', array[]::text[], 'anon cannot call is_reporter_in_my_ward');
 select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call is_reporter_in_my_ward (it only answers about the caller)');
 
--- Added with #18: assign_fault is security definer because the app has no UPDATE on
--- faults. It checks the caller is the ward admin of the fault's ward itself.
+-- Issue #18: assignment function.
 select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date', 'integer', 'text', 'text'], 'anon', array[]::text[], 'anon cannot call assign_fault');
 select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date', 'integer', 'text', 'text'], 'authenticated', array['EXECUTE'], 'authenticated can call assign_fault (it checks the ward admin itself)');
+
+-- Issue #16: application functions are authenticated-only; the scheduler and
+-- trigger functions are not callable by app roles.
+select function_privs_are('public', 'change_fault_status', array['uuid', 'public.fault_status', 'text', 'text'], 'anon', array[]::text[], 'anon cannot call change_fault_status');
+select function_privs_are('public', 'change_fault_status', array['uuid', 'public.fault_status', 'text', 'text'], 'authenticated', array['EXECUTE'], 'authenticated can call change_fault_status');
+select function_privs_are('public', 'mark_fault_delayed', array['uuid', 'text', 'date'], 'anon', array[]::text[], 'anon cannot call mark_fault_delayed');
+select function_privs_are('public', 'mark_fault_delayed', array['uuid', 'text', 'date'], 'authenticated', array['EXECUTE'], 'authenticated can call mark_fault_delayed');
+select function_privs_are('public', 'get_fault_reopen_reasons', array['uuid'], 'anon', array[]::text[], 'anon cannot call get_fault_reopen_reasons');
+select function_privs_are('public', 'get_fault_reopen_reasons', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call get_fault_reopen_reasons (the function checks the relationship)');
+select function_privs_are('public', 'auto_close_fixed_faults', array[]::text[], 'anon', array[]::text[], 'anon cannot call auto_close_fixed_faults');
+select function_privs_are('public', 'auto_close_fixed_faults', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call auto_close_fixed_faults');
+select function_privs_are('public', 'faults_after_update_status_history', array[]::text[], 'anon', array[]::text[], 'anon cannot call faults_after_update_status_history');
+select function_privs_are('public', 'faults_after_update_status_history', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call faults_after_update_status_history');
 
 select * from finish();
 rollback;
