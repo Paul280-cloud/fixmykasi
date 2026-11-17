@@ -4,7 +4,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(48);
+select plan(50);
 
 -- RLS enabled on every table -------------------------------------------------
 select ok((select relrowsecurity from pg_class where oid = 'public.profiles'::regclass), 'RLS is enabled on profiles');
@@ -55,7 +55,7 @@ $$, 'every function in public sets search_path = ''''');
 select is(
   (select array_agg(p.proname::text order by p.proname) from pg_proc p
    where p.pronamespace = 'public'::regnamespace and p.prosecdef),
-  array['fault_role', 'faults_after_insert', 'faults_before_insert', 'field_team_contacts',
+  array['assign_fault', 'fault_role', 'faults_after_insert', 'faults_before_insert', 'field_team_contacts',
         'handle_new_user', 'is_reporter_in_my_ward', 'sync_upvote_count'],
   'only these functions are security definer (each one is explained in its migration)');
 select function_privs_are('public', 'handle_new_user', array[]::text[], 'anon', array[]::text[], 'anon cannot call handle_new_user');
@@ -79,6 +79,11 @@ select function_privs_are('public', 'fault_role', array['uuid'], 'anon', array[]
 select function_privs_are('public', 'fault_role', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call fault_role (it only answers about the caller)');
 select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'anon', array[]::text[], 'anon cannot call is_reporter_in_my_ward');
 select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call is_reporter_in_my_ward (it only answers about the caller)');
+
+-- Added with #18: assign_fault is security definer because the app has no UPDATE on
+-- faults. It checks the caller is the ward admin of the fault's ward itself.
+select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date', 'integer', 'text', 'text'], 'anon', array[]::text[], 'anon cannot call assign_fault');
+select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date', 'integer', 'text', 'text'], 'authenticated', array['EXECUTE'], 'authenticated can call assign_fault (it checks the ward admin itself)');
 
 select * from finish();
 rollback;
