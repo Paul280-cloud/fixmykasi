@@ -48,10 +48,45 @@ select ok(not has_column_privilege('authenticated', 'public.field_teams', 'conta
 
 -- Status history: team identifier is visible for the public timeline, but the
 -- private reopen reason remains available only through the controlled function.
-select ok(has_column_privilege('anon', 'public.status_changes', 'field_team_id', 'SELECT'), 'anon may SELECT historical field_team_id');
-select ok(has_column_privilege('authenticated', 'public.status_changes', 'field_team_id', 'SELECT'), 'authenticated may SELECT historical field_team_id');
-select ok(not has_column_privilege('anon', 'public.status_changes', 'reopen_reason', 'SELECT'), 'anon may not SELECT private reopen_reason');
-select ok(not has_column_privilege('authenticated', 'public.status_changes', 'reopen_reason', 'SELECT'), 'authenticated may not SELECT private reopen_reason');
+-- Guard the column privilege probes: during the tests-first baseline these
+-- Issue #16 columns do not exist yet. Missing columns should fail pgTAP, not
+-- abort the whole SQL file with an undefined-column error.
+select ok(
+  case when exists (
+    select 1 from pg_catalog.pg_attribute
+    where attrelid = 'public.status_changes'::regclass
+      and attname = 'field_team_id' and not attisdropped
+  ) then has_column_privilege('anon', 'public.status_changes', 'field_team_id', 'SELECT')
+  else false end,
+  'anon may SELECT historical field_team_id'
+);
+select ok(
+  case when exists (
+    select 1 from pg_catalog.pg_attribute
+    where attrelid = 'public.status_changes'::regclass
+      and attname = 'field_team_id' and not attisdropped
+  ) then has_column_privilege('authenticated', 'public.status_changes', 'field_team_id', 'SELECT')
+  else false end,
+  'authenticated may SELECT historical field_team_id'
+);
+select ok(
+  case when exists (
+    select 1 from pg_catalog.pg_attribute
+    where attrelid = 'public.status_changes'::regclass
+      and attname = 'reopen_reason' and not attisdropped
+  ) then not has_column_privilege('anon', 'public.status_changes', 'reopen_reason', 'SELECT')
+  else false end,
+  'anon may not SELECT private reopen_reason'
+);
+select ok(
+  case when exists (
+    select 1 from pg_catalog.pg_attribute
+    where attrelid = 'public.status_changes'::regclass
+      and attname = 'reopen_reason' and not attisdropped
+  ) then not has_column_privilege('authenticated', 'public.status_changes', 'reopen_reason', 'SELECT')
+  else false end,
+  'authenticated may not SELECT private reopen_reason'
+);
 
 -- Functions --------------------------------------------------------------------
 select is_empty($$
@@ -96,16 +131,18 @@ select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date'
 
 -- Issue #16: application functions are authenticated-only; the scheduler and
 -- trigger functions are not callable by app roles.
-select function_privs_are('public', 'change_fault_status', array['uuid', 'public.fault_status', 'text', 'text'], 'anon', array[]::text[], 'anon cannot call change_fault_status');
-select function_privs_are('public', 'change_fault_status', array['uuid', 'public.fault_status', 'text', 'text'], 'authenticated', array['EXECUTE'], 'authenticated can call change_fault_status');
-select function_privs_are('public', 'mark_fault_delayed', array['uuid', 'text', 'date'], 'anon', array[]::text[], 'anon cannot call mark_fault_delayed');
-select function_privs_are('public', 'mark_fault_delayed', array['uuid', 'text', 'date'], 'authenticated', array['EXECUTE'], 'authenticated can call mark_fault_delayed');
-select function_privs_are('public', 'get_fault_reopen_reasons', array['uuid'], 'anon', array[]::text[], 'anon cannot call get_fault_reopen_reasons');
-select function_privs_are('public', 'get_fault_reopen_reasons', array['uuid'], 'authenticated', array['EXECUTE'], 'authenticated can call get_fault_reopen_reasons (the function checks the relationship)');
-select function_privs_are('public', 'auto_close_fixed_faults', array[]::text[], 'anon', array[]::text[], 'anon cannot call auto_close_fixed_faults');
-select function_privs_are('public', 'auto_close_fixed_faults', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call auto_close_fixed_faults');
-select function_privs_are('public', 'faults_after_update_status_history', array[]::text[], 'anon', array[]::text[], 'anon cannot call faults_after_update_status_history');
-select function_privs_are('public', 'faults_after_update_status_history', array[]::text[], 'authenticated', array[]::text[], 'authenticated cannot call faults_after_update_status_history');
+-- Use to_regprocedure so missing Issue #16 functions become ordinary
+-- pgTAP failures in the red baseline rather than aborting this SQL file.
+select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure('public.change_fault_status(uuid,public.fault_status,text,text)'), 'EXECUTE'), false), 'anon cannot call change_fault_status');
+select ok(coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.change_fault_status(uuid,public.fault_status,text,text)'), 'EXECUTE'), false), 'authenticated can call change_fault_status');
+select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure('public.mark_fault_delayed(uuid,text,date)'), 'EXECUTE'), false), 'anon cannot call mark_fault_delayed');
+select ok(coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.mark_fault_delayed(uuid,text,date)'), 'EXECUTE'), false), 'authenticated can call mark_fault_delayed');
+select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure('public.get_fault_reopen_reasons(uuid)'), 'EXECUTE'), false), 'anon cannot call get_fault_reopen_reasons');
+select ok(coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.get_fault_reopen_reasons(uuid)'), 'EXECUTE'), false), 'authenticated can call get_fault_reopen_reasons (the function checks the relationship)');
+select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure('public.auto_close_fixed_faults()'), 'EXECUTE'), false), 'anon cannot call auto_close_fixed_faults');
+select ok(not coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.auto_close_fixed_faults()'), 'EXECUTE'), false), 'authenticated cannot call auto_close_fixed_faults');
+select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure('public.faults_after_update_status_history()'), 'EXECUTE'), false), 'anon cannot call faults_after_update_status_history');
+select ok(not coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.faults_after_update_status_history()'), 'EXECUTE'), false), 'authenticated cannot call faults_after_update_status_history');
 
 select * from finish();
 rollback;

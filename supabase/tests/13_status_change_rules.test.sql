@@ -7,6 +7,117 @@ create extension if not exists pgtap with schema extensions;
 
 select plan(96);
 
+create temporary table issue16_test_temp_namespace_anchor (id integer) on commit drop;
+
+-- Test-only wrappers make absent Issue #16 schema objects return NULL, allowing
+-- pgTAP to record normal failures instead of aborting the file during the red baseline.
+create function pg_temp.status_history_team_for_test(p_fault_id uuid, p_to_status public.fault_status)
+returns uuid language plpgsql as $$
+declare result_value uuid;
+begin
+  if not exists (
+    select 1 from pg_catalog.pg_attribute
+    where attrelid = 'public.status_changes'::regclass
+      and attname = 'field_team_id' and not attisdropped
+  ) then return null; end if;
+  execute 'select field_team_id from public.status_changes where fault_id = $1 and to_status = $2'
+    into result_value using p_fault_id, p_to_status;
+  return result_value;
+end;
+$$;
+
+create function pg_temp.status_history_reopen_reason_for_test(p_fault_id uuid, p_to_status public.fault_status)
+returns text language plpgsql as $$
+declare result_value text;
+begin
+  if not exists (
+    select 1 from pg_catalog.pg_attribute
+    where attrelid = 'public.status_changes'::regclass
+      and attname = 'reopen_reason' and not attisdropped
+  ) then return null; end if;
+  execute 'select reopen_reason from public.status_changes where fault_id = $1 and to_status = $2'
+    into result_value using p_fault_id, p_to_status;
+  return result_value;
+end;
+$$;
+
+create function pg_temp.reopen_reason_for_test(p_fault_id uuid)
+returns text language plpgsql as $$
+declare result_value text;
+begin
+  if pg_catalog.to_regprocedure('public.get_fault_reopen_reasons(uuid)') is null then return null; end if;
+  execute 'select reopen_reason from public.get_fault_reopen_reasons($1)'
+    into result_value using p_fault_id;
+  return result_value;
+end;
+$$;
+
+create function pg_temp.reopen_reason_count_for_test(p_fault_id uuid)
+returns integer language plpgsql as $$
+declare result_value integer;
+begin
+  if pg_catalog.to_regprocedure('public.get_fault_reopen_reasons(uuid)') is null then return null; end if;
+  execute 'select count(*)::integer from public.get_fault_reopen_reasons($1)'
+    into result_value using p_fault_id;
+  return result_value;
+end;
+$$;
+
+create function pg_temp.auto_close_fixed_faults_for_test()
+returns integer language plpgsql as $$
+declare result_value integer;
+begin
+  if pg_catalog.to_regprocedure('public.auto_close_fixed_faults()') is null then return null; end if;
+  execute 'select public.auto_close_fixed_faults()' into result_value;
+  return result_value;
+end;
+$$;
+
+create function pg_temp.cron_schedule_for_test()
+returns text language plpgsql as $$
+declare result_value text;
+begin
+  if pg_catalog.to_regclass('cron.job') is null then return null; end if;
+  execute 'select schedule::text from cron.job where jobname = $1'
+    into result_value using 'fixmykasi-auto-close-fixed-faults';
+  return result_value;
+end;
+$$;
+
+create function pg_temp.cron_command_for_test()
+returns text language plpgsql as $$
+declare result_value text;
+begin
+  if pg_catalog.to_regclass('cron.job') is null then return null; end if;
+  execute 'select command::text from cron.job where jobname = $1'
+    into result_value using 'fixmykasi-auto-close-fixed-faults';
+  return result_value;
+end;
+$$;
+
+create function pg_temp.cron_job_count_for_test()
+returns integer language plpgsql as $$
+declare result_value integer;
+begin
+  if pg_catalog.to_regclass('cron.job') is null then return null; end if;
+  execute 'select count(*)::integer from cron.job where jobname = $1'
+    into result_value using 'fixmykasi-auto-close-fixed-faults';
+  return result_value;
+end;
+$$;
+
+create function pg_temp.cron_job_active_for_test()
+returns boolean language plpgsql as $$
+declare result_value boolean;
+begin
+  if pg_catalog.to_regclass('cron.job') is null then return null; end if;
+  execute 'select active from cron.job where jobname = $1'
+    into result_value using 'fixmykasi-auto-close-fixed-faults';
+  return result_value;
+end;
+$$;
+
+
 -- Fixtures -----------------------------------------------------------------------------
 insert into public.wards (id, name) values
   ('0000000a-0000-0000-0000-000000000930', 'Lifecycle Test Ward'),
@@ -308,9 +419,9 @@ select is((select municipal_reference from public.faults where id = 'f0000000-00
   'MUN-ISSUE16-935', 'reopening preserves municipal_reference');
 select is((select count(*)::integer from public.fault_photos where fault_id = 'f0000000-0000-0000-0000-000000000935' and kind = 'after'),
   1, 'reopening preserves existing after photos');
-select is((select field_team_id from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000935' and to_status = 'reopened'),
+select is(pg_temp.status_history_team_for_test('f0000000-0000-0000-0000-000000000935', 'reopened'::public.fault_status),
   '0000000f-0000-0000-0000-000000000930'::uuid, 'reopen history retains the previous field team');
-select is((select reopen_reason from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000935' and to_status = 'reopened'),
+select is(pg_temp.status_history_reopen_reason_for_test('f0000000-0000-0000-0000-000000000935', 'reopened'::public.fault_status),
   'The repair did not resolve the underlying problem', 'private reopen reason is stored separately');
 select is((select note from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000935' and to_status = 'reopened'),
   'The fault is still present after repair', 'public note does not contain the private reopen reason');
@@ -318,12 +429,12 @@ select is((select note from public.status_changes where fault_id = 'f0000000-000
 -- Reporter and ward admin may read the reason through the controlled function.
 set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000930","role":"authenticated"}';
-select is((select reopen_reason from public.get_fault_reopen_reasons('f0000000-0000-0000-0000-000000000935')),
+select is(pg_temp.reopen_reason_for_test('f0000000-0000-0000-0000-000000000935'),
   'The repair did not resolve the underlying problem', 'reporter can read the private reason through the function');
 reset role;
 set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000931","role":"authenticated"}';
-select is((select count(*)::integer from public.get_fault_reopen_reasons('f0000000-0000-0000-0000-000000000935')),
+select is(pg_temp.reopen_reason_count_for_test('f0000000-0000-0000-0000-000000000935'),
   1, 'ward admin of the fault ward can read private reasons through the function');
 reset role;
 set local role authenticated;
@@ -359,7 +470,7 @@ select lives_ok(
 reset role;
 set local role authenticated;
 set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000934","role":"authenticated"}';
-select is((select count(*)::integer from public.get_fault_reopen_reasons('f0000000-0000-0000-0000-000000000935')),
+select is(pg_temp.reopen_reason_count_for_test('f0000000-0000-0000-0000-000000000935'),
   1, 'next/current field team can read private reopen reasons through the function');
 reset role;
 set local role authenticated;
@@ -476,7 +587,7 @@ select is((select count(*)::integer from public.status_changes where fault_id = 
 -- Clear the simulated JWT so the scheduled/system action has no auth.uid().
 select pg_catalog.set_config('request.jwt.claims', '{}', true);
 select pg_catalog.set_config('request.jwt.claim.sub', '', true);
-select is(public.auto_close_fixed_faults(), 2, 'auto-close closes both Fixed faults at or beyond seven days');
+select is(pg_temp.auto_close_fixed_faults_for_test(), 2, 'auto-close closes both Fixed faults at or beyond seven days');
 select is((select status::text from public.faults where id = 'f0000000-0000-0000-0000-000000000933'),
   'closed', 'Fixed fault older than seven days is automatically Closed');
 select is((select status::text from public.faults where id = 'f0000000-0000-0000-0000-000000000938'),
@@ -493,15 +604,15 @@ select is((select count(*)::integer from public.status_changes where fault_id = 
   2, 'exact seven-day auto-close creates exactly one history row');
 
 -- The cron worker uses GMT or the equivalent UTC; 00:00 in either is 02:00 SAST.
-select is((select schedule from cron.job where jobname = 'fixmykasi-auto-close-fixed-faults'),
+select is(pg_temp.cron_schedule_for_test(),
   '0 0 * * *', 'auto-close is scheduled daily at 00:00 GMT/UTC (02:00 SAST)');
-select is((select command from cron.job where jobname = 'fixmykasi-auto-close-fixed-faults'),
+select is(pg_temp.cron_command_for_test(),
   'select public.auto_close_fixed_faults();', 'auto-close cron job invokes the database closure function');
-select is((select count(*)::integer from cron.job where jobname = 'fixmykasi-auto-close-fixed-faults'),
+select is(pg_temp.cron_job_count_for_test(),
   1, 'only one active job is registered for automatic closure');
 select ok((select setting in ('GMT', 'UTC') from pg_catalog.pg_settings where name = 'cron.timezone'),
   'pg_cron timezone is GMT/UTC so the schedule is 02:00 SAST');
-select ok((select active from cron.job where jobname = 'fixmykasi-auto-close-fixed-faults'),
+select ok(pg_temp.cron_job_active_for_test(),
   'auto-close cron job is active');
 
 select * from finish();
