@@ -46,3 +46,20 @@ export function resetAuthMock(userId: string | null = null) {
     return () => {};
   });
 }
+
+// Starts as a visitor. When logIn is called it reports the user to
+// onAuthChange and getRole gives their role, like Supabase does. Without
+// this, a screen with a role guard sends the "logged in" user back to S3.
+export function logInSucceedsAs(role: Auth.Role, userId = 'user-1') {
+  let notify: (id: string | null) => void = () => {};
+  onAuthChange.mockImplementation((callback) => {
+    notify = callback;
+    callback(null);
+    return () => {};
+  });
+  getRole.mockResolvedValue(role);
+  logIn.mockImplementation(async () => {
+    notify(userId);
+    return { role };
+  });
+}

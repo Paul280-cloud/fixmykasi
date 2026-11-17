@@ -29,7 +29,7 @@ describe('S3 Log In', () => {
     ['ward_admin', 'Ward queue'],
     ['field_team', 'My jobs'],
   ] as const)('T-US2-1: a %s goes to their home screen (%s)', async (role, heading) => {
-    auth.logIn.mockResolvedValue({ role });
+    auth.logInSucceedsAs(role);
     renderApp('/log-in');
     logInWith('thandeka.m@example.com', 'TestResident1');
 
@@ -40,7 +40,7 @@ describe('S3 Log In', () => {
   it.each(['//evil.com', '/\\evil.com'])(
     'ignores an off-site "from" (%s) and opens the role home screen',
     async (from) => {
-      auth.logIn.mockResolvedValue({ role: 'ward_admin' });
+      auth.logInSucceedsAs('ward_admin');
       renderApp({ pathname: '/log-in', state: { from } });
       logInWith('sipho.d@example.com', 'TestAdmin1');
 
