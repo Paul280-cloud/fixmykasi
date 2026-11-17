@@ -5,7 +5,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(96);
+select plan(103);
 
 create temporary table issue16_test_temp_namespace_anchor (id integer) on commit drop;
 
@@ -577,11 +577,47 @@ select lives_ok(
 );
 reset role;
 select is((select note from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937' and from_status = 'received' and to_status = 'assigned'),
-  'First assignment note', 'first assignment history contains its own note');
-select is((select note from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937' and from_status = 'assigned' and to_status = 'assigned'),
-  null::text, 'second assignment does not inherit the stale note');
+  'First assignment note' || E'\nDue date changed from ' || ((now() at time zone 'Africa/Johannesburg')::date + 3)::text || ' to ' || ((now() at time zone 'Africa/Johannesburg')::date + 4)::text || '.',
+  'first assignment history preserves the M2 note and records its due-date change');
+select is((select note from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937' and from_status = 'assigned' and to_status = 'assigned' and note like 'Due date changed from %'),
+  'Due date changed from ' || ((now() at time zone 'Africa/Johannesburg')::date + 4)::text || ' to ' || ((now() at time zone 'Africa/Johannesburg')::date + 6)::text || '.',
+  'different-team reassignment records its due-date change without inheriting the stale note');
 select is((select count(*)::integer from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937'),
-  3, 'two assignments create two update history rows plus the initial row');
+  3, 'two status/team assignment changes create one history row each plus the initial row');
+
+-- A same-team M2 reassignment changes the due date but not status/team. It
+-- must still create one timeline row and preserve its own note.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000931","role":"authenticated"}';
+select lives_ok(
+  $$ select public.assign_fault(
+       'f0000000-0000-0000-0000-000000000937',
+       '0000000f-0000-0000-0000-000000000931',
+       (now() at time zone 'Africa/Johannesburg')::date + 8,
+       8,
+       null,
+       'Keep the work area clear for inspection'
+     ) $$,
+  'same-team reassignment succeeds and creates a timeline event'
+);
+reset role;
+select is((select count(*)::integer from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937'),
+  4, 'same-team reassignment creates exactly one additional row');
+select is((select from_status::text || '>' || to_status::text from public.status_changes
+  where fault_id = 'f0000000-0000-0000-0000-000000000937' and note like 'Keep the work area clear for inspection%'),
+  'assigned>assigned', 'same-team M2 action is represented as an Assigned-to-Assigned timeline entry');
+select is((select note from public.status_changes
+  where fault_id = 'f0000000-0000-0000-0000-000000000937' and note like 'Keep the work area clear for inspection%'),
+  'Keep the work area clear for inspection' || E'\nDue date changed from ' || ((now() at time zone 'Africa/Johannesburg')::date + 6)::text || ' to ' || ((now() at time zone 'Africa/Johannesburg')::date + 8)::text || '.',
+  'same-team timeline entry contains the M2 note and the revised due date');
+select is((select field_team_id from public.status_changes
+  where fault_id = 'f0000000-0000-0000-0000-000000000937' and note like 'Keep the work area clear for inspection%'),
+  '0000000f-0000-0000-0000-000000000931'::uuid, 'same-team timeline entry records the team');
+select is((select changed_by from public.status_changes
+  where fault_id = 'f0000000-0000-0000-0000-000000000937' and note like 'Keep the work area clear for inspection%'),
+  'c0000000-0000-0000-0000-000000000931'::uuid, 'same-team timeline entry records the ward admin');
+select is((select due_date from public.faults where id = 'f0000000-0000-0000-0000-000000000937'),
+  (now() at time zone 'Africa/Johannesburg')::date + 8, 'same-team reassignment stores the revised due date');
 
 -- BR14 auto-close: only Fixed faults with fixed_at at least seven days ago close.
 -- Clear the simulated JWT so the scheduled/system action has no auth.uid().

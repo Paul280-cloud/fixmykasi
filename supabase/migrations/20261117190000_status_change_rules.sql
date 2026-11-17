@@ -1,9 +1,8 @@
 -- Issue #16: status lifecycle, history, delay, reopen, overdue and auto-close.
--- Integrates with Issue #18 assign_fault(): this migration replaces that function
--- and removes its explicit history INSERT in the same transaction that installs
--- the single AFTER UPDATE history trigger.
+-- Integrates with Issue #18 assign_fault(): the history trigger records status/team
+-- transitions, while assign_fault adds a same-team Assigned -> Assigned timeline
+-- row when no watched column changes. Each successful assignment creates one row.
 
-begin;
 
 -- 1) Extend the timeline. The private reopen reason is deliberately not granted
 -- to anon/authenticated. field_team_id is safe for the public timeline to use
@@ -91,9 +90,9 @@ create trigger faults_after_update_status_history
   for each row
   execute function public.faults_after_update_status_history();
 
--- 4) Replace Issue #18's assign_fault in this same migration. The trigger is
--- now the only history writer. The transaction-local note is cleared immediately
--- after the UPDATE so a later UPDATE in the same transaction cannot inherit it.
+-- 4) Replace Issue #18's assign_fault. The trigger records status/team changes;
+-- this function explicitly records same-team Assigned -> Assigned operations
+-- that the trigger cannot detect. Transaction-local notes are cleared immediately.
 create or replace function public.assign_fault(
   p_fault_id uuid,
   p_field_team_id uuid,
@@ -113,6 +112,7 @@ declare
   the_fault public.faults%rowtype;
   clean_reference text := nullif(btrim(p_municipal_reference), '');
   clean_note text := nullif(btrim(p_note), '');
+  history_note text;
 begin
   select * into the_fault
   from public.faults
@@ -170,7 +170,22 @@ begin
       using hint = 'M2: the note to the field team is up to 200 characters.';
   end if;
 
-  perform pg_catalog.set_config('app.status_note', coalesce(clean_note, ''), true);
+  -- The M2 timeline entry must also show a revised due date. This is stored
+  -- alongside the optional note so the timeline explains what changed.
+  history_note := clean_note;
+  if the_fault.due_date is distinct from p_due_date then
+    history_note := concat_ws(
+      E'\n',
+      history_note,
+      format(
+        'Due date changed from %s to %s.',
+        coalesce(the_fault.due_date::text, 'not set'),
+        p_due_date::text
+      )
+    );
+  end if;
+
+  perform pg_catalog.set_config('app.status_note', coalesce(history_note, ''), true);
   perform pg_catalog.set_config('app.reopen_reason', '', true);
 
   update public.faults
@@ -187,6 +202,20 @@ begin
 
   perform pg_catalog.set_config('app.status_note', '', true);
   perform pg_catalog.set_config('app.reopen_reason', '', true);
+
+  -- An Assigned -> Assigned call for the same team does not change either
+  -- column watched by the history trigger. It is still an M2 assignment action,
+  -- so write its single timeline row explicitly (the trigger correctly writes
+  -- rows for all status changes and different-team reassignments).
+  if the_fault.status = 'assigned'
+     and the_fault.field_team_id is not distinct from p_field_team_id then
+    insert into public.status_changes (
+      fault_id, from_status, to_status, changed_by, note, field_team_id
+    )
+    values (
+      p_fault_id, the_fault.status, 'assigned', me, history_note, p_field_team_id
+    );
+  end if;
 end;
 $$;
 
@@ -466,39 +495,3 @@ end;
 $$;
 
 revoke all on function public.auto_close_fixed_faults() from public, anon, authenticated;
-
--- 9) Install the Supabase pg_cron extension and schedule 02:00 SAST.
--- pg_cron defaults to GMT; UTC is equivalent for this schedule. South Africa
--- is GMT+02:00, therefore 00:00 GMT/UTC is 02:00 SAST. Fail visibly if the
--- project has changed the pg_cron timezone instead of silently mis-scheduling.
-create extension if not exists pg_cron with schema pg_catalog;
-grant usage on schema cron to postgres;
-grant all privileges on all tables in schema cron to postgres;
-
-do $$
-declare
-  v_cron_timezone text;
-begin
-  select setting into v_cron_timezone
-  from pg_catalog.pg_settings
-  where name = 'cron.timezone';
-
-  if v_cron_timezone is null or v_cron_timezone not in ('GMT', 'UTC') then
-    raise exception 'Issue #16 expects cron.timezone=GMT or UTC (found: %). The 00:00 GMT/UTC job must run at 02:00 SAST.',
-      coalesce(v_cron_timezone, '<unavailable>');
-  end if;
-end;
-$$;
-
--- Remove any prior copy with this stable name before registering the schedule.
-select cron.unschedule(jobid)
-from cron.job
-where jobname = 'fixmykasi-auto-close-fixed-faults';
-
-select cron.schedule(
-  'fixmykasi-auto-close-fixed-faults',
-  '0 0 * * *',
-  'select public.auto_close_fixed_faults();'
-);
-
-commit;
