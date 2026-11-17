@@ -577,8 +577,8 @@ select lives_ok(
 );
 reset role;
 select is((select note from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937' and from_status = 'received' and to_status = 'assigned'),
-  'First assignment note' || E'\nDue date changed from ' || ((now() at time zone 'Africa/Johannesburg')::date + 3)::text || ' to ' || ((now() at time zone 'Africa/Johannesburg')::date + 4)::text || '.',
-  'first assignment history preserves the M2 note and records its due-date change');
+  'First assignment note',
+  'first assignment history preserves the original M2 note when setting its initial due date');
 select is((select note from public.status_changes where fault_id = 'f0000000-0000-0000-0000-000000000937' and from_status = 'assigned' and to_status = 'assigned' and note like 'Due date changed from %'),
   'Due date changed from ' || ((now() at time zone 'Africa/Johannesburg')::date + 4)::text || ' to ' || ((now() at time zone 'Africa/Johannesburg')::date + 6)::text || '.',
   'different-team reassignment records its due-date change without inheriting the stale note');

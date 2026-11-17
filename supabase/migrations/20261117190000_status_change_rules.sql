@@ -170,10 +170,11 @@ begin
       using hint = 'M2: the note to the field team is up to 200 characters.';
   end if;
 
-  -- The M2 timeline entry must also show a revised due date. This is stored
-  -- alongside the optional note so the timeline explains what changed.
+  -- Preserve the M2 note exactly when setting the first due date. For a true
+  -- due-date revision, include the old and new dates in the timeline note.
   history_note := clean_note;
-  if the_fault.due_date is distinct from p_due_date then
+  if the_fault.due_date is not null
+     and the_fault.due_date is distinct from p_due_date then
     history_note := concat_ws(
       E'\n',
       history_note,
