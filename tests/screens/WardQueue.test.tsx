@@ -28,7 +28,7 @@ function fault(reference: string, status: faults.FaultStatus, extra: Partial<fau
     id: reference,
     reference,
     faultTypeId: 'pothole',
-    streetAddress: `${reference} street`,
+    streetAddress: '12 Main Road, Orlando West',
     status,
     isUrgent: false,
     isOverdue: false,

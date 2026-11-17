@@ -197,5 +197,15 @@
   },
   "labels": {
     "overdue": "Overdue"
+  },
+  "wardQueue": {
+    "title": "Ward queue",
+    "tabs": {
+      "new": "New ({{count}})",
+      "inProgress": "In progress ({{count}})",
+      "fixed": "Fixed ({{count}})"
+    },
+    "emptyNew": "No new faults in your ward.",
+    "emptyOther": "Nothing here right now."
   }
 }
