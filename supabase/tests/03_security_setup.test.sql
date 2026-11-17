@@ -48,43 +48,20 @@ select ok(not has_column_privilege('authenticated', 'public.field_teams', 'conta
 
 -- Status history: team identifier is visible for the public timeline, but the
 -- private reopen reason remains available only through the controlled function.
--- Guard the column privilege probes: during the tests-first baseline these
--- Issue #16 columns do not exist yet. Missing columns should fail pgTAP, not
--- abort the whole SQL file with an undefined-column error.
 select ok(
-  case when exists (
-    select 1 from pg_catalog.pg_attribute
-    where attrelid = 'public.status_changes'::regclass
-      and attname = 'field_team_id' and not attisdropped
-  ) then has_column_privilege('anon', 'public.status_changes', 'field_team_id', 'SELECT')
-  else false end,
+  has_column_privilege('anon', 'public.status_changes', 'field_team_id', 'SELECT'),
   'anon may SELECT historical field_team_id'
 );
 select ok(
-  case when exists (
-    select 1 from pg_catalog.pg_attribute
-    where attrelid = 'public.status_changes'::regclass
-      and attname = 'field_team_id' and not attisdropped
-  ) then has_column_privilege('authenticated', 'public.status_changes', 'field_team_id', 'SELECT')
-  else false end,
+  has_column_privilege('authenticated', 'public.status_changes', 'field_team_id', 'SELECT'),
   'authenticated may SELECT historical field_team_id'
 );
 select ok(
-  case when exists (
-    select 1 from pg_catalog.pg_attribute
-    where attrelid = 'public.status_changes'::regclass
-      and attname = 'reopen_reason' and not attisdropped
-  ) then not has_column_privilege('anon', 'public.status_changes', 'reopen_reason', 'SELECT')
-  else false end,
+  not has_column_privilege('anon', 'public.status_changes', 'reopen_reason', 'SELECT'),
   'anon may not SELECT private reopen_reason'
 );
 select ok(
-  case when exists (
-    select 1 from pg_catalog.pg_attribute
-    where attrelid = 'public.status_changes'::regclass
-      and attname = 'reopen_reason' and not attisdropped
-  ) then not has_column_privilege('authenticated', 'public.status_changes', 'reopen_reason', 'SELECT')
-  else false end,
+  not has_column_privilege('authenticated', 'public.status_changes', 'reopen_reason', 'SELECT'),
   'authenticated may not SELECT private reopen_reason'
 );
 

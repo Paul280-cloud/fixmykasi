@@ -289,6 +289,7 @@ begin
 
   elsif p_to_status in ('scheduled', 'in_progress', 'fixed') then
     if actor.role <> 'field_team'
+       or actor.field_team_id is null
        or actor.field_team_id is distinct from the_fault.field_team_id then
       raise exception 'not_assigned_field_team' using errcode = '42501';
     end if;
@@ -399,6 +400,7 @@ begin
   select * into actor from public.profiles where id = me;
   if not found
      or actor.role <> 'field_team'
+     or actor.field_team_id is null
      or actor.field_team_id is distinct from the_fault.field_team_id then
     raise exception 'not_assigned_field_team' using errcode = '42501';
   end if;
