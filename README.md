@@ -24,8 +24,7 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 | Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Merged: #11 Fault tables and RLS (PR #45) |
 | Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Merged: #10 Log-in screens (PR #41) · #15 Deploy (PR #50) |
 | Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Merged: #13 Report a fault screen (PR #48) · #14 Photo storage (PRs #43, #44) |
-| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead | Working on: #7 Test plan · tests for #16 Track progress |
-| Mhlengi Ngwenya | [@Mikel17croc](https://github.com/Mikel17croc) | DevOps / Release | Working on: #47 pgTAP database tests in CI |
+| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead, DevOps / Release | Merged: #7 Test plan (PR #54) · #47 Database tests in CI (PR #55) · Working on: tests for #16 Track progress |
 
 Roles show who leads each area. Every member builds at least one screen and one backend piece, opens their own pull requests and reviews their teammates' pull requests.
 
@@ -141,7 +140,6 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 
 ## Known issues
 
-- Database pgTAP tests run locally and in GitHub Actions on every pull request and push to main (Issue #47).
 - Report a fault (S6) can save a report without a photo: photos are linked after the fault is saved, and if that step fails the report is still saved and shown as sent.
 - The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
 - The "My reports" and "Dashboard" tabs have no screen yet, so they open the home screen.
