@@ -258,7 +258,7 @@ describe('S6 Report a Fault', () => {
     await fillValidForm();
     submit();
 
-    expect(await screen.findByText('Upload failed. Check your connection.')).toBeInTheDocument();
+    expect(await screen.findByText('We could not save your report. Please try again.')).toBeInTheDocument();
     expect(screen.queryByText(/Your reference number is/)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
     expect(await screen.findByText('Fault reported. Your reference number is FMK-2026-00125.')).toBeInTheDocument();
