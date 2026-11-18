@@ -4,7 +4,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(50);
+select plan(52);
 
 -- RLS enabled on every table -------------------------------------------------
 select ok((select relrowsecurity from pg_class where oid = 'public.profiles'::regclass), 'RLS is enabled on profiles');
@@ -84,6 +84,11 @@ select function_privs_are('public', 'is_reporter_in_my_ward', array['uuid'], 'au
 -- faults. It checks the caller is the ward admin of the fault's ward itself.
 select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date', 'integer', 'text', 'text'], 'anon', array[]::text[], 'anon cannot call assign_fault');
 select function_privs_are('public', 'assign_fault', array['uuid', 'uuid', 'date', 'integer', 'text', 'text'], 'authenticated', array['EXECUTE'], 'authenticated can call assign_fault (it checks the ward admin itself)');
+
+-- Added with #13: submit_fault is security invoker, so RLS and the triggers on
+-- faults and fault_photos still apply. Only logged-in users can call it.
+select function_privs_are('public', 'submit_fault', array['uuid', 'uuid', 'uuid', 'boolean', 'boolean', 'text', 'text', 'text', 'numeric', 'numeric', 'text[]'], 'anon', array[]::text[], 'anon cannot call submit_fault');
+select function_privs_are('public', 'submit_fault', array['uuid', 'uuid', 'uuid', 'boolean', 'boolean', 'text', 'text', 'text', 'numeric', 'numeric', 'text[]'], 'authenticated', array['EXECUTE'], 'authenticated can call submit_fault (RLS decides what it may save)');
 
 select * from finish();
 rollback;
