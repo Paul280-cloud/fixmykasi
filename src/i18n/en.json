@@ -184,5 +184,32 @@
     "limitReached": "You can report up to 5 faults a day. Please try again tomorrow.",
     "success": "Fault reported. Your reference number is {{reference}}.",
     "photosNotAttached": "Fault reported as {{reference}}, but the photos could not be attached."
+  },
+  "assignFault": {
+    "title": "Assign {{reference}}",
+    "team": "Field team",
+    "teamPlaceholder": "Choose a field team",
+    "teamError": "Choose a field team.",
+    "kind": {
+      "municipal": "Municipal team",
+      "contractor": "Contractor"
+    },
+    "dueDate": "Expected fix date",
+    "dueDateError": "Choose a date within the next 90 days.",
+    "days": "Estimated time to fix (days)",
+    "daysPlaceholder": "e.g. 2",
+    "daysError": "Enter a number of days from 1 to 90.",
+    "reference": "Municipal reference number",
+    "referencePlaceholder": "e.g. JW-778812",
+    "referenceError": "Keep this under 30 characters.",
+    "note": "Note to field team",
+    "notePlaceholder": "Anything the team should know",
+    "noteError": "Keep the note under 200 characters.",
+    "assign": "Assign",
+    "reassign": "Reassign",
+    "cancel": "Cancel",
+    "noTeams": "No field teams for {{category}} yet. Ask the admin to add one.",
+    "notYourWard": "You can only manage faults in your ward.",
+    "assigned": "Fault assigned"
   }
 }
