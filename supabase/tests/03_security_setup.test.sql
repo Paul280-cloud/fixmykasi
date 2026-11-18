@@ -3,9 +3,7 @@
 -- function is locked down.
 begin;
 create extension if not exists pgtap with schema extensions;
-
-select plan(64);
-
+select plan(66);
 -- RLS enabled on every table -------------------------------------------------
 select ok((select relrowsecurity from pg_class where oid = 'public.profiles'::regclass), 'RLS is enabled on profiles');
 select ok((select relrowsecurity from pg_class where oid = 'public.wards'::regclass), 'RLS is enabled on wards');
@@ -120,6 +118,12 @@ select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure
 select ok(not coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.auto_close_fixed_faults()'), 'EXECUTE'), false), 'authenticated cannot call auto_close_fixed_faults');
 select ok(not coalesce(has_function_privilege('anon', pg_catalog.to_regprocedure('public.faults_after_update_status_history()'), 'EXECUTE'), false), 'anon cannot call faults_after_update_status_history');
 select ok(not coalesce(has_function_privilege('authenticated', pg_catalog.to_regprocedure('public.faults_after_update_status_history()'), 'EXECUTE'), false), 'authenticated cannot call faults_after_update_status_history');
+
+-- Added with #13: submit_fault is security invoker, so RLS and the triggers on
+-- faults and fault_photos still apply. Only logged-in users can call it.
+select function_privs_are('public', 'submit_fault', array['uuid', 'uuid', 'uuid', 'boolean', 'boolean', 'text', 'text', 'text', 'numeric', 'numeric', 'text[]'], 'anon', array[]::text[], 'anon cannot call submit_fault');
+select function_privs_are('public', 'submit_fault', array['uuid', 'uuid', 'uuid', 'boolean', 'boolean', 'text', 'text', 'text', 'numeric', 'numeric', 'text[]'], 'authenticated', array['EXECUTE'], 'authenticated can call submit_fault (RLS decides what it may save)');
+
 
 select * from finish();
 rollback;
