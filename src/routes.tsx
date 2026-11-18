@@ -5,6 +5,7 @@ import PlaceholderScreen from './screens/placeholder/PlaceholderScreen';
 import ReportFaultScreen from './screens/report-fault/ReportFaultScreen';
 import ResetPasswordScreen from './screens/reset-password/ResetPasswordScreen';
 import SignUpScreen from './screens/sign-up/SignUpScreen';
+import WardQueueScreen from './screens/ward-queue/WardQueueScreen';
 
 // Routes from IMPLEMENTATION_PLAN.md Section 8.
 export default function AppRoutes() {
@@ -15,9 +16,9 @@ export default function AppRoutes() {
       <Route path="/log-in" element={<LogInScreen />} />
       <Route path="/reset-password" element={<ResetPasswordScreen />} />
       <Route path="/report" element={<ReportFaultScreen />} />
-      {/* Placeholders, replaced by #12, #19, #20 and #23. */}
+      {/* Placeholders, replaced by #12, #20 and #23. */}
       <Route path="/faults" element={<PlaceholderScreen title="faults" issue={12} />} />
-      <Route path="/queue" element={<PlaceholderScreen title="queue" issue={19} />} />
+      <Route path="/queue" element={<WardQueueScreen />} />
       <Route path="/my-jobs" element={<PlaceholderScreen title="myJobs" issue={20} />} />
       <Route path="/profile" element={<PlaceholderScreen title="profile" issue={23} />} />
       <Route path="*" element={<Navigate to="/" replace />} />

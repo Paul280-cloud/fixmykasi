@@ -113,3 +113,51 @@ export async function submitReport(
   }
   return { reference: data as string };
 }
+
+// ---- S8 Ward queue (#19) ----------------------------------------------------------
+
+export type FaultStatus =
+  | 'received'
+  | 'viewed'
+  | 'assigned'
+  | 'scheduled'
+  | 'in_progress'
+  | 'fixed'
+  | 'closed'
+  | 'reopened';
+
+/** One row of the S8 list. Only what the screen shows, nothing private (BR16). */
+export type QueueFault = {
+  id: string;
+  reference: string;
+  faultTypeId: string;
+  streetAddress: string;
+  status: FaultStatus;
+  isUrgent: boolean;
+  isOverdue: boolean;
+  createdAt: string;
+};
+
+/** Every fault in one ward that is not Closed, in BR7 order. */
+export async function getWardQueue(wardId: string): Promise<QueueFault[]> {
+  const { data, error } = await supabase
+    .from('faults_public')
+    .select('id, reference_number, fault_type_id, street_address, status, is_urgent, is_overdue, created_at')
+    .eq('ward_id', wardId)
+    .neq('status', 'closed')
+    // BR7: urgent first, then most upvotes, then oldest report first.
+    .order('is_urgent', { ascending: false })
+    .order('upvote_count', { ascending: false })
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    reference: row.reference_number,
+    faultTypeId: row.fault_type_id,
+    streetAddress: row.street_address,
+    status: row.status as FaultStatus,
+    isUrgent: row.is_urgent,
+    isOverdue: row.is_overdue,
+    createdAt: row.created_at,
+  }));
+}
