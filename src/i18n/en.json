@@ -181,6 +181,7 @@
     "submit": "Submit report",
     "uploading": "Uploading photos…",
     "uploadFailed": "Upload failed. Check your connection.",
+    "saveFailed": "We could not save your report. Please try again.",
     "limitReached": "You can report up to 5 faults a day. Please try again tomorrow.",
     "success": "Fault reported. Your reference number is {{reference}}."
   },

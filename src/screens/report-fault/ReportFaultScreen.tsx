@@ -31,7 +31,7 @@ const REPORT_ERROR_TEXT: Record<ReportError, string> = {
   too_many_reports: 'reportFault.limitReached',
   photo_required: 'reportFault.photoRequired',
   upload_failed: 'reportFault.uploadFailed',
-  save_failed: 'reportFault.uploadFailed',
+  save_failed: 'reportFault.saveFailed',
 };
 const MAX_DESCRIPTION = 500;
 
