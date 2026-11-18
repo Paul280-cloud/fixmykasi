@@ -1,4 +1,5 @@
-import { fireEvent, screen, within } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import * as assign from '../../src/lib/assign';
 import * as auth from '../helpers/authMock';
 import { renderApp } from '../helpers/renderApp';
 import * as faults from '../../src/lib/faults';
@@ -13,6 +14,12 @@ vi.mock('../../src/lib/faults', async () => {
     getHomeWardId: vi.fn(),
     getWardQueue: vi.fn(),
   };
+});
+
+// The Assign button opens the real M2 (#61), so I only mock the two calls to the database.
+vi.mock('../../src/lib/assign', async () => {
+  const actual = await vi.importActual<typeof import('../../src/lib/assign')>('../../src/lib/assign');
+  return { ...actual, getFieldTeams: vi.fn(), assignFault: vi.fn() };
 });
 
 // S8 Ward Queue (PRD 8.2, BR7, BR11). Part of #19: no filter chips, no desktop
@@ -66,7 +73,16 @@ beforeEach(() => {
   vi.mocked(faults.getFaultTypes).mockResolvedValue(FAULT_TYPES);
   vi.mocked(faults.getHomeWardId).mockResolvedValue('ward-a');
   vi.mocked(faults.getWardQueue).mockResolvedValue(QUEUE);
+  vi.mocked(assign.getFieldTeams).mockResolvedValue([
+    { id: 'team-1', name: 'Orlando Electricity Team', kind: 'municipal' },
+  ]);
+  vi.mocked(assign.assignFault).mockResolvedValue({});
 });
+
+// The card for one reference, so I can look for its button.
+function card(reference: string) {
+  return screen.getByText(reference).closest('li') as HTMLElement;
+}
 
 describe('S8 Ward Queue', () => {
   it('sends a visitor to log in', async () => {
@@ -158,5 +174,54 @@ describe('S8 Ward Queue', () => {
 
     expect(await screen.findByRole('tablist')).toBeInTheDocument();
     expect(faults.getWardQueue).toHaveBeenCalledTimes(2);
+  });
+
+  // ---- Assign / Reassign opens M2 (#18, US7) -------------------------------------------
+  it('shows Assign on New faults and Reassign on Assigned ones, but not on In progress or Fixed', async () => {
+    await openS8();
+    expect(within(card('FMK-2026-00120')).getByRole('button', { name: 'Assign' })).toBeInTheDocument();
+    expect(within(card('FMK-2026-00118')).getByRole('button', { name: 'Assign' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('tab', { name: 'In progress (2)' }));
+    expect(within(card('FMK-2026-00115')).getByRole('button', { name: 'Reassign' })).toBeInTheDocument();
+    expect(within(card('FMK-2026-00123')).queryByRole('button')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Fixed (1)' }));
+    expect(within(card('FMK-2026-00101')).queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it("opens M2 for that fault, with teams for the fault's category (BR8)", async () => {
+    await openS8();
+    fireEvent.click(within(card('FMK-2026-00120')).getByRole('button', { name: 'Assign' }));
+
+    expect(await screen.findByRole('heading', { name: 'Assign FMK-2026-00120' })).toBeInTheDocument();
+    expect(screen.getByText('Faulty streetlight, 5 Mooki Street, Orlando West')).toBeInTheDocument();
+    expect(assign.getFieldTeams).toHaveBeenCalledWith('electricity');
+  });
+
+  it('after saving M2: closes it, says "Fault assigned" and reloads the queue (T-US7-2)', async () => {
+    await openS8();
+    fireEvent.click(within(card('FMK-2026-00120')).getByRole('button', { name: 'Assign' }));
+    await screen.findByRole('option', { name: 'Orlando Electricity Team (Municipal team)' });
+
+    fireEvent.change(screen.getByLabelText(/^field team/i), { target: { value: 'team-1' } });
+    fireEvent.change(screen.getByLabelText(/^expected fix date/i), { target: { value: assign.todaySast() } });
+    fireEvent.change(screen.getByLabelText(/^estimated time to fix/i), { target: { value: '2' } });
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Assign' }));
+
+    expect(await screen.findByText('Fault assigned')).toBeInTheDocument();
+    expect(assign.assignFault).toHaveBeenCalledWith('FMK-2026-00120', expect.objectContaining({ fieldTeamId: 'team-1' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    await waitFor(() => expect(faults.getWardQueue).toHaveBeenCalledTimes(2));
+  });
+
+  it('Cancel closes M2 without saving', async () => {
+    await openS8();
+    fireEvent.click(within(card('FMK-2026-00120')).getByRole('button', { name: 'Assign' }));
+    await screen.findByRole('heading', { name: 'Assign FMK-2026-00120' });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(assign.assignFault).not.toHaveBeenCalled();
   });
 });
