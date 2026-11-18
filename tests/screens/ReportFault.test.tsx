@@ -241,16 +241,27 @@ describe('S6 Report a Fault', () => {
     expect(faults.submitReport).toHaveBeenCalledWith(expect.objectContaining({ noPhotoSafe: true }), []);
   });
 
-  it('says the photos are missing when the fault saves but the photos cannot be attached', async () => {
-    vi.mocked(faults.submitReport).mockResolvedValue({ reference: 'FMK-2026-00126', photosNotAttached: true });
+  it('BR2: if the database refuses the report for having no photo, it shows the photo error and no "Try again"', async () => {
+    vi.mocked(faults.submitReport).mockResolvedValue({ error: 'photo_required' });
     await openS6();
     await fillValidForm();
     submit();
 
-    expect(
-      await screen.findByText('Fault reported as FMK-2026-00126, but the photos could not be attached.'),
-    ).toBeInTheDocument();
+    expect(await screen.findByText('Add at least 1 photo.')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Try again' })).not.toBeInTheDocument();
     expect(screen.queryByText(/Your reference number is/)).not.toBeInTheDocument();
+  });
+
+  it('when saving fails, nothing is reported as saved and "Try again" sends the report again', async () => {
+    vi.mocked(faults.submitReport).mockResolvedValueOnce({ error: 'save_failed' });
+    await openS6();
+    await fillValidForm();
+    submit();
+
+    expect(await screen.findByText('We could not save your report. Please try again.')).toBeInTheDocument();
+    expect(screen.queryByText(/Your reference number is/)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
+    expect(await screen.findByText('Fault reported. Your reference number is FMK-2026-00125.')).toBeInTheDocument();
   });
 
   it('disables "Submit report" while offline', async () => {
