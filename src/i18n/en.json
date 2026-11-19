@@ -265,5 +265,12 @@
     "cancel": "Cancel",
     "notYourTeam": "You can only update faults assigned to your team.",
     "updated": "Status updated"
+  },
+  "faultList": {
+    "title": "Fault list",
+    "empty": "No faults reported yet. Be the first to report one.",
+    "report": "Report a fault",
+    "upvotes_one": "{{count}} upvote",
+    "upvotes_other": "{{count}} upvotes"
   }
 }
