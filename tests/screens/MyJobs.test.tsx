@@ -158,6 +158,14 @@ describe('M3 Update status', () => {
     expect(jobs.updateJobStatus).not.toHaveBeenCalled();
   });
 
+  it('shows the privacy hint under the note and stops it at 200 characters (#51)', async () => {
+    await openM3('FMK-2026-00130');
+    expect(
+      screen.getByText('This note is visible to everyone. Do not include phone numbers, emails or ID numbers.'),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/^note/i)).toHaveAttribute('maxlength', '200');
+  });
+
   it('refuses a note over 200 characters', async () => {
     await openM3('FMK-2026-00130');
     fireEvent.click(screen.getByRole('radio', { name: 'Fixed' }));

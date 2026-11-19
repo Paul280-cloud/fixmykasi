@@ -259,6 +259,7 @@
     "statusError": "Choose a new status.",
     "note": "Note",
     "notePlaceholder": "e.g. Parts ordered and crew booked",
+    "noteHint": "This note is visible to everyone. Do not include phone numbers, emails or ID numbers.",
     "noteError": "Keep the note under 200 characters.",
     "save": "Save",
     "cancel": "Cancel",
