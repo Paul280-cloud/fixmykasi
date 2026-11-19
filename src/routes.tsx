@@ -1,14 +1,15 @@
 
 import { Navigate, Route, Routes } from 'react-router-dom';
+import FaultDetailsScreen from './screens/fault-details/FaultDetailsScreen';
+import FaultListScreen from './screens/fault-list/FaultListScreen';
 import HomeScreen from './screens/home/HomeScreen';
 import LogInScreen from './screens/log-in/LogInScreen';
 import MyJobsScreen from './screens/my-jobs/MyJobsScreen';
-import PlaceholderScreen from './screens/placeholder/PlaceholderScreen';
+import ProfileScreen from './screens/profile/ProfileScreen';
 import ReportFaultScreen from './screens/report-fault/ReportFaultScreen';
 import ResetPasswordScreen from './screens/reset-password/ResetPasswordScreen';
 import SignUpScreen from './screens/sign-up/SignUpScreen';
 import WardQueueScreen from './screens/ward-queue/WardQueueScreen';
-import FaultDetailsScreen from './screens/fault-details/FaultDetailsScreen';
 
 // Routes from IMPLEMENTATION_PLAN.md Section 8.
 export default function AppRoutes() {
@@ -22,13 +23,13 @@ export default function AppRoutes() {
 
       {/* S5 Fault Details */}
       <Route path="/faults/:reference" element={<FaultDetailsScreen />} />
-
-      {/* Fault list placeholder, replaced by Issue #12 */}
-      <Route path="/faults" element={<PlaceholderScreen title="faults" issue={12} />} />
+      <Route path="/faults" element={<FaultListScreen />} />
 
       <Route path="/queue" element={<WardQueueScreen />} />
       <Route path="/my-jobs" element={<MyJobsScreen />} />
-      <Route path="/profile" element={<PlaceholderScreen title="profile" issue={23} />} />
+
+      {/* S11 Profile */}
+      <Route path="/profile" element={<ProfileScreen />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

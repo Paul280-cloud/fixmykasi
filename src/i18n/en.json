@@ -135,12 +135,15 @@
     "contact": "Questions? Email privacy@fixmykasi.example",
     "close": "Close"
   },
-  "placeholder": {
-    "faults": "Fault list",
-    "queue": "Ward queue",
-    "myJobs": "My jobs",
-    "profile": "Profile and settings",
-    "note": "This screen is a placeholder. It is replaced by Issue #{{issue}}."
+  "profile": {
+    "title": "Profile",
+    "phone": "Phone number",
+    "ward": "Home ward",
+    "roles": {
+      "resident": "Resident",
+      "ward_admin": "Ward admin",
+      "field_team": "Field team"
+    }
   },
   "reportFault": {
     "title": "Report a fault",
@@ -288,5 +291,12 @@
     "cancel": "Cancel",
     "notYourTeam": "You can only update faults assigned to your team.",
     "updated": "Status updated"
+  },
+  "faultList": {
+    "title": "Fault list",
+    "empty": "No faults reported yet. Be the first to report one.",
+    "report": "Report a fault",
+    "upvotes_one": "{{count}} upvote",
+    "upvotes_other": "{{count}} upvotes"
   }
 }
