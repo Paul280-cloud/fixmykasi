@@ -96,10 +96,17 @@ export default function UpdateStatusModal({ job, onClose, onUpdated }: Props) {
               setNote(event.target.value);
               setErrors((current) => ({ ...current, note: undefined }));
             }}
+            // The browser stops typing at 200, and the check on Save is still there
+            // for anything longer (M3: up to 200 characters).
+            maxLength={MAX_NOTE}
             aria-invalid={errors.note ? true : undefined}
-            aria-describedby={errors.note ? 'update-note-error' : undefined}
+            aria-describedby={errors.note ? 'update-note-hint update-note-error' : 'update-note-hint'}
             className={`${inputClass(Boolean(errors.note))} h-auto py-3`}
           />
+          {/* Timeline notes are public (#51), so I warn the field team before they type. */}
+          <p id="update-note-hint" className="mt-1 text-[13px] text-text-secondary">
+            {t('updateStatus.noteHint')}
+          </p>
           {errors.note && <FieldError id="update-note-error">{t('updateStatus.noteError')}</FieldError>}
         </div>
 
