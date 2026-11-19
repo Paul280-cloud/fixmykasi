@@ -1,4 +1,3 @@
-
 {
   "app": {
     "name": "FixMyKasi",
@@ -204,7 +203,8 @@
     "reopened": "Reopened"
   },
   "labels": {
-    "overdue": "Overdue"
+    "overdue": "Overdue",
+    "urgent": "Urgent"
   },
   "wardQueue": {
     "title": "Ward queue",
@@ -265,5 +265,28 @@
     "loadError": "We couldn't load this fault. Try again.",
     "notFound": "We couldn't find this fault.",
     "backToFaults": "Back to faults"
+  },
+  "myJobs": {
+    "title": "My jobs",
+    "tabs": {
+      "toDo": "To do ({{count}})",
+      "done": "Done ({{count}})"
+    },
+    "empty": "No jobs assigned to your team right now.",
+    "due": "Due {{date}}",
+    "update": "Update"
+  },
+  "updateStatus": {
+    "title": "Update {{reference}}",
+    "newStatus": "New status",
+    "statusError": "Choose a new status.",
+    "note": "Note",
+    "notePlaceholder": "e.g. Parts ordered and crew booked",
+    "noteHint": "This note is visible to everyone. Do not include phone numbers, emails or ID numbers.",
+    "noteError": "Keep the note under 200 characters.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "notYourTeam": "You can only update faults assigned to your team.",
+    "updated": "Status updated"
   }
 }
