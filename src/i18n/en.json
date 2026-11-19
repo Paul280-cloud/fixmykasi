@@ -1,3 +1,4 @@
+
 {
   "app": {
     "name": "FixMyKasi",
@@ -241,5 +242,28 @@
     "noTeams": "No field teams for {{category}} yet. Ask the admin to add one.",
     "notYourWard": "You can only manage faults in your ward.",
     "assigned": "Fault assigned"
+  },
+  "faultDetails": {
+    "photos": "Fault photos",
+    "photoAlt": "Fault photo {{number}}",
+    "urgent": "Urgent",
+    "delayed": "Delayed",
+    "location": "Location",
+    "description": "Description",
+    "responsibility": "Responsibility",
+    "contractor": "Contractor",
+    "municipalTeam": "Municipal team",
+    "expectedFixDate": "Expected fix date",
+    "estimatedTime": "Estimated time to fix",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "notSet": "Not set",
+    "notAssigned": "Not assigned yet",
+    "statusHistory": "Status history",
+    "noHistory": "No status history is available yet.",
+    "assignedTo": "Assigned to {{team}}",
+    "loadError": "We couldn't load this fault. Try again.",
+    "notFound": "We couldn't find this fault.",
+    "backToFaults": "Back to faults"
   }
 }
