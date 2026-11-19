@@ -21,10 +21,10 @@ FixMyKasi gives every fault one public record. Anyone can see what was reported,
 
 | Name | GitHub username | Role(s) | Main work (merged, or in progress) |
 | --- | --- | --- | --- |
-| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Merged: #11 Fault tables and RLS (PR #45) |
-| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Merged: #10 Log-in screens (PR #41) · #15 Deploy (PR #50) |
-| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Merged: #13 Report a fault screen (PR #48) · #14 Photo storage (PRs #43, #44) |
-| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead, DevOps / Release | Merged: #7 Test plan (PR #54) · #47 Database tests in CI (PR #55) · Working on: tests for #16 Track progress |
+| Sijabulile Ncube | [@Sijabulile-Ncube](https://github.com/Sijabulile-Ncube) | Product Owner, Backend Dev | Merged: #11 Fault tables and RLS (PR #45). Since Checkpoint 3: CI follow-ups (PR #56) · #18 `assign_fault` (PR #57) · M2 Assign fault (PR #61) · Assign button on S8 (PR #62) · #20 My jobs + Update status (PR #64) |
+| Bheki Buthelezi | [@Paul280-cloud](https://github.com/Paul280-cloud) | Tech Lead | Merged: #10 Log-in screens (PR #41) · #15 Deploy (PR #50). Since Checkpoint 3: #19 Ward queue (PR #58) · #23 Welcome screen links (PR #63) |
+| Bafana Ndlovu | [@Bafana-Ndlovu](https://github.com/Bafana-Ndlovu) | Designer, Frontend Dev | Merged: #13 Report a fault screen (PR #48) · #14 Photo storage (PRs #43, #44). Since Checkpoint 3: BR2 photo checks (PR #53) · photo rule in the database (PR #59) |
+| Bao Kekana | [@Bao992](https://github.com/Bao992) | QA / Test Lead, DevOps / Release | Merged: #7 Test plan (PR #54) · #47 Database tests in CI (PR #55) · #16 Status change rules (PR #60). In progress: #17 Fault details and timeline (PR #65) |
 
 Roles show who leads each area. Every member builds at least one screen and one backend piece, opens their own pull requests and reviews their teammates' pull requests.
 
@@ -38,7 +38,7 @@ Roles show who leads each area. Every member builds at least one screen and one 
 | Report a fault | Log in and report a fault with a photo, location, category and description | ✅ Done: report with up to 3 photos, a reference number straight away (#41, #43, #44, #45, #48). The database refuses a report with no photo unless "not safe" is ticked, and saves the fault and its photos all or nothing (#59). |
 | Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | ⏳ Not started (#12). The upvote rules are already in the database (#45). |
 | Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | ✅ Done: Ward queue in BR7 order (#58), Assign / Reassign on each card (#62), M2 Assign fault (#61) and `assign_fault` with the BR8 rules (#57). |
-| Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | 🚧 In progress: status rules, timeline, overdue, reopen and auto-close in the database (#60, done). Field team My jobs + Update status (#64). Fault details and timeline for residents next (#17). Delay and after photos later. |
+| Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | 🚧 In progress. Done: status rules, timeline, overdue, reopen and auto-close in the database (#60), and the field team's My jobs + Update status (#64). Open: Fault details and timeline for residents (#65). Not built yet: Confirm / Reopen (M4), My reports (S7), delay and after photos. |
 | Ward dashboard | See open faults, overdue faults and the average time to fix | ⏳ Not started (#21, #22) |
 
 ### Should have
@@ -114,7 +114,7 @@ The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http:
 | Ward admin (Ward A) | zanele.k@example.com | TestWardAdmin1 |
 | Field team (Sample Plumbing Services) | kagiso.m@example.com | TestFieldTeam1 |
 
-**On the live site:** sign up with your own email and confirm it.
+**On the live site:** demo accounts for a ward admin and a field team exist on the live project. Their credentials are shared privately, never in this README. Residents can sign up with their own email and confirm it.
 
 ## Tests
 
@@ -126,7 +126,7 @@ The local stack uses ports 553xx (API on http://127.0.0.1:55321, Studio on http:
 | Database tests (pgTAP) | `supabase/tests/` | `npx supabase start` then `npx supabase test db` | Tables, constraints, triggers, grants, Row-Level Security and storage policies. These tests also run automatically in GitHub Actions on every pull request and push to main. |
 | Full check | | `npm run check` | Lint, typecheck, app tests and build. CI runs this on every pull request. |
 
-Tests are written first, then the code that makes them pass. The manual test checklist is in the [Implementation plan](IMPLEMENTATION_PLAN.md), Section 13.
+For most PRs, tests are written first, then the code that makes them pass. The manual test checklist is in the [Implementation plan](IMPLEMENTATION_PLAN.md), Section 13.
 
 ## Deployment
 
@@ -141,7 +141,11 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 ## Known issues
 
 - The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
-- The Fault list, My reports, Fault details and Dashboard screens are not built yet, so those links open a placeholder or the home screen (#12, #17, #21, #22).
+- The Fault list (#12), My reports (S7), Confirm / Reopen (M4) and the Dashboard (#21, #22) are not built yet, so those links open a placeholder or the home screen. Fault details and the timeline are open in #65.
+- Notes on the timeline (from M2 and M3) are public, so they must not contain personal details (#51).
+- A ward admin can't read the reporter of faults in their ward yet (#51).
+- There is no two-connection race test for the report limits yet; the lock is only checked in one session (#51).
+- Photo rows are not yet checked against who uploaded the file (#51).
 - The local Supabase stack has email confirmation switched off to make testing easier. The hosted project needs it on (PRD 5).
 - Photos are JPG or PNG only for now (plan decision #3). HEIC and WebP from the PRD come later.
 - Similar reports, infinite scroll and upvotes were moved to after Checkpoint 3 so we could finish one feature end to end.
@@ -160,6 +164,6 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 - **Branches:** branch from an up-to-date `main`, named after the Issue, for example `feature/12-report-fault` or `docs/prd`.
 - **Commits:** small and clear, for example `feat: add report fault form (#12)`.
 - **Pull requests:** each PR explains what changed and why, links its Issue (`Closes #12`), and shows screenshots and how it was tested.
-- **Reviews:** at least one teammate reviews and approves every PR. Nobody approves their own work.
+- **Reviews:** at least one teammate reviews and approves every PR.
 - **Merging:** `main` is protected. We use squash and merge once a PR is approved and CI passes, then the branch is deleted. Most code PRs so far (including #43, #45, #48 and #50) used merge commits.
 - **Secrets:** `.env` is never committed. We commit `.env.example` and share real keys privately.
