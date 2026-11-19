@@ -135,12 +135,15 @@
     "contact": "Questions? Email privacy@fixmykasi.example",
     "close": "Close"
   },
-  "placeholder": {
-    "faults": "Fault list",
-    "queue": "Ward queue",
-    "myJobs": "My jobs",
-    "profile": "Profile and settings",
-    "note": "This screen is a placeholder. It is replaced by Issue #{{issue}}."
+  "profile": {
+    "title": "Profile",
+    "phone": "Phone number",
+    "ward": "Home ward",
+    "roles": {
+      "resident": "Resident",
+      "ward_admin": "Ward admin",
+      "field_team": "Field team"
+    }
   },
   "reportFault": {
     "title": "Report a fault",
