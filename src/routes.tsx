@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import FaultListScreen from './screens/fault-list/FaultListScreen';
 import HomeScreen from './screens/home/HomeScreen';
 import LogInScreen from './screens/log-in/LogInScreen';
 import MyJobsScreen from './screens/my-jobs/MyJobsScreen';
@@ -17,10 +18,10 @@ export default function AppRoutes() {
       <Route path="/log-in" element={<LogInScreen />} />
       <Route path="/reset-password" element={<ResetPasswordScreen />} />
       <Route path="/report" element={<ReportFaultScreen />} />
-      {/* Placeholders, replaced by #12 and #23. */}
-      <Route path="/faults" element={<PlaceholderScreen title="faults" issue={12} />} />
+      <Route path="/faults" element={<FaultListScreen />} />
       <Route path="/queue" element={<WardQueueScreen />} />
       <Route path="/my-jobs" element={<MyJobsScreen />} />
+      {/* Placeholder, replaced by #23. */}
       <Route path="/profile" element={<PlaceholderScreen title="profile" issue={23} />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
