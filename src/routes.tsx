@@ -1,4 +1,6 @@
+
 import { Navigate, Route, Routes } from 'react-router-dom';
+import FaultDetailsScreen from './screens/fault-details/FaultDetailsScreen';
 import FaultListScreen from './screens/fault-list/FaultListScreen';
 import HomeScreen from './screens/home/HomeScreen';
 import LogInScreen from './screens/log-in/LogInScreen';
@@ -18,11 +20,17 @@ export default function AppRoutes() {
       <Route path="/log-in" element={<LogInScreen />} />
       <Route path="/reset-password" element={<ResetPasswordScreen />} />
       <Route path="/report" element={<ReportFaultScreen />} />
+
+      {/* S5 Fault Details */}
+      <Route path="/faults/:reference" element={<FaultDetailsScreen />} />
       <Route path="/faults" element={<FaultListScreen />} />
+
       <Route path="/queue" element={<WardQueueScreen />} />
       <Route path="/my-jobs" element={<MyJobsScreen />} />
+
       {/* S11 Profile */}
       <Route path="/profile" element={<ProfileScreen />} />
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
