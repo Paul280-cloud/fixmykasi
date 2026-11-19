@@ -27,6 +27,13 @@
     "dashboard": "Dashboard",
     "myJobs": "My jobs"
   },
+  "welcome": {
+    "title": "Report it. Track it. Get it fixed.",
+    "text": "Report potholes, burst pipes, broken streetlights and more, and see who is fixing them.",
+    "createAccount": "Create account",
+    "logIn": "Log in",
+    "browse": "Browse faults without an account"
+  },
   "signUp": {
     "title": "Create account",
     "fullName": "Full name",
