@@ -203,7 +203,8 @@
     "reopened": "Reopened"
   },
   "labels": {
-    "overdue": "Overdue"
+    "overdue": "Overdue",
+    "urgent": "Urgent"
   },
   "wardQueue": {
     "title": "Ward queue",
@@ -241,5 +242,27 @@
     "noTeams": "No field teams for {{category}} yet. Ask the admin to add one.",
     "notYourWard": "You can only manage faults in your ward.",
     "assigned": "Fault assigned"
+  },
+  "myJobs": {
+    "title": "My jobs",
+    "tabs": {
+      "toDo": "To do ({{count}})",
+      "done": "Done ({{count}})"
+    },
+    "empty": "No jobs assigned to your team right now.",
+    "due": "Due {{date}}",
+    "update": "Update"
+  },
+  "updateStatus": {
+    "title": "Update {{reference}}",
+    "newStatus": "New status",
+    "statusError": "Choose a new status.",
+    "note": "Note",
+    "notePlaceholder": "e.g. Parts ordered and crew booked",
+    "noteError": "Keep the note under 200 characters.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "notYourTeam": "You can only update faults assigned to your team.",
+    "updated": "Status updated"
   }
 }
