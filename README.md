@@ -34,12 +34,12 @@ Roles show who leads each area. Every member builds at least one screen and one 
 
 | Feature | Description | Status |
 | --- | --- | --- |
-| Log in / Sign up | Create an account, confirm the email, log in and reset a forgotten password | ✅ Done (#41) |
-| Report a fault | Log in and report a fault with a photo, location, category and description | ✅ Done for Checkpoint 3: log in, report with photo, saved to the live database (#41, #43, #44, #45, #48). Known gap: see Known issues. |
-| Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | ⏳ Not started (after Checkpoint 3) |
-| Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | ⏳ Not started |
-| Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | ⏳ Not started |
-| Ward dashboard | See open faults, overdue faults and the average time to fix | ⏳ Not started |
+| Log in / Sign up | Create an account, confirm the email, log in and reset a forgotten password | ✅ Done (#41). The home screen links to Create account, Log in and Browse faults (#63). |
+| Report a fault | Log in and report a fault with a photo, location, category and description | ✅ Done: report with up to 3 photos, a reference number straight away (#41, #43, #44, #45, #48). The database refuses a report with no photo unless "not safe" is ticked, and saves the fault and its photos all or nothing (#59). |
+| Public fault list | See all faults and upvote existing reports instead of reporting the same fault twice | ⏳ Not started (#12). The upvote rules are already in the database (#45). |
+| Assign the work | Ward admin assigns each fault to a municipal team or named contractor, with a due date | ✅ Done: Ward queue in BR7 order (#58), Assign / Reassign on each card (#62), M2 Assign fault (#61) and `assign_fault` with the BR8 rules (#57). |
+| Track progress | Follow each fault from Received to Closed, then confirm the fix or reopen it | 🚧 In progress: status rules, timeline, overdue, reopen and auto-close in the database (#60, done). Field team My jobs + Update status (#64). Fault details and timeline for residents next (#17). Delay and after photos later. |
+| Ward dashboard | See open faults, overdue faults and the average time to fix | ⏳ Not started (#21, #22) |
 
 ### Should have
 
@@ -140,9 +140,8 @@ Screenshots of each screen will be added here as it is merged. Until then, the d
 
 ## Known issues
 
-- Report a fault (S6) can save a report without a photo: photos are linked after the fault is saved, and if that step fails the report is still saved and shown as sent.
 - The photo bucket limit is 2 MB in the code (and on the live database) but 10 MB in the PRD and #27. The decision is tracked in #51.
-- The "My reports" and "Dashboard" tabs have no screen yet, so they open the home screen.
+- The Fault list, My reports, Fault details and Dashboard screens are not built yet, so those links open a placeholder or the home screen (#12, #17, #21, #22).
 - The local Supabase stack has email confirmation switched off to make testing easier. The hosted project needs it on (PRD 5).
 - Photos are JPG or PNG only for now (plan decision #3). HEIC and WebP from the PRD come later.
 - Similar reports, infinite scroll and upvotes were moved to after Checkpoint 3 so we could finish one feature end to end.
