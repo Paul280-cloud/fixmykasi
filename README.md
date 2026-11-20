@@ -136,7 +136,15 @@ For most PRs, tests are written first, then the code that makes them pass. The m
 
 ## Screenshots
 
-Screenshots of each screen will be added here as it is merged. Until then, the designs for every screen are in [docs/designs](docs/designs/).
+The main screens, in the order of the demo: a visitor, then the ward admin, then the field team, then everyone. The designs for every screen are in [docs/designs](docs/designs/).
+
+| S1 Welcome | S3 Log in | S8 Ward queue | M2 Assign fault |
+| --- | --- | --- | --- |
+| <img src="docs/screenshots/welcome.jpg" alt="Welcome screen" width="200"> | <img src="docs/screenshots/log-in.jpg" alt="Log in screen" width="200"> | <img src="docs/screenshots/ward-queue.jpg" alt="Ward queue" width="200"> | <img src="docs/screenshots/assign-fault.jpg" alt="Assign fault form" width="200"> |
+
+| S10 My jobs | M3 Update status | S4 Fault list | S5 Fault details and timeline |
+| --- | --- | --- | --- |
+| <img src="docs/screenshots/my-jobs.jpg" alt="My jobs" width="200"> | <img src="docs/screenshots/update-status.jpg" alt="Update status form" width="200"> | <img src="docs/screenshots/fault-list.jpg" alt="Fault list" width="200"> | <img src="docs/screenshots/fault-timeline.jpg" alt="Fault details timeline" width="200"> |
 
 ## Known issues
 
