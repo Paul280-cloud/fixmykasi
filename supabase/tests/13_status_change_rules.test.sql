@@ -5,7 +5,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(111);
+select plan(119);
 
 create temporary table issue16_test_temp_namespace_anchor (id integer) on commit drop;
 
@@ -177,7 +177,14 @@ cross join (values
   ('f0000000-0000-0000-0000-000000000935', 'Fixed fault for reopen rules', '35 Reopen Road', 'fixed', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 1, 5, now() - interval '1 day', true, 'Waiting for replacement material', 'MUN-ISSUE16-935'),
   ('f0000000-0000-0000-0000-000000000936', 'Received fault for wrong ward view denial', '36 Wrong Ward Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 3, null, null, false, null, null),
   ('f0000000-0000-0000-0000-000000000937', 'Received fault for note clearing', '37 Note Scope Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 3, null, null, false, null, null),
-  ('f0000000-0000-0000-0000-000000000939', 'Assigned fault for skipped transition', '39 Skipped Step Road', 'assigned', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 5, 5, null, false, null, null)
+  ('f0000000-0000-0000-0000-000000000939', 'Assigned fault for skipped transition', '39 Skipped Step Road', 'assigned', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 5, 5, null, false, null, null),
+    ('f0000000-0000-0000-0000-000000000940', 'Fixed fault for email privacy test', '40 Privacy Road', 'fixed', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 5, 5, now() - interval '1 day', false, null, null),
+  ('f0000000-0000-0000-0000-000000000941', 'Fixed fault for phone privacy test', '41 Privacy Road', 'fixed', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 5, 5, now() - interval '1 day', false, null, null),
+  ('f0000000-0000-0000-0000-000000000942', 'Fixed fault for ID privacy test', '42 Privacy Road', 'fixed', '0000000f-0000-0000-0000-000000000930', (now() at time zone 'Africa/Johannesburg')::date + 5, 5, now() - interval '1 day', false, null, null),
+  ('f0000000-0000-0000-0000-000000000943', 'Received fault for assignment email test', '43 Privacy Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 5, null, null, false, null, null),
+  ('f0000000-0000-0000-0000-000000000944', 'Received fault for assignment phone test', '44 Privacy Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 5, null, null, false, null, null),
+  ('f0000000-0000-0000-0000-000000000945', 'Received fault for assignment ID test', '45 Privacy Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 5, null, null, false, null, null),
+  ('f0000000-0000-0000-0000-000000000946', 'Received fault for direct write test', '46 Privacy Road', 'received', null, (now() at time zone 'Africa/Johannesburg')::date + 5, null, null, false, null, null)
 ) as v(id, description, street_address, status, field_team_id, due_date, estimated_days, fixed_at, is_delayed, delay_reason, municipal_reference)
 where t.name = 'Pothole';
 
@@ -396,6 +403,116 @@ select throws_ok(
   'P0001', 'reopen_reason_only_for_reopen', 'DENY: a reopen reason cannot accompany a non-reopen status'
 );
 reset role;
+
+
+-- Public status notes must not expose personal contact or identity information.
+-- Both assignment and status-change operations write to the public timeline.
+
+-- change_fault_status: reject email, South African phone number and ID number.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000930","role":"authenticated"}';
+
+select throws_ok(
+  $$ select public.change_fault_status(
+       'f0000000-0000-0000-0000-000000000940',
+       'closed'::public.fault_status,
+       'Please contact bao@example.com'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: public status notes cannot contain email addresses'
+);
+
+select throws_ok(
+  $$ select public.change_fault_status(
+       'f0000000-0000-0000-0000-000000000941',
+       'closed'::public.fault_status,
+       'Call me on 082 123 4567'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: public status notes cannot contain South African phone numbers'
+);
+
+select throws_ok(
+  $$ select public.change_fault_status(
+       'f0000000-0000-0000-0000-000000000942',
+       'closed'::public.fault_status,
+       'My identity number is 9001015009087'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: public status notes cannot contain 13-digit ID numbers'
+);
+
+reset role;
+
+-- assign_fault: apply the same protection to assignment notes.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"c0000000-0000-0000-0000-000000000931","role":"authenticated"}';
+
+select throws_ok(
+  $$ select public.assign_fault(
+       'f0000000-0000-0000-0000-000000000943',
+       '0000000f-0000-0000-0000-000000000930',
+       (now() at time zone 'Africa/Johannesburg')::date + 4,
+       4,
+       null,
+       'Please contact bao@example.com'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: assignment notes cannot contain email addresses'
+);
+
+select throws_ok(
+  $$ select public.assign_fault(
+       'f0000000-0000-0000-0000-000000000944',
+       '0000000f-0000-0000-0000-000000000930',
+       (now() at time zone 'Africa/Johannesburg')::date + 4,
+       4,
+       null,
+       'Call me on 082 123 4567'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: assignment notes cannot contain South African phone numbers'
+);
+
+select throws_ok(
+  $$ select public.assign_fault(
+       'f0000000-0000-0000-0000-000000000945',
+       '0000000f-0000-0000-0000-000000000930',
+       (now() at time zone 'Africa/Johannesburg')::date + 4,
+       4,
+       null,
+       'My identity number is 9001015009087'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: assignment notes cannot contain 13-digit ID numbers'
+);
+
+reset role;
+
+-- The database guard must also protect direct writes to the public timeline.
+select throws_ok(
+  $$ insert into public.status_changes
+       (fault_id, from_status, to_status, changed_by, note)
+     values (
+       'f0000000-0000-0000-0000-000000000946',
+       null,
+       'received',
+       'c0000000-0000-0000-0000-000000000930',
+       'Call me on 082 123 4567'
+     ) $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: direct inserts cannot expose personal information'
+);
+
+select throws_ok(
+  $$ update public.status_changes
+     set note = 'Please contact bao@example.com'
+     where fault_id = 'f0000000-0000-0000-0000-000000000946'
+       and to_status = 'received' $$,
+  'P0001', 'status_note_contains_personal_information',
+  'DENY: direct updates cannot expose personal information'
+);
+
 
 -- A different resident cannot close or reopen another resident's fault.
 set local role authenticated;
